@@ -7,6 +7,7 @@ export const Container= styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    transform: translate(0%, 27%);
 `;
 //transform: translate(110 %, 6 %);
 
@@ -21,10 +22,12 @@ export const Form = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    background: #ff8717;
+    background: #dee2e6; 
     border-radius: 10px;
     padding: 32px 24px;
 `;
+
+//#ff8717
 
 export const Input = styled.input`
     width: 100%;
