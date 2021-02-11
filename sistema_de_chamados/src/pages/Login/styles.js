@@ -2,17 +2,16 @@ import styled from 'styled-components';
 
 export const Container= styled.div`
     /* max-width: 800px; */
-    height: 100vh;
+    height: 50vh;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 80px 100px;
 `;
 //transform: translate(110 %, 6 %);
 
 export const Title = styled.div`
-    font-size: 20px;
+    font-size: 30px;
     margin-bottom: 24px;
 `;
 
@@ -29,10 +28,27 @@ export const Form = styled.div`
 
 export const Input = styled.input`
     width: 100%;
-    height: 24px;
+    height: 30px;
+    margin-bottom: 24px;
+    border-radius: 5px;
+    padding: 10px 10px;
 `;
 
 export const Button = styled.button`
     width: 100%;
-    height: 24px;
+    height: 30px;
+    border-radius: 30px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+
 `;
+
+export const Image = styled.img`
+    width: 80px;
+    height: 80px;
+    transform: translate(500%, 150%);
+`;
+

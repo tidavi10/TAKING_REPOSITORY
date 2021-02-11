@@ -14,7 +14,8 @@ export default createGlobalStyle`
   }
   body, input, button {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 15px;
+    border: 0;
   }
   /* h1, h1, h3, h4, h5, h6, strong {
     font-weight: 500;
