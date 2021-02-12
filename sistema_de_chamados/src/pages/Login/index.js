@@ -13,7 +13,6 @@ import logo from '../../assets/logo.png'
 export default function Login() {
     return (
     <>
-    <Image src={logo}/>
         <Container>
             <Form>
                     <Title>Login</Title>
@@ -22,8 +21,9 @@ export default function Login() {
                     <Button type="submit">Login</Button>
                     <Button type="submit">Login Social</Button>
                     <Button type="submit">Cadastro</Button>
+                    <Image src={logo} />
             </Form>  
-    </Container>
+        </Container>
     </>
 )
 }
