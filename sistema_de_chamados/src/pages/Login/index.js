@@ -6,21 +6,32 @@ import {
     Input,
     Button,
     Image
-} from './styles';
+} from '../../styles/common-styles';
 import logo from '../../assets/logo.png'
+import { useHistory } from 'react-router-dom';
 
 
 export default function Login() {
+    const history = useHistory();
+
+    const gotoCadastro = () => {
+        history.push('/cadastro')
+    }
+
+    const gotoChamados = () => {
+        history.push('/chamados')
+    }
+
     return (
     <>
         <Container>
             <Form>
                     <Title>Login</Title>
-                    <Input type="email" name="email" placeholder="Digite seu e-mail (exemplo@outlook.com)"/> 
-                    <Input type="password" name="password" id="password" placeholder="Digite sua senha"/>
-                    <Button type="submit">Login</Button>
+                    <Input type="email" name="email" placeholder="Nome"/> 
+                    <Input type="password" name="password" id="password" placeholder="Senha"/>
+                    <Button type="submit" onClick={gotoChamados}>Login</Button>
                     <Button type="submit">Login Social</Button>
-                    <Button type="submit">Cadastro</Button>
+                    <Button type="submit" onClick={gotoCadastro}>Cadastro</Button>
                     <Image src={logo} />
             </Form>  
         </Container>

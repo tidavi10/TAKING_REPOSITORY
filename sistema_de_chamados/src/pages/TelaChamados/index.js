@@ -1,8 +1,16 @@
 import React from 'react';
-
+import {
+    BrowserRouter as Router } from 'react-router-dom';
+import {
+    Container, Title
+} from '../../styles/common-styles';
 
 export default function TelaChamados() {
     return (
-        <h1>tela de chamados</h1>
+        <Router>
+            <Container>
+                <Title>Teste</Title>
+            </Container>
+        </Router>
     )
 }
