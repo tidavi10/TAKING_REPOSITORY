@@ -27,7 +27,12 @@ export const Container = styled.div`
 export const Title = styled.div`
     font-size: 30px;
     margin-bottom: 20px;
-    margin-top: auto;
+    padding: 32px 24px;
+`;
+
+export const InputDiv = styled.div`
+     width: 100%;
+     font-size: 17px;
 `;
 
 export const Form = styled.div`
@@ -58,6 +63,7 @@ export const Input = styled.input`
     margin-bottom: 24px;
     border-radius: 5px;
     padding: 10px 10px;
+    margin-top: 5px;
 `;
 
 export const Button = styled.button`
@@ -78,4 +84,6 @@ export const Image = styled.img`
     height: 80px;
     transform: translate(%, 50%);
 `;
+
+
 
