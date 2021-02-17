@@ -29,8 +29,8 @@ export default function Login() {
             <Form>
                     <Title>Login</Title>
                     <InputDiv>
-                        <label>Nome:</label>
-                        <Input type="name" name="name"/> 
+                        <label>E-mail:</label>
+                        <Input type="email" name="email"/> 
                     </InputDiv>
                     <InputDiv>
                         <label>Senha:</label>   

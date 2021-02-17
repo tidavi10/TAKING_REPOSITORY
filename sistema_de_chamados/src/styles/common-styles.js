@@ -38,7 +38,7 @@ export const InputDiv = styled.div`
 export const Form = styled.div`
     margin-top: 50px;
     width: 400px;
-    height: 600px;
+    height: 800px;
     display: flex;
     align-items: center;
     flex-direction: column;
