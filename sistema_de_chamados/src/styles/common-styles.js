@@ -38,7 +38,7 @@ export const InputDiv = styled.div`
 export const Form = styled.div`
     margin-top: 50px;
     width: 400px;
-    height: 600px;
+    height: 800px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -82,7 +82,7 @@ export const Button = styled.button`
 export const Image = styled.img`
     width: 80px;
     height: 80px;
-    transform: translate(%, 50%);
+    transform: translate(0%, 50%);
 `;
 
 
