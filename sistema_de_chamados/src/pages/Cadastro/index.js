@@ -3,7 +3,7 @@ import {
     BrowserRouter as Router } from 'react-router-dom';
 import {
     Container,
-    Form,
+    FormCadastro,
     Title,
     Input,
     Button,
@@ -22,7 +22,7 @@ export default function Cadastro() {
     return (
         <Router>
             <Container>
-                <Form>
+                <FormCadastro>
                     <Title>Cadastro</Title>
                     <InputDiv>
                        <label>Nome:</label>
@@ -58,7 +58,7 @@ export default function Cadastro() {
                     </InputDiv>
                     <Button type="submit" onClick={goToChamados}>Cadastrar</Button>
                     <Image src={logo} />
-                </Form>
+                </FormCadastro>
             </Container>
         </Router>
     )

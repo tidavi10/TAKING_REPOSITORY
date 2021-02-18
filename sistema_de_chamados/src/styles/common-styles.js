@@ -31,8 +31,8 @@ export const Title = styled.div`
 `;
 
 export const InputDiv = styled.div`
-     width: 100%;
-     font-size: 17px;
+    width: 100%;
+    font-size: 17px;
 `;
 
 // export const InputDiv = styled.div`
@@ -46,13 +46,14 @@ export const InputDiv = styled.div`
 export const Form = styled.div`
     margin-top: 50px;
     width: 400px;
-    height: 800px;
+    height: 600px; //600px para a tela de login
     display: flex;
     align-items: center;
     flex-direction: column;
     background: #dee2e6; 
     border-radius: 10px;
     padding: 32px 24px;
+    border: solid #BBBBBB;
 
     @media (max-width: 600px) {
         width: 100%;
@@ -62,7 +63,26 @@ export const Form = styled.div`
     }
  `;
 
+export const FormCadastro = styled.div`
+    margin-top: 50px;
+    width: 400px;
+    height: 800px; 
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: #dee2e6; 
+    border-radius: 10px;
+    padding: 32px 24px;
+    border: solid #BBBBBB;
 
+    @media (max-width: 600px) {
+        width: 100%;
+        heigth: 100%;
+        align-items: center;
+
+    }
+
+ `;
 
 export const Input = styled.input`
     width: 100%;
@@ -71,6 +91,7 @@ export const Input = styled.input`
     border-radius: 5px;
     padding: 10px 10px;
     margin-top: 5px;
+    border-bottom: 2px solid #000000;
 `;
 
 export const Button = styled.button`

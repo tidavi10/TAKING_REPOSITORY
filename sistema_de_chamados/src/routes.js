@@ -8,6 +8,7 @@ import PainelAdministrativo from './pages/PainelAdministrativo'
 import ChamadosAdm from './pages/ChamadosAdm';
 import ConsultaChamados from './pages/ConsultaChamados'
 import ConsultaChamadosAdm from './pages/ConsultaChamadosAdm'
+import LoginAdm from '../src/pages/LoginAdm'
 
 export default function Routes() {
     return (
@@ -20,6 +21,7 @@ export default function Routes() {
                 <Route path='/chamados-adm' component={ChamadosAdm}/>
                 <Route path='/consulta-chamados' component={ConsultaChamados}/>
                 <Route path='/consulta-chamados-adm' component={ConsultaChamadosAdm}/>
+                <Route path='/login-adm' component={LoginAdm}/>
             </Switch>
         </BrowserRouter>
     )
