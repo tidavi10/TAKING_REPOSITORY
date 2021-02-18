@@ -1,4 +1,4 @@
-package taking.api.services;
+/*package taking.api.security.service;
 
 import taking.api.model.Usuarios;
 import taking.api.model.UsuariosAdm;
@@ -39,4 +39,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return new org.springframework.security.core.userdetails.User(usuarios.getEmail(), usuarios.getSenha(),
 				Collections.emptyList());
 	}
-}
+}*/

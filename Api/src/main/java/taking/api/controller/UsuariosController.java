@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Authorization;
 
 import java.util.List;
 
@@ -19,6 +24,7 @@ import taking.api.model.Usuarios;
 
 import taking.api.repository.UsuariosRepository;
 
+@Api(tags="Usuarios")
 @RestController
 @RequestMapping("/usuarios")
 public class UsuariosController {
@@ -33,6 +39,11 @@ public class UsuariosController {
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 	
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Retorna a lista de usuarios"),
+			@ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+		})
+	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	@RequestMapping(method=RequestMethod.GET, value="/cadastrados")
 	public @ResponseBody List<Usuarios> listausuarios() {
 		return usuariosRepository.findAll();
@@ -44,8 +55,6 @@ public class UsuariosController {
 		usuarios.setSenha(bCryptPasswordEncoder.encode(usuarios.getSenha()));
 		usuariosRepository.save(usuarios);
 	}
-	
-	
 	
 /**	
 	@Autowired

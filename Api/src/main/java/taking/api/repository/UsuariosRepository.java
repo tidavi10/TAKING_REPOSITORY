@@ -15,6 +15,8 @@ public interface UsuariosRepository extends JpaRepository<Usuarios, Long>{
 	Usuarios findByEmail(String email);
 	
 	<CadastroUsuario extends Usuarios> CadastroUsuario save(CadastroUsuario usuario);
+	
+	String findBySenha(String senha);
 
 	
 }
