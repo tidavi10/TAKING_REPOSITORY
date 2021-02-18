@@ -91,7 +91,7 @@ export const Input = styled.input`
     border-radius: 5px;
     padding: 10px 10px;
     margin-top: 5px;
-    border-bottom: 2px solid #000000;
+    border-bottom: 1px solid #000000;
 `;
 
 export const Button = styled.button`

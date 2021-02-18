@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     padding: 24px 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 `;
 
 export const Header = styled.div`
@@ -17,7 +20,7 @@ export const Header = styled.div`
     align-items: center;
     justify-content: space-between;
 
-    span {
+    > span {
         margin-right: 24px;
     }
 `;
@@ -141,12 +144,33 @@ export const CallEditButton = styled.button`
     }
 `;
 
-export const EditionArea = styled.div``;
+export const EditionArea = styled.div`
+    width: 90%;
+    height: 50vh;
+    border: 1px solid #eee;
+    padding: 0 24px;
+    
+    display: flex;
+    justify-content: space-between;
+`;
 
-export const InputArea = styled.div``;
+export const InputArea = styled.div`
+    width: 40%;
+    border: 1px solid #eee;
+    height: 72%;
 
-export const EditionStatus = styled.div``;
+    
+`;
+
+export const EditionStatus = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
 
 export const EditionRunTime = styled.div``;
 
-export const DescriptionArea = styled.div``;
+export const DescriptionArea = styled.div`
+    width: 50%;
+    border: 1px solid #eee;
+    height: 72%;
+`;

@@ -20,7 +20,7 @@ import {
     DescriptionArea
 } from './style';
 
-export default function ChamadosAdm() {
+export default function EdicaoChamadosAdm() {
     return (
         <Container>
             <Header>
