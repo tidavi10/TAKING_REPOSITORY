@@ -14,13 +14,9 @@ import { useHistory } from 'react-router-dom';
 
 export default function LoginAdm() {
     const history = useHistory();
-
-    const gotoCadastro = () => {
-        history.push('/cadastro')
-    }
-
+    
     const gotoChamados = () => {
-        history.push('/chamados')
+        history.push('/chamados-adm')
     }
 
     return (
