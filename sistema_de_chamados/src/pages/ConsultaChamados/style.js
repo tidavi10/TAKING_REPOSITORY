@@ -13,12 +13,10 @@ export const Title = styled.div`
 `;
 
 export const Header = styled.div`
-<<<<<<< HEAD
     width: 800px;
     height: 70px;
     background-color: #DEE2E6;
     border-radius:10px;
-=======
     background: #dee2e6;
     width: 100%;
     height: 64px;
@@ -27,7 +25,6 @@ export const Header = styled.div`
 
     margin-bottom: 24px;
 
->>>>>>> c3d048f17ce4d24dc582cc7d7c9cb16582941371
     display: flex;
     align-items: center;
     justify-content: space-between;

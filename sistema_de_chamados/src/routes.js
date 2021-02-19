@@ -9,6 +9,7 @@ import ChamadosAdm from './pages/ChamadosAdm';
 import ConsultaChamados from './pages/ConsultaChamados'
 import EdicaoChamadosAdm from './pages/EdicaoChamadosAdm'
 import LoginAdm from '../src/pages/LoginAdm'
+import MenuAdm from '../src/pages/MenuAdm'
 
 export default function Routes() {
     return (
@@ -22,6 +23,7 @@ export default function Routes() {
                 <Route path='/consulta-chamados' component={ConsultaChamados}/>
                 <Route path='/edicao-chamados-adm' component={EdicaoChamadosAdm}/>
                 <Route path='/login-adm' component={LoginAdm}/>
+                <Route path= '/menu-adm' component={MenuAdm}/>
             </Switch>
         </BrowserRouter>
     )
