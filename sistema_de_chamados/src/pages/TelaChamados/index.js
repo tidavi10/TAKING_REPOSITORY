@@ -7,8 +7,9 @@ import {
     Title,
     Input,
     Button,
-    Form,
-    Div,
+    EditionArea,
+    InputArea,
+    EditionDescription,
     FilterSelector,
 } from '../TelaChamados/style';
 
@@ -23,15 +24,24 @@ export default function TelaChamados() {
             <Title>
                 <span>Descreva o problema</span>
             </Title>
-            <Form>
-                <Div id="descricao">
+            <EditionArea>
+                <InputArea>
+                    <EditionDescription>
+                        descricao
+                    </EditionDescription>
+                </InputArea>
 
-                </Div>
-            </Form>
             <FilterSelector>
-                <span>Filtro de problema</span>
+                <select>
+                    <option value="xxxx">xxxxx</option>
+                    <option value="xxxx">xxxxx</option>
+                    <option value="xxxx">xxxxx</option>
+                </select>
             </FilterSelector>
+            
+            </EditionArea>
             <Input type="file" />
+            
             <Button>
                 <span>Finalizar chamado</span>
             </Button>
