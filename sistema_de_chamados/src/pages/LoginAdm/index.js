@@ -15,8 +15,8 @@ import { useHistory } from 'react-router-dom';
 export default function LoginAdm() {
     const history = useHistory();
     
-    const gotoChamados = () => {
-        history.push('/chamados-adm')
+    const gotomenuadm = () => {
+        history.push('/menu-adm')
     }
 
     return (
@@ -32,7 +32,7 @@ export default function LoginAdm() {
                         <label>Senha:</label>
                         <Input type="password" name="password" id="password" />
                     </InputDiv>
-                    <Button type="submit" onClick={gotoChamados}>Login</Button>
+                    <Button type="submit" onClick={gotomenuadm}>Login</Button>
                     <Image src={logo} />
                 </Form>
             </Container>

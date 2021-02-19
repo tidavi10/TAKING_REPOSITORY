@@ -30,9 +30,6 @@ export default function ChamadosAdm() {
             <Header>
                 <HeaderContent>
                     <ButtonHeader type="submit" onClick={goToChamados}>
-                        <span>Voltar</span>
-                    </ButtonHeader>
-                    <ButtonHeader type="submit" onClick={goToChamados}>
                         <span>Abrir novo chamado</span>
                     </ButtonHeader>
                 </HeaderContent>
