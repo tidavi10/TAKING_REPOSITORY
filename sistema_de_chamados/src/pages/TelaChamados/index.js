@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import {
     BrowserRouter as Router
 } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import {
     Header,
@@ -33,10 +34,15 @@ function MyDropzone() {
 }
 
 export default function TelaChamados() {
+    const history = useHistory();
+
+    const gotoConsultaChamados = () => {
+        history.push('/consulta-chamados')
+    }
     return (
         <Router>
             <Header>
-                <Button>
+                <Button type="submit" onClick={gotoConsultaChamados}>
                    <span>Consultar chamado</span>
                 </Button>
             </Header>
