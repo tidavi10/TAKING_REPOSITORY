@@ -59,7 +59,7 @@ export const FilterSelector = styled.div`
 export const EditionArea = styled.div`
     width: 90%;
     height: 50vh;
-    border: 1px solid #eee;
+    //border: 1px solid #eee;
     padding: 0 24px;
     display: flex;
     justify-content: space-around;
@@ -67,7 +67,7 @@ export const EditionArea = styled.div`
 `;
 
 export const InputArea = styled.div`
-    width: 62%;
+    width: 100%;
     height: 100%;    
 `;
 
@@ -125,6 +125,7 @@ export const ButtonFinish = styled.div`
     justify-content: center; */
     margin-top: 20px;
     font-size: 18px;
+    align-content: flex-start;
 `;
 
 
