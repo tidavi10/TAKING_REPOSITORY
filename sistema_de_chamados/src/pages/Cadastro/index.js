@@ -56,7 +56,7 @@ export default function Cadastro() {
                         <label>Senha:</label>
                         <Input type="password" nome="senha"/>
                     </InputDiv>
-                    <Button type="submit" onClick={goToChamados}>Cadastrar</Button>
+                    <Button type="submit" onClick={goToChamados}>Salvar</Button>
                     <Image src={logo} />
                 </FormCadastro>
             </Container>
