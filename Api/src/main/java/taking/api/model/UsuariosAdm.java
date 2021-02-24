@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "usuariosadm")
@@ -20,29 +21,24 @@ public class UsuariosAdm implements Serializable {
 	@Column(name = "idAdm")
 	private Long ID;
 	
-	private String username; //será excluido posteriormente
-	
+	@NotBlank (message = "E-mail inválido")
 	@Column(unique = true)
 	private String email;
 	
+	@NotBlank (message = "Senha inválida")
 	private String senha;
 
 	public Long getID() {
 		return ID;
 	}
 	
-	public UsuariosAdm(String username, String email, String senha) {
-		this.username = username;
+	public UsuariosAdm(String email, String senha) {
 		this.email = email;
 		this.senha = senha;
 	}
 	
 	public UsuariosAdm() {
 		
-	}
-
-	public String getUsername() {
-		return username;
 	}
 
 	public String getEmail() {
@@ -57,17 +53,17 @@ public class UsuariosAdm implements Serializable {
 	{
 	}
 
-	public void JwtRequest(String username, String senha) {
-		this.setUsername(username);
+	public void JwtRequest(String email, String senha) {
+		this.setEmail(email);
 		this.setSenha(senha);
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

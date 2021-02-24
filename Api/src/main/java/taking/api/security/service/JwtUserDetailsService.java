@@ -3,7 +3,6 @@ package taking.api.security.service;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import taking.api.model.Usuarios;
+import taking.api.model.UsuariosAdm;
+import taking.api.repository.UsuariosAdmRepository;
 import taking.api.repository.UsuariosRepository;
 
 
@@ -20,29 +21,32 @@ public class JwtUserDetailsService implements UserDetailsService {
 	
 	@Autowired
 	private UsuariosRepository usuariosRepository;
+	
+	@Autowired
+	private UsuariosAdmRepository usuariosAdmRepository;
 
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Usuarios user = usuariosRepository.findByUsername(username);
-		if (user == null) {
-			throw new UsernameNotFoundException("User not found with username: " + username);
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		if(usuariosRepository.existsByEmail(email)) {
+			Usuarios user = usuariosRepository.findByEmail(email);
+			return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getSenha(),
+					new ArrayList<>());
 		}
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getSenha(),
-				new ArrayList<>());
+		if(usuariosAdmRepository.existsByEmail(email)) {
+			UsuariosAdm adm = usuariosAdmRepository.findByEmail(email);
+			return new org.springframework.security.core.userdetails.User(adm.getEmail(), adm.getSenha(),
+					new ArrayList<>());
+		}
+		throw new UsernameNotFoundException("User not found with username: " + email);		
 	}
 	
 	public Usuarios save(Usuarios user) {
 		Usuarios newUser = new Usuarios();
-		newUser.setUsername(user.getUsername());
+		newUser.setEmail(user.getEmail());
 		newUser.setSenha(bcryptEncoder.encode(user.getSenha()));
 		return usuariosRepository.save(newUser);
 	}
-	
-	//public Usuarios getSenhaDecoded(Usuarios user) {
-	//	String password = user.getSenha();
-	//	password = bcryptEncoder.
-	//}
 }

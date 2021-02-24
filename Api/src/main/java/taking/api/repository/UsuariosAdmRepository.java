@@ -9,6 +9,6 @@ import taking.api.model.UsuariosAdm;
 public interface UsuariosAdmRepository extends JpaRepository<UsuariosAdm, Long> {
 	
 	UsuariosAdm findByEmail(String email);
-	
-	<CadastroUsuario extends UsuariosAdm> CadastroUsuario save(CadastroUsuario usuario);
+
+	boolean existsByEmail(String email);
 }

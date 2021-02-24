@@ -42,7 +42,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.cors().and().csrf().disable().authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll()
-				.antMatchers(HttpMethod.POST, "/usuarios/cadastro", "/authenticate").permitAll().anyRequest()
+				.antMatchers(HttpMethod.POST, "/usuarios/cadastro", "/authenticate", "/usuariosadm/cadastro").permitAll().anyRequest()
 				.authenticated().and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

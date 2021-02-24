@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,25 +25,32 @@ public class Usuarios implements Serializable {
 	@JsonIgnore
 	@OneToMany
 	private List<Chamados> chamados = new ArrayList<>();
-	
-	@Column(name = "username")
-	private String username;
-	
+
+	@NotBlank (message = "E-mail inválido")
+	@Column(unique = true)
 	private String email;
 	
+	@NotBlank (message = "Senha inválido")
 	@Column(name = "senha")
 	private String senha;
 	
+	@NotBlank (message = "Nome inválido")
 	private String nome;
 	
+	@NotBlank (message = "Endereço inválido")
 	private String endereco;
 	
+	@NotBlank (message = "CEP inválido")
 	private String cep;
 	
+	@NotBlank (message = "Telefone inválido")
 	private String telefone;
 	
+	@NotBlank (message = "CPF inválido")
+	@Column (unique = true)
 	private String cpf;
 	
+	@NotBlank (message = "RG inválido")
 	private String rg;
 
 	public Long getId() {
@@ -51,14 +59,6 @@ public class Usuarios implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getEmail() {
@@ -129,8 +129,8 @@ public class Usuarios implements Serializable {
 	{
 	}
 
-	public void JwtRequest(String username, String senha) {
-		this.setUsername(username);
+	public void JwtRequest(String email, String senha) {
+		this.setEmail(email);
 		this.setSenha(senha);
 	}
 	

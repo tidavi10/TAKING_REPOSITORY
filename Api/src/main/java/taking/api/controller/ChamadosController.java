@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import taking.api.model.Chamados;
 import taking.api.service.ChamadosService;
 
@@ -27,12 +29,14 @@ public class ChamadosController {
 	@Autowired
 	private ChamadosService chamadosService;
 	
+	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	@GetMapping(value = "/{chamadoId}")
 	public ResponseEntity<Chamados> findById(@PathVariable Long chamadoId) {
 		Chamados obj = chamadosService.findById(chamadoId);
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	@PostMapping("/{userId}/{problemId}")
 	public ResponseEntity<Chamados> cadastrarChamado(@PathVariable("userId") Long userId, @PathVariable("problemId") Long problemId,
 			@RequestParam("file") MultipartFile file, @RequestParam("descricaoProblema") String descricaoProblema,
@@ -45,12 +49,14 @@ public class ChamadosController {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	@GetMapping
 	public ResponseEntity<List<Chamados>> ListaDeChamados() {
 		List<Chamados> list = chamadosService.lista();
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	@GetMapping("/baixarAnexo/{chamadoId}")
 	public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long chamadoId){
 		Chamados chamado = chamadosService.getFile(chamadoId).get();

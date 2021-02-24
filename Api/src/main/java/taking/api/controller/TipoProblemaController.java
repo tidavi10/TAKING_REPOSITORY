@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import taking.api.model.TipoProblema;
 import taking.api.repository.TipoProblemaRepository;
 
@@ -19,6 +21,7 @@ public class TipoProblemaController {
 	private TipoProblemaRepository repository;
 	
 	@GetMapping
+	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	public ResponseEntity<List<TipoProblema>> listaDeProblemas() {
 		List<TipoProblema> list = repository.findAll();
 		return ResponseEntity.ok().body(list);
