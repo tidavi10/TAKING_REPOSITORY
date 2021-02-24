@@ -87,6 +87,14 @@ export default function Cadastro() {
                     </div>
                     <div className="inputdiv">
                         <label>Senha:</label>
+<<<<<<< HEAD
+                        <Input type="password" nome="senha"/>
+                    </InputDiv>
+                    <Button type="submit" onClick={goToChamados}>Salvar</Button>
+                    <Image src={logo} />
+                </FormCadastro>
+            </Container>
+=======
                         <Field className="input" type="password" name="password" />
                         <div className="Form-erro">
                             <ErrorMessage name="password" component="spam" />
@@ -99,6 +107,7 @@ export default function Cadastro() {
             
                 )}
             />
+>>>>>>> a044bf73715f077678f563146a210b8e6bd0ebb1
         </Router>
     )
 }
