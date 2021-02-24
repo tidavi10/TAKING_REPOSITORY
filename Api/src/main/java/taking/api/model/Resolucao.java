@@ -21,7 +21,7 @@ public class Resolucao {
 	private Chamados chamados;
 	
 	@NotBlank
-	private String descricao;
+	private String resolucao;
 	
 	@Column(name = "timestamp", updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -43,12 +43,12 @@ public class Resolucao {
 		this.chamados = chamados;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getResolucao() {
+		return resolucao;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setResolucao(String resolucao) {
+		this.resolucao = resolucao;
 	}
 
 	public Date getTimestamp() {

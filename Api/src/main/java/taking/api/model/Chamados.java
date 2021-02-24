@@ -27,6 +27,8 @@ public class Chamados implements Serializable{
 	private TipoProblema problema;
 	@ManyToOne
 	private Usuarios usuario;
+	@ManyToOne
+	private UsuariosAdm adm;
 	
 	public Chamados() {
 	}
@@ -114,5 +116,13 @@ public class Chamados implements Serializable{
 
 	public void setUsuario(Usuarios usuario) {
 		this.usuario = usuario;
+	}
+
+	public UsuariosAdm getAdm() {
+		return adm;
+	}
+
+	public void setAdm(UsuariosAdm adm) {
+		this.adm = adm;
 	}
 }
