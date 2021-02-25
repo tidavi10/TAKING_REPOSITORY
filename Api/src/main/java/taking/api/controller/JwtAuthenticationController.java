@@ -37,10 +37,22 @@ public class JwtAuthenticationController {
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
-		authenticate(authenticationRequest.getUsuario(), authenticationRequest.getSenha());
+		authenticate(authenticationRequest.getEmail(), authenticationRequest.getSenha());
 
 		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(authenticationRequest.getUsuario());
+				.loadUserByUsername(authenticationRequest.getEmail());
+
+		final String token = jwtTokenUtil.generateToken(userDetails);
+
+		return ResponseEntity.ok(new JwtResponse(token));
+	}
+	
+	@RequestMapping(value = "/admAuth", method = RequestMethod.POST)
+	public ResponseEntity<?> createAdmToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+		authenticate(authenticationRequest.getEmail(), authenticationRequest.getSenha());
+
+		final UserDetails userDetails = userDetailsService
+				.loadUserByUsername(authenticationRequest.getEmail());
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
 

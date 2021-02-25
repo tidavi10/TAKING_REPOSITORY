@@ -4,8 +4,9 @@ import java.io.Serializable;
 
 public class JwtRequest implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	
-	private String usuario;
+	private String email;
 	private String senha;
 	
 	//need default constructor for JSON Parsing
@@ -14,17 +15,17 @@ public class JwtRequest implements Serializable {
 		
 	}
 
-	public JwtRequest(String usuario, String password) {
-		this.setUsuario(usuario);
+	public JwtRequest(String email, String password) {
+		this.setEmail(email);
 		this.setSenha(senha);
 	}
 
-	public String getUsuario() {
-		return this.usuario;
+	public String getEmail() {
+		return this.email;
 	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getSenha() {

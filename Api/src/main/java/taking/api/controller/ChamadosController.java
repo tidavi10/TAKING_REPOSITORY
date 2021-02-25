@@ -28,41 +28,59 @@ public class ChamadosController {
 
 	@Autowired
 	private ChamadosService chamadosService;
-	
+
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	@GetMapping(value = "/{chamadoId}")
 	public ResponseEntity<Chamados> findById(@PathVariable Long chamadoId) {
 		Chamados obj = chamadosService.findById(chamadoId);
 		return ResponseEntity.ok().body(obj);
 	}
-	
+
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	@PostMapping("/{userId}/{problemId}")
-	public ResponseEntity<Chamados> cadastrarChamado(@PathVariable("userId") Long userId, @PathVariable("problemId") Long problemId,
-			@RequestParam("file") MultipartFile file, @RequestParam("descricaoProblema") String descricaoProblema,
+	public ResponseEntity<Chamados> cadastrarChamado(@PathVariable("userId") Long userId,
+			@PathVariable("problemId") Long problemId, @RequestParam("file") MultipartFile file,
+			@RequestParam("descricaoProblema") String descricaoProblema,
 			@RequestParam("dataCriacao") String dataCriacao) {
-		
+
 		Chamados obj = chamadosService.salvarDados(userId, problemId, file, descricaoProblema, dataCriacao);
-		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{chamadoId}")
-				.buildAndExpand(obj.getId()).toUri();
+
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{chamadoId}").buildAndExpand(obj.getId())
+				.toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
+
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	@GetMapping
 	public ResponseEntity<List<Chamados>> ListaDeChamados() {
 		List<Chamados> list = chamadosService.lista();
 		return ResponseEntity.ok().body(list);
 	}
-	
+
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	@GetMapping("/baixarAnexo/{chamadoId}")
-	public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long chamadoId){
+	public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long chamadoId) {
 		Chamados chamado = chamadosService.getFile(chamadoId).get();
-		return ResponseEntity.ok()
-				.contentType(MediaType.parseMediaType(chamado.getTipoAnexo()))
-				.header(HttpHeaders.CONTENT_DISPOSITION,"attachment:filename=\""+chamado.getNomeAnexo()+"\"")
+		return ResponseEntity.ok().contentType(MediaType.parseMediaType(chamado.getTipoAnexo()))
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\"" + chamado.getNomeAnexo() + "\"")
 				.body(new ByteArrayResource(chamado.getAnexo()));
+	}
+
+	@GetMapping("/pagina/{numeroPagina}")
+	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
+	public List<Chamados> retornoPaginado(@PathVariable int numeroPagina) {
+		return chamadosService.findChamadosPaginated(numeroPagina);
+	}
+
+	@GetMapping("/{idChamado}/{idAdm}")
+	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
+	public List<Chamados> chamadosIdAndAdm(@PathVariable Long idChamado, @PathVariable Long idAdm){
+		return chamadosService.findByIdAndAdm(idChamado, idAdm);
+	}
+
+	@GetMapping("/adm/{idAdm}")
+	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
+	public List<Chamados> chamadosAdm(@PathVariable Long idAdm){
+		return chamadosService.findChamadosByAdm(idAdm);
 	}
 }

@@ -23,7 +23,7 @@ public class Resolucao {
 	@NotBlank
 	private String resolucao;
 	
-	@Column(name = "timestamp", updatable = false)
+	@Column(name = "dataResolucao", updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
 

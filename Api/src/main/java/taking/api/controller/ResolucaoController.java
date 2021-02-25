@@ -3,6 +3,8 @@ package taking.api.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.TransactionRequiredException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,12 +50,13 @@ public class ResolucaoController {
 	@PostMapping("/resposta/{IdChamado}/{IdAdm}")
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	public ResponseEntity<Resolucao> respostaChamado(@PathVariable Long IdChamado, @PathVariable Long IdAdm,
-			@RequestBody Resolucao resolucao) {
+			@RequestBody Resolucao resolucao) throws TransactionRequiredException{
 		
-		if (chamadosRepository.existsById(IdChamado) && !resolucaoRepository.existsById(IdChamado)) { // mudar posteriormente
-			resolucao.setId(IdChamado);									// ficara mais facil a busca quando incluir o usuario ADM
+		if (chamadosRepository.existsById(IdChamado) && !resolucaoRepository.existsById(IdChamado)) { 
+			resolucao.setId(IdChamado);
 			resolucao.setTimestamp(new Date());
 			resolucaoRepository.save(resolucao);
+			chamadosRepository.updateStatus("Finalizado", IdChamado);
 			return new ResponseEntity<Resolucao>(HttpStatus.OK);
 		}
 

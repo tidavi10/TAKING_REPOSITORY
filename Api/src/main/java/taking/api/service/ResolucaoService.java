@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import taking.api.model.Resolucao;
+import taking.api.repository.ChamadosRepository;
 import taking.api.repository.ResolucaoRepository;
 
 @Service
