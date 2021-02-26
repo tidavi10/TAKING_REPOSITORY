@@ -21,6 +21,7 @@ import taking.api.model.Chamados;
 import taking.api.model.Resolucao;
 import taking.api.repository.ChamadosRepository;
 import taking.api.repository.ResolucaoRepository;
+import taking.api.service.ChamadosService;
 import taking.api.service.ResolucaoService;
 
 @RestController
@@ -36,23 +37,26 @@ public class ResolucaoController {
 	@Autowired
 	private ChamadosRepository chamadosRepository;
 
+	//Retorna todas as resoluções paginadas, possivelmente sera excluido posteriormente
 	@GetMapping("/{numeroPagina}")
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	public List<Resolucao> retornoPaginado(@PathVariable int numeroPagina) {
 		return resolucaoService.findResolucaoPaginated(numeroPagina);
 	}
 	
+	//Apenas para testes, será excluido posteriormente
 	@GetMapping
 	public List<Resolucao> findAll(){
 		return resolucaoRepository.findAll();
 	}
 
+	//Insere a resposta do chamado na tabela e atualiza o status do chamado
 	@PostMapping("/resposta/{IdChamado}/{IdAdm}")
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	public ResponseEntity<Resolucao> respostaChamado(@PathVariable Long IdChamado, @PathVariable Long IdAdm,
 			@RequestBody Resolucao resolucao) throws TransactionRequiredException{
 		
-		if (chamadosRepository.existsById(IdChamado) && !resolucaoRepository.existsById(IdChamado)) { 
+		if (resolucaoService.idAndAdmExists(IdChamado, IdAdm)) { 
 			resolucao.setId(IdChamado);
 			resolucao.setTimestamp(new Date());
 			resolucaoRepository.save(resolucao);

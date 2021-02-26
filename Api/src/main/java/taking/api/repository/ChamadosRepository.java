@@ -5,12 +5,15 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import taking.api.model.Chamados;
+import taking.api.model.Usuarios;
 import taking.api.model.UsuariosAdm;
 
 public interface ChamadosRepository extends JpaRepository<Chamados, Long> {
@@ -22,9 +25,11 @@ public interface ChamadosRepository extends JpaRepository<Chamados, Long> {
 	
 	Optional<Chamados> findById(Long id);
 	
-	List<Chamados> findByAdm(Optional<UsuariosAdm> optional);
+	Page<Chamados> findByAdm(Optional<UsuariosAdm> optional, Pageable pageable);
+	
+	Page<Chamados> findByUsuario(Optional<Usuarios> optional, Pageable pageable);
 	
 	List<Chamados> findByIdAndAdm(Long id, Optional<UsuariosAdm> adm);
 	
-	//existsByIdAndAdm(Long id, Optional<UsuariosAdm> adm);
+	boolean existsByIdAndAdm(Long id, Optional<UsuariosAdm> adm);
 }

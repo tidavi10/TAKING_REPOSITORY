@@ -17,7 +17,7 @@ import io.swagger.annotations.Api;
 import taking.api.config.JwtTokenUtil;
 import taking.api.model.JwtRequest;
 import taking.api.model.JwtResponse;
-import taking.api.security.service.JwtUserDetailsService;
+import taking.api.service.JwtUserDetailsService;
 
 
 @Api(tags="Autenticação")

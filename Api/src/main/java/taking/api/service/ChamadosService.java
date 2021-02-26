@@ -1,10 +1,12 @@
 package taking.api.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -74,20 +76,33 @@ public class ChamadosService {
 		return resultado.toList();
 	}
 	
-	/*public List<Chamados> findChamadosAdmPaginated(int pageNo, Long adm){
+	public List<Chamados> findChamadosUsuarioPaginated(int pageNo, Long id){
+		List<Chamados> chamadosPaginados = new ArrayList<Chamados>();
 		Pageable paginacao = PageRequest.of(pageNo, 4);
-		Page<Chamados> resultado = chamadosRepository.findAll(paginacao);
-	}*/
+		
+		Page<Chamados> chamadosUsuario = chamadosRepository.findByUsuario(usuariosRepository.findById(id), paginacao);
+		
+		chamadosPaginados = chamadosUsuario.getContent();
+		
+		return chamadosPaginados;	
+	}
 	
-	public List<Chamados> findChamadosByAdm(Long adm){
-		return chamadosRepository.findByAdm(usuariosAdmRepository.findById(adm));
+	public List<Chamados> findChamadosAdmPaginated(int pageNo, Long adm){
+		List<Chamados> chamadosPaginados = new ArrayList<Chamados>();
+		Pageable paginacao = PageRequest.of(pageNo, 4);
+		
+		Page<Chamados> chamadosAdm = chamadosRepository.findByAdm(usuariosAdmRepository.findById(adm), paginacao);
+		
+		chamadosPaginados = chamadosAdm.getContent();
+		
+		return chamadosPaginados;	
 	}
 	
 	public List<Chamados> findByIdAndAdm(Long id, Long adm){
 		return chamadosRepository.findByIdAndAdm(id, usuariosAdmRepository.findById(adm));
 	}
 	
-	/*public boolean existsByIdAndAdm(Long id, Long adm) {
+	public boolean existsByIdAndAdm(Long id, Long adm) {
 		return chamadosRepository.existsByIdAndAdm(id, usuariosAdmRepository.findById(adm));
-	}*/
+	}
 }

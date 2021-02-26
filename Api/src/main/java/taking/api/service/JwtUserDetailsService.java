@@ -1,4 +1,4 @@
-package taking.api.security.service;
+package taking.api.service;
 
 import java.util.ArrayList;
 

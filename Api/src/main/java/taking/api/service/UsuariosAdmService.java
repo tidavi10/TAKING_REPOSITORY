@@ -1,4 +1,4 @@
-package taking.api.security.service;
+package taking.api.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

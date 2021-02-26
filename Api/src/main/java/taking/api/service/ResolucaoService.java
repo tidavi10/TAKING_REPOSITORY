@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import taking.api.model.Resolucao;
 import taking.api.repository.ChamadosRepository;
 import taking.api.repository.ResolucaoRepository;
+import taking.api.repository.UsuariosAdmRepository;
 
 @Service
 public class ResolucaoService{
@@ -18,12 +19,22 @@ public class ResolucaoService{
 	@Autowired
 	private ResolucaoRepository resolucaoRepository;
 	
+	@Autowired
+	private ChamadosRepository chamadosRepository;
+	
+	@Autowired
+	private UsuariosAdmRepository usuariosAdmRepository;
+	
 	public List<Resolucao> findResolucaoPaginated(int pageNo) {
 		
 		Pageable paginacao = PageRequest.of(pageNo, 4);
 		Page<Resolucao> resultado = resolucaoRepository.findAll(paginacao);
 		
 		return resultado.toList();
+	}
+	
+	public boolean idAndAdmExists(Long id, Long adm) {
+		return chamadosRepository.existsByIdAndAdm(id, usuariosAdmRepository.findById(adm));
 	}
 	
 }

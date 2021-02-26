@@ -13,7 +13,7 @@ import io.swagger.annotations.Api;
 import taking.api.model.Usuarios;
 import taking.api.model.UsuariosAdm;
 import taking.api.repository.UsuariosAdmRepository;
-import taking.api.security.service.UsuariosAdmService;
+import taking.api.service.UsuariosAdmService;
 
 @Api(tags="UsuariosAdm")
 @RequestMapping("/usuariosadm")

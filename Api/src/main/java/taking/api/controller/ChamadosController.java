@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import taking.api.model.Chamados;
+import taking.api.repository.ChamadosRepository;
 import taking.api.service.ChamadosService;
 
 @RestController
@@ -66,21 +67,31 @@ public class ChamadosController {
 				.body(new ByteArrayResource(chamado.getAnexo()));
 	}
 
+	//Retorna todos os chamados paginados
 	@GetMapping("/pagina/{numeroPagina}")
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	public List<Chamados> retornoPaginado(@PathVariable int numeroPagina) {
 		return chamadosService.findChamadosPaginated(numeroPagina);
 	}
+	
+	//Retorna os chamados de um usuário específico
+	@GetMapping("usuario/{idUsuario}/{numeroPagina}")
+	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
+	public List<Chamados> chamadosUsuario(@PathVariable Long idUsuario, @PathVariable int numeroPagina) {
+		return chamadosService.findChamadosUsuarioPaginated(numeroPagina, idUsuario);
+	}
 
+	//Retorna um chamado específico para o ADM
 	@GetMapping("/{idChamado}/{idAdm}")
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	public List<Chamados> chamadosIdAndAdm(@PathVariable Long idChamado, @PathVariable Long idAdm){
 		return chamadosService.findByIdAndAdm(idChamado, idAdm);
 	}
 
-	@GetMapping("/adm/{idAdm}")
+	//Retorna todos o chamados para um ADM específico
+	@GetMapping("/adm/{idAdm}/{numeroPagina}")
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
-	public List<Chamados> chamadosAdm(@PathVariable Long idAdm){
-		return chamadosService.findChamadosByAdm(idAdm);
+	public List<Chamados> chamadosAdm(@PathVariable Long idAdm, @PathVariable int numeroPagina){
+		return chamadosService.findChamadosAdmPaginated(numeroPagina, idAdm);
 	}
 }

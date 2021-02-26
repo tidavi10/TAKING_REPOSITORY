@@ -16,8 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import taking.api.config.JwtTokenUtil;
-import taking.api.security.service.*;
-
+import taking.api.service.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 
 @Component
