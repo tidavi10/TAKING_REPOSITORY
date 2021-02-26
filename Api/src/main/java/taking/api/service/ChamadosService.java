@@ -1,5 +1,6 @@
 package taking.api.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +48,7 @@ public class ChamadosService {
 	}
 
 	public Chamados salvarDados(Long userId, Long problemId, MultipartFile file, String descricaoProblema,
-			String dataCriacao) {
+			Date dataCriacao) {
 		Chamados obj = null;
 		try {
 			String nomeAnexo = file.getOriginalFilename();
