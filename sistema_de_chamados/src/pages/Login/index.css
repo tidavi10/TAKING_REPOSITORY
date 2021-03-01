@@ -9,6 +9,7 @@ div.container-login{
     /*Phone less than 576px*/
     @media (max-width: 576px) {
         div.container-login{
+            margin: 10px;
             font-size: 14px;
             display: flex;
             justify-content: center;  

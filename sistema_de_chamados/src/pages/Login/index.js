@@ -9,7 +9,10 @@ import { useHistory } from 'react-router-dom';
 export default function Login() {
 
     function onSubmit(values, actions) {
-        history.push('/chamados');
+        history.push('/chamados')
+    if(onSubmit){
+        window.alert('Login efetuado com sucesso!')
+    }
     }   
 
     const history = useHistory();
