@@ -42,7 +42,7 @@ public class Chamados implements Serializable{
 	}
 	
 	public Chamados(String descricao, byte[] anexo, String nomeAnexo, String tipoAnexo, String status,
-			Date dataCriacao, TipoProblema problema, Usuarios usuario) {
+			Date dataCriacao, TipoProblema problema, Usuarios usuario, UsuariosAdm adm) {
 		super();
 		this.descricao = descricao;
 		this.anexo = anexo;
@@ -52,6 +52,7 @@ public class Chamados implements Serializable{
 		this.dataCriacao = dataCriacao;
 		this.problema = problema;
 		this.usuario = usuario;
+		this.adm = adm;
 	}
 
 	public Long getId() {

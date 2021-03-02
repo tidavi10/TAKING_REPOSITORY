@@ -25,6 +25,8 @@ import io.swagger.annotations.Authorization;
 import taking.api.dto.ChamadosRespostaDTO;
 import taking.api.model.Chamados;
 import taking.api.repository.ChamadosRepository;
+import taking.api.repository.UsuariosAdmRepository;
+import taking.api.repository.UsuariosRepository;
 import taking.api.service.ChamadosService;
 
 @RestController
@@ -36,6 +38,12 @@ public class ChamadosController {
 	
 	@Autowired
 	private ChamadosRepository chamadosRepository;
+	
+	@Autowired
+	private UsuariosRepository usuarioRepository;
+	
+	@Autowired
+	private UsuariosAdmRepository admRepository;
 
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	@GetMapping(value = "/{chamadoId}")
@@ -54,20 +62,20 @@ public class ChamadosController {
 	}
 	
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
-	@PostMapping("/{userId}/{problemId}")
+	@PostMapping("/{userId}/{problemId}/{admId}")
 	public ResponseEntity<Chamados> cadastrarChamado(@PathVariable("userId") Long userId,
-			@PathVariable("problemId") Long problemId, @RequestParam("file") MultipartFile file,
+			@PathVariable("admId") Long admId, @PathVariable("problemId") Long problemId, @RequestParam("file") MultipartFile file,
 			@RequestParam("descricaoProblema") String descricaoProblema) {
 		
-		if(chamadosRepository.existsById(userId)) {
+		if(usuarioRepository.existsById(userId) && admRepository.existsById(admId)) {
 			
-			Chamados obj = chamadosService.salvarDados(userId, problemId, file, descricaoProblema, new Date());
+			Chamados obj = chamadosService.salvarDados(userId, problemId, admId, file, descricaoProblema, new Date());
 	
 			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{chamadoId}").buildAndExpand(obj.getId())
 					.toUri();
 			return ResponseEntity.created(uri).build();
 		}	
-		return null;
+		throw new RuntimeException("Erro: ChamadoController");
 	}
 
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })

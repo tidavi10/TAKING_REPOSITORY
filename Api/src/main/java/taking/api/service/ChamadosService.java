@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import taking.api.model.Chamados;
 import taking.api.model.TipoProblema;
 import taking.api.model.Usuarios;
+import taking.api.model.UsuariosAdm;
 import taking.api.repository.ChamadosRepository;
 import taking.api.repository.TipoProblemaRepository;
 import taking.api.repository.UsuariosAdmRepository;
@@ -34,6 +35,12 @@ public class ChamadosService {
 	
 	@Autowired
 	private UsuariosAdmRepository usuariosAdmRepository;
+	
+//	public Boolean UserExistsById(Long useId) {
+//		if(usuariosRepository.findById(useId)) {
+//			
+//		}
+//	}
 
 	public Chamados findById(Long chamadoId) {
 		Optional<Chamados> obj = chamadosRepository.findById(chamadoId);
@@ -48,16 +55,18 @@ public class ChamadosService {
 		return chamadosRepository.findAll();
 	}
 
-	public Chamados salvarDados(Long userId, Long problemId, MultipartFile file, String descricaoProblema,
+	public Chamados salvarDados(Long userId, Long problemId, Long admId, MultipartFile file, String descricaoProblema,
 			Date dataCriacao) {
 		Chamados obj = null;
 		try {
 			String nomeAnexo = file.getOriginalFilename();
 			Optional<Usuarios> usuario = usuariosRepository.findById(userId);
 			Optional<TipoProblema> problema = problemaRepository.findById(problemId);
+			Optional<UsuariosAdm> adm = usuariosAdmRepository.findById(admId);
+			
 
 			Chamados chamados = new Chamados(descricaoProblema, file.getBytes(), nomeAnexo, file.getContentType(),
-					"Pendente", dataCriacao, problema.get(), usuario.get());
+					"Pendente", dataCriacao, problema.get(), usuario.get(), adm.get());
 
 			obj = chamadosRepository.save(chamados);
 
