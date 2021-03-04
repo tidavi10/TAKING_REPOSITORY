@@ -1,0 +1,164 @@
+
+
+
+#language:pt
+
+
+
+Funcionalidade: Realiza Cadastro
+
+    Como um cliente
+    Quero realizar um cadastro
+    Para realizar abertura de chamado
+____________________________________________________________
+
+  Contexto:
+  Dado que esteja na aplicação 
+  acessar a tela de cadastro
+
+1- Cenário: Cadastro do usuario com sucesso
+
+    
+    Quando preencher os campos obrigatórios Nome, Rg, Cpf, Cep, endereço, cargo, senha e e-mail
+    E clicar em cadastrar
+    Então os dados serão salvo com sucesso
+    E o sistema redicionara para tela de chamado
+____________________________________________________________
+
+
+2-A Cenário: Tentar realizar cadastro sem preencher campo nome
+
+   Quando preencher os dados do formulario, mas deixar o nome vazio
+   Então o sistema deve abrir uma mensagem de campo obrigatório 
+ 
+_____________________________________________________________
+
+2-B Cenário: Tentar realizar cadastro sem preencher campo R.G
+
+   Quando preencher os dados do formulario, mas deixar o R.G vazio
+   Então o sistema deve abrir uma mensagem de campo obrigatório 
+ 
+_____________________________________________________________
+
+2-C Cenário: Tentar realizar cadastro sem preencher campo CPF
+
+   Quando preencher os dados do formulario, mas deixar o CPF vazio
+   Então o sistema deve abrir uma mensagem de campo obrigatório 
+ 
+_____________________________________________________________
+
+2-D Cenário: Tentar realizar cadastro sem preencher campo Cep
+
+   Quando preencher os dados do formulario, mas deixar o Cep vazio
+   Então o sistema deve abrir uma mensagem de campo obrigatório 
+ 
+_____________________________________________________________
+
+2-E Cenário: Tentar realizar cadastro sem preencher campo Endereço
+
+   Quando preencher os dados do formulario, mas deixar o Endereço vazio
+   Então o sistema deve abrir uma mensagem de campo obrigatório 
+ 
+_____________________________________________________________
+
+2-F Cenário: Tentar realizar cadastro sem preencher campo Cargo
+
+   Quando preencher os dados do formulario, mas deixar o Cargo vazio
+   Então o sistema deve abrir uma mensagem de campo obrigatório 
+ 
+_____________________________________________________________
+
+2 - G Cenário: Tentar realizar cadastro sem preencher campo Senha
+
+   Quando preencher os dados do formulario, mas deixar o Senha vazio
+   Então o sistema deve abrir uma mensagem de campo obrigatório 
+ 
+_____________________________________________________________
+
+2 - H Cenário: Tentar realizar cadastro sem preencher campo E-mail
+
+   Quando preencher os dados do formulario, mas deixar o E-mail vazio
+   Então o sistema deve abrir uma mensagem de campo obrigatório 
+ 
+_____________________________________________________________
+   
+3- Cenários: Campos com asterisco devem ser preenchidos
+
+   Dado que possui campos com asteriscos 
+   Quando não forem preenchidos
+   Então o sistema notificará o cliente de "campo obrigatório"   
+_______________________________________________________________
+
+4- Cenário: Cadastrando como usuário
+
+   Dado que para ter acesso como usuário
+   Quando realizar o cadastro de e-mail e senha
+   Então será permitido realizar o login
+_____________________________________________________________
+
+5- Cenário: Cadastrando senha com padrão
+
+   Dado que ao realizar o cadastro de senha	
+   Quando digitar no mínimo 8 digitos
+   E letras, numeros
+   E um caracter especial
+   Então será validado, deve ser salvo no sistema
+_____________________________________________________________
+
+6- Cenários: Não deve alterar dados no Cadastro
+
+   Dado que usuário já finalizou um cadastro
+   Quando necessitar fazer uma alteração
+   Então não deve ser permitido atualizar dados
+________________________________________________________________   
+   
+7- Cenários: Digitando caracter inválido no login
+
+   Dado que ao digitar incorretamente uma informação
+   Quando tentar acessar o sistema
+   Então o sistema vai emitir um alerta
+   E não será permitido a entrada
+
+___________________________________________________________________
+
+8- Cenários: Não Deve permitir duplicidade de cadastro
+
+   Dado que já foi criado um cadastro
+   E o campo e-mail, CPF são chaves únicas
+   Quando preencher as mesmas informações
+   E tentar salvar novamente
+   Então será notificado que usuário já existe	
+______________________________________________________________
+
+9- Cenários: Efetuando cadastro social
+
+   Dado que tenho uma conta no Gmail
+   Quando acessar o sistema com meu login pelo gmail  
+   Então o sistema permitirá logar normalmente
+______________________________________________________________
+
+10-Cenários: Direcionar página após Cadastro concluído
+
+   Dado que o cadastro foi finalizado
+   Quando clicar no botão cadastrar  
+   Então cliente será direcionado para tela de abertura de chamados 
+
+___________________________________________________________________ 
+
+11-Cenários: Deve utilizar e-mail ao cadastrar
+
+   Dado que possui uma conta de e-mail
+   Quando for digitado no cadastro 
+   Então será salvo automaticamente
+   Mas não será enviado uma confirmação      
+______________________________________________________________
+
+        
+
+12-Cenários: Senha cadastrada não expira
+
+   Dado que o cliente criou uma senha
+   Quando ficar muito tempo sem logar 
+   Então não será permitido redefinir nova senha
+
+___________________________________________________________________ 
