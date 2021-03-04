@@ -16,7 +16,9 @@ export default function Login() {
 
     const handleOnclick = async (provider) => {
         const res = await socialMediaAuth(provider);
-        console.log(res);
+        console.log(res.refreshToken);
+        const token = res.refreshToken;
+        localStorage.setItem("token:loginSocial", token)
         history.push('/chamados')
     }
 
