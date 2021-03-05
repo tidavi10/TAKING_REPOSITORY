@@ -16,9 +16,13 @@ export default function Login() {
 
     const handleOnclick = async (provider) => {
         const res = await socialMediaAuth(provider);
-        console.log(res.refreshToken);
+        console.log(res);
         const token = res.refreshToken;
+        const tokenName = res.displayName;
+        const tokenEmail = res.email;
         localStorage.setItem("token:loginSocial", token)
+        localStorage.setItem("name:loginSocial", tokenName)
+        localStorage.setItem("email:loginSocial", tokenEmail)
         history.push('/chamados')
     }
 
@@ -92,9 +96,8 @@ export default function Login() {
                     <button className="cadast" type="submit" onClick={gotoCadastro}>Cadastro</button>
                     <img src={logo} />
                 </Form>  
-                    )} 
-            />
-                
+                )} 
+            />       
         </div>
     </>
 )
