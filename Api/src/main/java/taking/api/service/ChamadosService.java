@@ -91,7 +91,7 @@ public class ChamadosService {
 		
 		chamadosPaginados = chamadosUsuario.getContent();
 		
-		return chamadosPaginados;	
+		return chamadosPaginados;
 	}
 	
 	public List<Chamados> findChamadosAdmPaginated(int pageNo, Long adm){
