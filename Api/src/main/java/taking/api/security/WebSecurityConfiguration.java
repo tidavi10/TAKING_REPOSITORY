@@ -150,19 +150,19 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter imple
         httpSecurity.cors().and().csrf().disable().authorizeRequests()
         		.antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers(HttpMethod.POST, "/usuarios/cadastro", "/authenticate", "/usuariosadm/cadastro")
-                .permitAll().anyRequest().authenticated()
-                .and()
-                .oauth2Login()
-                .redirectionEndpoint()
-                .baseUri("/oauth2/callback/*")
-                .and()
-                .userInfoEndpoint()
-                .oidcUserService(oidcUserService)
-                .and()
-                .authorizationEndpoint()
-                .baseUri("/oauth2/authorize")
-                .and()
-                .successHandler(customAuthenticationSuccessHandler);
+                .permitAll().anyRequest().authenticated();
+                //.and()
+                //.oauth2Login()
+                //.redirectionEndpoint()
+                //.baseUri("/oauth2/callback/*")
+                //.and()
+                //.userInfoEndpoint()
+                //.oidcUserService(oidcUserService)
+                //.and()
+                //.authorizationEndpoint()
+                //.baseUri("/oauth2/authorize")
+                //.and()
+                //.successHandler(customAuthenticationSuccessHandler);
 
         httpSecurity
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
