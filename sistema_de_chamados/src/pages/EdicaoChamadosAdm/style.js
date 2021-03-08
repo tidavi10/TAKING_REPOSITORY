@@ -601,7 +601,7 @@ export const SubmitButton = styled.button`
     width: 40%;
     height: 100%;
     border-radius: 4px;
-    background: #4cd62b;
+    background: #eee;
     border: 1px solid #dee2e6;
     display: flex;
     align-items: center;
@@ -609,7 +609,7 @@ export const SubmitButton = styled.button`
     transition: background 0.2s;
     
     &:hover {
-        background: ${darken(0.04, '#4cd62b')};
+        background: #4cd62b;
     }
 
     p {
@@ -663,7 +663,7 @@ export const CancelButton = styled.button`
     width: 40%;
     height: 100%;
     border-radius: 4px;
-    background: #F0440A;
+    background: #eee;
     border: 1px solid #dee2e6;
     display: flex;
     align-items: center;
@@ -671,7 +671,7 @@ export const CancelButton = styled.button`
     transition: background 0.2s;
     
     &:hover {
-        background: ${darken(0.02, '#F0440A')};
+        background: #F0440A;
     }
 
     p {

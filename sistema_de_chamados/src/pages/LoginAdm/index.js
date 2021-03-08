@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useCallback, useContext } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik'
+
+import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
 import schema from './schema'
 
 import './index.css'
@@ -9,18 +12,25 @@ import { useHistory } from 'react-router-dom';
 
 export default function LoginAdm() {
     const history = useHistory();
+
+    const { login } = useAuth();
+    const { addToast } = useToast();
      
-    function onSubmit(values, actions) {
-        history.push('/menu-adm');
-    } 
-    
+    const handleSubmit = useCallback((data) => {
+        try {
+            login();
+        } catch (error) {
+            alert('Não foi possível logar.')
+        }
+        addToast();
+    }, [login, addToast]);
 
     return (
         <>
             <div className="container-adm">
                 <Formik className="formik-adm"
                     validationSchema={schema}
-                    onSubmit={onSubmit}
+                    onSubmit={handleSubmit}
                     validateOnMount
                     initialValues={{
                         email: '',
@@ -43,7 +53,7 @@ export default function LoginAdm() {
                                 <ErrorMessage name="password" component="spam" />
                             </div>
                         </div>
-                        <button className="button-adm" type="submit" disabled={!isValid} onClick={onSubmit}>Login</button>
+                        <button className="button-adm" type="submit" disabled={!isValid} onClick={handleSubmit}>Login</button>
                         <img className="img-adm" src={logo} />
                     </Form>
                     )}          
