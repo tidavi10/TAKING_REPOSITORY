@@ -4,7 +4,9 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin: 30px;
+    
+    max-width: 1100px;
+    margin: 10px auto;
 
     // Media query
     // Phone 
@@ -14,12 +16,12 @@ export const Container = styled.div`
     
     // Tablete
     @media (min-width: 577px) and (max-width: 768px){
-
+        width: 95%;
     }
 
     // Desktop 992px
-    @media (min-width: 769px) and (max-width: 992px){
-
+    @media (min-width: 769px) and (max-width: 1200px){
+        width: 95%;
     }
 
     // Desktop 1200px
@@ -30,7 +32,9 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.div`
-    background: #dee2e6;
+    background: #219ebc;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 4px -2px #989898;
     width: 100%;
     height: 64px;
     border-radius: 10px;
@@ -41,6 +45,11 @@ export const Header = styled.div`
     text-align: center;
     margin-bottom: 1rem;
 
+    span {
+        color: #ffecd1;
+        margin-right: 20px;
+    }
+
     @media (max-width: 576px) {
         span{
             font-size: 14px;
@@ -50,10 +59,10 @@ export const Header = styled.div`
 `;
 
 export const HeaderContent = styled.div`
-    background: #dee2e6;
+
+    background: #219ebc;
     width: 50%;
-    height: 64px;
-    border-radius: 10px;
+    height: 60px;
     padding: 0 10px;
     display: flex;
     align-items: center;
@@ -67,10 +76,10 @@ export const HeaderContent = styled.div`
 `;
 
 export const Button = styled.button`
+    background: #219ebc;
     width: 50%;
+    max-width: 200px;
     height: 90%;
-    border: 2px solid #dee2e6;
-    background: #eee;
     font-size: 18px;
     margin-left: 6px;
     display: flex;
@@ -79,7 +88,8 @@ export const Button = styled.button`
     transition: background-color 0.2s;
 
     :hover {
-        background: #ced4da;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
     }
 
     @media (max-width: 576px) {
@@ -98,9 +108,8 @@ export const Button = styled.button`
 
 export const ButtonExit = styled.button`
     width: 20%;
+    max-width: 90px;
     height: 90%;
-    border: 2px solid #dee2e6;
-    background: #eee;
     font-size: 18px;
     margin-left: 6px;
     display: flex;
@@ -108,8 +117,11 @@ export const ButtonExit = styled.button`
     justify-content: center;
     transition: background-color 0.2s;
 
+    background: #219ebc;
+
     :hover {
-        background: #ced4da;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
     }
 
     @media (max-width: 576px) {
@@ -133,8 +145,9 @@ export const EditionArea = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 2px solid #eee;
     border-radius: 4px;
+
+    background: #f8f9fa;
 
     // Phone 
     @media (max-width: 576px) {
@@ -241,8 +254,11 @@ export const Dropzone = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid #dee2e6;
-    background: #eee;
+    background: #fff;
+
+    border-style: dashed;
+    border-width: 2px;
+    border-color: #dee2e6;
 
     .dropzone {
         align-items: center;
@@ -267,6 +283,15 @@ export const Dropzone = styled.div`
     @media (min-width: 769px) and (max-width: 992px){
         width: 70%;
     }
+`;
+
+export const CloudUpStyle = styled.div`
+    margin-right: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 `;
 
 export const EditionText = styled.div`
@@ -342,18 +367,17 @@ export const EditionDescription = styled.div`
 export const Footer = styled.div`
     width: 100%;
     height: 100%;
-    //padding: 0 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 `;
 
 export const ButtonFinish = styled.button`
+
+    background: #ffb703;
     width: 200px;
     height: 40px;
     font-size: 18px;
-    border: 2px solid #dee2e6;
-    background: #eee;
     border-radius: 4px;
     display: flex;
     align-items: center;
@@ -362,8 +386,15 @@ export const ButtonFinish = styled.button`
 
     transition: background-color 0.2s;
 
+    span {
+        color: #f6f6f6;
+    }
+
     :hover {
-        background: #ced4da;
+        background: #fb8500;
+        span {
+            color: #ffecd1;
+        }
     }
 
     @media (max-width: 576px) {
