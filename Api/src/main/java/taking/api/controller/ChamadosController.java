@@ -54,9 +54,9 @@ public class ChamadosController {
 
 	
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
-	@GetMapping
-	public ResponseEntity<List<ChamadosRespostaDTO>> listaDeChamados() {
-		List<Chamados> lista =  chamadosService.lista();
+	@GetMapping("/chamadosDoUsuario/{useId}")
+	public ResponseEntity<List<ChamadosRespostaDTO>> listaDeChamados(@PathVariable("userId") Long userId) {
+		List<Chamados> lista =  chamadosService.lista(userId);
 		List<ChamadosRespostaDTO> listaDto = lista.stream().map(obj -> new ChamadosRespostaDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listaDto);
 	}
