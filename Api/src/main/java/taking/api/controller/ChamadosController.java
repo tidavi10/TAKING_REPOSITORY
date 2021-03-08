@@ -22,6 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
+import taking.api.dto.ChamadoIdDTO;
 import taking.api.dto.ChamadosRespostaDTO;
 import taking.api.model.Chamados;
 import taking.api.repository.ChamadosRepository;
@@ -63,7 +64,7 @@ public class ChamadosController {
 	
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	@PostMapping("/{userId}/{problemId}/{admId}")
-	public ResponseEntity<Chamados> cadastrarChamado(@PathVariable("userId") Long userId,
+	public ResponseEntity<ChamadoIdDTO> cadastrarChamado(@PathVariable("userId") Long userId,
 			@PathVariable("admId") Long admId, @PathVariable("problemId") Long problemId, @RequestParam("file") MultipartFile file,
 			@RequestParam("descricaoProblema") String descricaoProblema) {
 		
@@ -71,9 +72,15 @@ public class ChamadosController {
 		if(usuarioRepository.existsById(userId) && admRepository.existsById(admId)) {
 			obj = chamadosService.salvarDados(userId, problemId, admId, file, descricaoProblema, new Date());
 		}
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{chamadoId}").buildAndExpand(obj.getId())
-				.toUri();
-		return ResponseEntity.created(uri).build();
+		
+		ChamadoIdDTO chamadoIdDto = new ChamadoIdDTO();
+		chamadoIdDto.setId(obj.getId());
+		return ResponseEntity.ok(chamadoIdDto);
+		
+//		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{chamadoId}").buildAndExpand(obj.getId())
+//				.toUri();
+//		System.out.println(obj.getId());
+//		return ResponseEntity.created(uri).build();
 	}
 
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
