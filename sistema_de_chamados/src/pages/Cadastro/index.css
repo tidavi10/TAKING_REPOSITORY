@@ -10,6 +10,7 @@
     
 @media (max-width: 576px) {
     .container{
+    padding: 10px;   
     font-size: 14px;
     display: flex;
     justify-content: center;  

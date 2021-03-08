@@ -9,6 +9,7 @@ div.container-login{
     /*Phone less than 576px*/
     @media (max-width: 576px) {
         div.container-login{
+            margin: 10px;
             font-size: 14px;
             display: flex;
             justify-content: center;  
@@ -147,4 +148,9 @@ img{
 div.Form-erro{
     color: red;
     transform: translate(2px, -20px);
+}
+
+.teste{
+    transform: translate(0px 0px);
+    background-color: black;
 }

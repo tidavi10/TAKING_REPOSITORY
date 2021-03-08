@@ -4,12 +4,41 @@ import schema from './schema'
 import './index.css'
 import logo from '../../assets/logo.png'
 import { useHistory } from 'react-router-dom';
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import firebase from 'firebase'
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
+import socialMediaAuth from '../../socialLog/service/auth';
+import { googleProvider } from '../../socialLog/config/authMethods'
 
 
 export default function Login() {
 
+    const handleOnclick = async (provider) => {
+        const res = await socialMediaAuth(provider);
+        console.log(res);
+        const token = res.refreshToken;
+        const tokenName = res.displayName;
+        const tokenEmail = res.email;
+        localStorage.setItem("token:loginSocial", token)
+        localStorage.setItem("name:loginSocial", tokenName)
+        localStorage.setItem("email:loginSocial", tokenEmail)
+        history.push('/chamados')
+    }
+
+    const successToast = () => {
+        toast.success("Login efetuado com sucesso",{
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            })
+        }
     function onSubmit(values, actions) {
-        history.push('/chamados');
+        history.push('/chamados')
     }   
 
     const history = useHistory();
@@ -37,7 +66,7 @@ export default function Login() {
         <div className="container-login">
             <Formik className="formik"
                 validationSchema={schema}
-                onSubmit={onSubmit}
+                successToast={successToast}
                 validateOnMount
                 initialValues={{
                 email: '',
@@ -60,14 +89,15 @@ export default function Login() {
                             <ErrorMessage  name="password" component="spam" /> 
                         </div>                                     
                     </div>
-                    <button className="login" type="submit" disabled={!isValid} onClick={onSubmit}>Login</button>
-                    <button className="login-social" type="submit">Login Social</button>
+
+                    <button className="login" type="submit" disabled={!isValid} onClick={successToast}>Login</button>
+                    <ToastContainer/>
+                    <button className="login-social" onClick={() => handleOnclick(googleProvider)}>Login Social</button>
                     <button className="cadast" type="submit" onClick={gotoCadastro}>Cadastro</button>
                     <img src={logo} />
                 </Form>  
-                )}          
-            />
-                
+                )} 
+            />       
         </div>
     </>
 )
