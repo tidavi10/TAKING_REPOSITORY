@@ -18,7 +18,11 @@ import {
     Dropzone,
     EditionText,
     ButtonExit,
+    CloudUpStyle,
 } from '../TelaChamados/style';
+
+import { BiCloudUpload } from "react-icons/bi";
+
 
 function MyDropzone() {
     const onDrop = useCallback(acceptedFiles => {
@@ -81,12 +85,16 @@ export default function TelaChamados() {
                             </select>
                         </FilterSelector>
                         <Dropzone>
+                            <CloudUpStyle>
+                                <BiCloudUpload />
+                            </CloudUpStyle>
                             <MyDropzone />
                         </Dropzone>
                     </InputArea>
                     <EditionText>
                         <EditionDescription>
                             <textarea
+                                alt="Descreva o problema"
                                 placeholder="Descreva o problema"
                                 maxLength={2000} >
                             </textarea>
@@ -95,7 +103,7 @@ export default function TelaChamados() {
                 </EditionArea>
                 <Footer>
                     <ButtonFinish type="submit" onClick={alertFinish}>
-                        Abrir chamado
+                        <span>Abir chamado</span>
                     </ButtonFinish>
                 </Footer>
             </Container>
