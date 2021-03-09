@@ -9,13 +9,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
-<<<<<<< HEAD
-      {/* <AppProvider> */}
         <Routes />
-      {/* </AppProvider> */}
-=======
-        <Routes />
->>>>>>> 9e8c5de387f9afe7e0c899d8599b6df624f82099
     </>
   );
 }

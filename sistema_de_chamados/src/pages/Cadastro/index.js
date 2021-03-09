@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import schema from './schema'
 import './index.css'
@@ -6,10 +6,22 @@ import {
     BrowserRouter as Router } from 'react-router-dom';
 import logo from '../../assets/logo.png'
 import { useHistory } from 'react-router-dom';
+import api from '../../services/api'
 
 export default function Cadastro() {
 
     const history = useHistory();
+
+    const handleSubmit = useCallback((data) =>{
+        const cadastro = async(req, res) => {
+            const {nome, email, cpf, rg, cep, endereco, telefone, cargo, password} = req.body;
+            const form = {nome, email, cpf, rg, cep, endereco, telefone, cargo, password}
+
+            await api.post('cadastro', form)
+            res.status(200)
+            console.log('teste')
+        }
+    }, [])
 
     function onSubmit(values, actions) {
         history.push('/chamados');
@@ -103,7 +115,7 @@ export default function Cadastro() {
                                 <ErrorMessage className="erro" name="password" component="spam" />
                             </div>
                         </div>
-                        <button className="Submit" type="submit" disabled={!isValid} onClick={onSubmit}>Cadastrar</button>
+                        <button className="Submit" type="submit" disabled={!isValid} onClick={handleSubmit}>Cadastrar</button>
                  </div>
                 </div>
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 const api = axios.create({
     baseURL: "http://testetaking.herokuapp.com/",
     headers: {
-        'Authorization':'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHJpbmciLCJpYXQiOjE2MTUyOTEwMTAsImV4cCI6MTYxNTMwOTAxMH0.zhH85BpuXP12eUrhe67bMbqG2K5gKRvprSZp6MkwFRs'
+        'Authorization':'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHJpbmciLCJpYXQiOjE2MTUyOTQ4MjMsImV4cCI6MTYxNTMxMjgyM30.aBBDcVJ7flQGDLgVLF8QBDauNUyTe4eI1wHBesph5Z0'
     }
 });
 
@@ -18,3 +18,5 @@ const listarChamados = function (numeroDaPagina) {
 
 
 export {listarPossiveisProblemas, listarChamados};
+
+export default api
