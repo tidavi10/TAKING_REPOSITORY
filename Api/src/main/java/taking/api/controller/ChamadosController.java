@@ -116,7 +116,7 @@ public class ChamadosController {
 	//Retorna todos o chamados para um ADM específico
 	@GetMapping("/adm/{idAdm}/{numeroPagina}")
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
-	public List<Chamados> chamadosAdm(@PathVariable Long idAdm, @PathVariable int numeroPagina){
+	public List<ChamadosRespostaDTO> chamadosAdm(@PathVariable Long idAdm, @PathVariable int numeroPagina){
 		return chamadosService.findChamadosAdmPaginated(numeroPagina, idAdm);
 	}
 }
