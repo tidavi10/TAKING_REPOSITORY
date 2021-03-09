@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import taking.api.config.JwtTokenUtil;
 import taking.api.dto.TokenDTO;
 import taking.api.exceptions.AutenticacaoException;
@@ -29,7 +31,7 @@ import taking.api.service.JwtUserDetailsService;
 @CrossOrigin
 public class JwtAuthenticationController {
 
-	@Autowired
+	@Autowired (required = false)
 	private AuthenticationManager authenticationManager;
 	
 	@Autowired
@@ -47,6 +49,7 @@ public class JwtAuthenticationController {
 	@Autowired
 	private UsuariosAdmRepository usuariosAdmRepository;
 
+	@ApiOperation(value = "Login Usuário")
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<TokenDTO> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
 			throws Exception {
@@ -55,6 +58,7 @@ public class JwtAuthenticationController {
 
 	}
 
+	@ApiOperation(value = "Login ADM")
 	@RequestMapping(value = "/admAuth", method = RequestMethod.POST)
 	public ResponseEntity<TokenDTO> createAdmToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 		return authenticateService.AdmAuth(authenticationRequest.getEmail(), authenticationRequest.getSenha());

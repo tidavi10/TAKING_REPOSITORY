@@ -21,7 +21,7 @@ public class TipoProblemaController {
 	private TipoProblemaRepository repository;
 	
 	@GetMapping
-	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
+	@ApiOperation(value = "Retorna uma lista com todos os tipos de problemas", authorizations = { @Authorization(value = "jwtToken") })
 	public ResponseEntity<List<TipoProblema>> listaDeProblemas() {
 		List<TipoProblema> list = repository.findAll();
 		return ResponseEntity.ok().body(list);

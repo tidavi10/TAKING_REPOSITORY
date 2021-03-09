@@ -1,9 +1,7 @@
 package taking.api.controller;
 
-import java.net.URI;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import taking.api.dto.ChamadoIdDTO;
 import taking.api.dto.ChamadosRespostaDTO;
 import taking.api.model.Chamados;
-import taking.api.repository.ChamadosRepository;
 import taking.api.repository.UsuariosAdmRepository;
 import taking.api.repository.UsuariosRepository;
 import taking.api.service.ChamadosService;
@@ -52,14 +47,18 @@ public class ChamadosController {
 
 	
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
-	@GetMapping("/chamadosDoUsuario/{useId}")
+	@GetMapping("/chamadosDoUsuario/{userId}")
 	public ResponseEntity<List<ChamadosRespostaDTO>> listaDeChamados(@PathVariable("userId") Long userId) {
 		List<Chamados> lista =  chamadosService.lista(userId);
 		List<ChamadosRespostaDTO> listaDto = lista.stream().map(obj -> new ChamadosRespostaDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listaDto);
 	}
 	
-	@ApiOperation(value = "Cadastra um novo chamado", authorizations = { @Authorization(value = "jwtToken") })
+	@ApiOperation(value = "Cadastra um novo chamado", 
+			notes = "Para cadastrar um novo chamado será necessário passar na URL o ID do Usuário, o ID do problema"
+					+ "e o ID do ADM"
+					+ "\nOBS: Por enquanto precisará passar o ID do ADM",
+			authorizations = { @Authorization(value = "jwtToken") })
 	@PostMapping("/{userId}/{problemId}/{admId}")
 	public ResponseEntity<ChamadoIdDTO> cadastrarChamado(@PathVariable("userId") Long userId,
 			@PathVariable("admId") Long admId, @PathVariable("problemId") Long problemId, @RequestParam("file") MultipartFile file,
@@ -80,7 +79,9 @@ public class ChamadosController {
 //		return ResponseEntity.created(uri).build();
 	}
 
-	@ApiOperation(value = "Faz o download do anexo", authorizations = { @Authorization(value = "jwtToken") })
+	@ApiOperation(value = "Faz o download do anexo", 
+			notes = "Para fazer o download no anexo, passar na URL o ID do chamado do anexo",
+			authorizations = { @Authorization(value = "jwtToken") })
 	@GetMapping("/baixarAnexo/{chamadoId}")
 	public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long chamadoId) {
 		Chamados chamado = chamadosService.getFile(chamadoId).get();
@@ -90,15 +91,19 @@ public class ChamadosController {
 	}
 
 	//Retorna todos os chamados paginados
-	@GetMapping("/pagina/{numeroPagina}")
+	/*@GetMapping("/pagina/{numeroPagina}")
 	@ApiOperation(value = "Retorna todos os chamados paginados", authorizations = { @Authorization(value = "jwtToken") })
 	public List<Chamados> retornoPaginado(@PathVariable int numeroPagina) {
 		return chamadosService.findChamadosPaginated(numeroPagina);
-	}
+	}*/
 	
 	//Retorna os chamados de um usuário específico
 	@GetMapping("usuario/{idUsuario}/{numeroPagina}")
-	@ApiOperation(value = "Retorna os chamados de um usuário específico", authorizations = { @Authorization(value = "jwtToken") })
+	@ApiOperation(notes = "Retorna os chamados de um Usuário específico, passando como"
+							+ "argumento na URL o ID do Usuário e o número da página respectivamente."
+							+ "\nA primeira página começa passando como parametro 0.",
+					value = "Retorna todos o chamados para um usuário específico",
+					authorizations = { @Authorization(value = "jwtToken") })
 	public List<Chamados> chamadosUsuario(@PathVariable Long idUsuario, @PathVariable int numeroPagina) {
 		return chamadosService.findChamadosUsuarioPaginated(numeroPagina, idUsuario);
 	}
@@ -106,7 +111,7 @@ public class ChamadosController {
 	//Retorna um chamado específico para o ADM
 	@GetMapping("/{idChamado}/{idAdm}")
 	@ApiOperation(value = "Retorna um chamado específico para o ADM", 
-					notes = "",
+					notes = "Retorna todas as informações de um chamado para um ADM específico",
 					authorizations = { @Authorization(value = "jwtToken") })
 	public List<Chamados> chamadosIdAndAdm(@PathVariable Long idChamado, @PathVariable Long idAdm){
 		return chamadosService.findByIdAndAdm(idChamado, idAdm);
@@ -117,7 +122,7 @@ public class ChamadosController {
 	@ApiOperation(value = "Retorna todos o chamados para um ADM específico", 
 					notes = "Retorna os chamados páginados de um ADM específico, passando como "
 							+ "argumento na URL o ID do ADM e o número da página respectivamente."
-							+ "\n\nA primeira página começa passando como parametro 0.",
+							+ "\nA primeira página começa passando como parametro 0.",
 					authorizations = { @Authorization(value = "jwtToken") })
 	public List<Chamados> chamadosAdm(@PathVariable Long idAdm, @PathVariable int numeroPagina){
 		return chamadosService.findChamadosAdmPaginated(numeroPagina, idAdm);

@@ -47,13 +47,14 @@ public class UsuariosController {
 			@ApiResponse(code = 200, message = "Retorna a lista de usuarios"),
 			@ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
 		})
-	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
+	@ApiOperation(value = "Retorna todos os usuários", hidden = true, authorizations = { @Authorization(value = "jwtToken") })
 	@RequestMapping(method=RequestMethod.GET, value="/cadastrados")
 	public @ResponseBody List<Usuarios> listausuarios() {
 		return usuariosRepository.findAll();
 	}
 	
 	@PostMapping("/cadastro")
+	@ApiOperation(value = "Cadastra um Usuário")
 	public void signUp(@Valid @RequestBody Usuarios usuarios)
 	{
 		usuarios.setSenha(bCryptPasswordEncoder.encode(usuarios.getSenha()));

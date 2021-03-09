@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import taking.api.model.Usuarios;
 import taking.api.model.UsuariosAdm;
 import taking.api.repository.UsuariosAdmRepository;
@@ -33,6 +35,7 @@ public class UsuariosAdmController {
 	}
 	
 	@PostMapping("/cadastro")
+	@ApiOperation(value = "Retorna uma lista com todos os tipos de problemas", hidden = true, authorizations = { @Authorization(value = "jwtToken") })
 	public ResponseEntity<UsuariosAdm> salvar(@RequestBody UsuariosAdm usuarios)
 	{
 		UsuariosAdm adm = usuariosAdmService.salvar(usuarios);
