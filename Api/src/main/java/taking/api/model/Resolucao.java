@@ -10,10 +10,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 public class Resolucao {
 
 	@Id
+	@ApiModelProperty(notes = "ID da resolução", required = true, position = 1)
 	private Long id;
 	
 	@OneToOne
@@ -21,10 +24,12 @@ public class Resolucao {
 	private Chamados chamados;
 	
 	@NotBlank
+	@ApiModelProperty(notes = "Descrição da resolução dos chamados", required = true, position = 2)
 	private String resolucao;
 	
 	@Column(name = "dataResolucao", updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
+	@ApiModelProperty(notes = "Horário em que foi enviado a resolução", required = true, position = 3)
 	private Date timestamp;
 
 	public Long getId() {

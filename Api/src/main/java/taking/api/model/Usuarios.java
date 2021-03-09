@@ -14,12 +14,17 @@ import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
+@ApiModel(description = "Modelo do usuário")
 public class Usuarios implements Serializable {
 	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@ApiModelProperty(notes = "ID do usuário", position = 1)
 	private Long id;
 	
 	@JsonIgnore
@@ -28,29 +33,37 @@ public class Usuarios implements Serializable {
 
 	@NotBlank (message = "E-mail inválido")
 	@Column(unique = true)
+	@ApiModelProperty(notes = "E-mail do usuário", required = true, position = 3)
 	private String email;
 	
 	@NotBlank (message = "Senha inválido")
+	@ApiModelProperty(notes = "Senha do usuário", required = true, position = 4)
 	@Column(name = "senha")
 	private String senha;
 	
 	@NotBlank (message = "Nome inválido")
+	@ApiModelProperty(notes = "Nome do usuário", required = true, position = 2)
 	private String nome;
 	
 	@NotBlank (message = "Endereço inválido")
+	@ApiModelProperty(notes = "Endereço do usuário", required = true, position = 8)
 	private String endereco;
 	
 	@NotBlank (message = "CEP inválido")
+	@ApiModelProperty(notes = "CEP do usuário", required = true, position = 7)
 	private String cep;
 	
 	@NotBlank (message = "Telefone inválido")
+	@ApiModelProperty(notes = "Telefone do usuário", required = true, position = 9)
 	private String telefone;
 	
 	@NotBlank (message = "CPF inválido")
+	@ApiModelProperty(notes = "CPF do usuário", required = true, position = 5)
 	@Column (unique = true)
 	private String cpf;
 	
 	@NotBlank (message = "RG inválido")
+	@ApiModelProperty(notes = "RG do usuário", required = true, position = 6)
 	private String rg;
 
 	public Long getId() {

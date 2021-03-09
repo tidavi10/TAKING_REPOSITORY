@@ -1,0 +1,76 @@
+package taking.api.service;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import taking.api.config.JwtTokenUtil;
+import taking.api.dto.TokenDTO;
+import taking.api.model.JwtRequest;
+import taking.api.model.Usuarios;
+import taking.api.model.UsuariosAdm;
+import taking.api.repository.UsuariosAdmRepository;
+import taking.api.repository.UsuariosRepository;
+
+@Service("Adm")
+public class AuthenticateService {
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
+
+	@Autowired
+	private JwtUserDetailsService userDetailsService;
+
+	@Autowired
+	private UsuariosRepository usuariosRepository;
+
+	@Autowired
+	private UsuariosAdmRepository usuariosAdmRepository;
+
+	public ResponseEntity<TokenDTO> AdmAuth(String email, String senha) {
+
+		//Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+		//		email, senha));
+		
+		final UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+
+		UsuariosAdm usuarioAdm = usuariosAdmRepository.findByEmail(email);
+
+		final String token = jwtTokenUtil.generateToken(userDetails);
+		TokenDTO tokenResponse = new TokenDTO();
+		tokenResponse.setId(usuarioAdm.getID());
+		tokenResponse.setToken(token);
+
+		return ResponseEntity.ok(tokenResponse);
+	}
+
+	public ResponseEntity<TokenDTO> UserAuth(String email, String senha) {
+
+		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+				email, senha));
+		
+		final UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+
+		Usuarios usuario = usuariosRepository.findByEmail(email);
+
+		final String token = jwtTokenUtil.generateToken(userDetails);
+		TokenDTO tokenResponse = new TokenDTO();
+		tokenResponse.setId(usuario.getId());
+		tokenResponse.setToken(token);
+
+		return ResponseEntity.ok(tokenResponse);
+	
+	}
+}

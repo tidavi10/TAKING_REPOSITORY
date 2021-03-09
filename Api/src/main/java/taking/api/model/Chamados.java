@@ -13,22 +13,36 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 public class Chamados implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@ApiModelProperty(notes = "ID do chamado", required = true, position = 1)
 	private Long id;
+	
+	@ApiModelProperty(notes = "Descrição do problema", required = true, position = 2)
 	private String descricao;
+	
 	@Lob
+	@ApiModelProperty(notes = "Anexo do problema", required = true, position = 3)
 	private byte[] anexo;
+	
+	@ApiModelProperty(notes = "Nome do arquivo do anexo", required = true, position = 4)
 	private String nomeAnexo;
+	
+	@ApiModelProperty(notes = "extensão do anexo", required = true, position = 5)
 	private String tipoAnexo;
+	
+	@ApiModelProperty(notes = "ID da resolução", required = true, position = 6)
 	private String status;
 	
 	@Column(name = "dataChamado", updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
+	@ApiModelProperty(notes = "Data da criação do chamado", required = true, position = 7)
 	private Date dataCriacao;
 	
 	@ManyToOne

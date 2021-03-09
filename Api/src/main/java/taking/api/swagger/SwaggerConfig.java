@@ -31,7 +31,7 @@ public class SwaggerConfig {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-				.title("Sig-Predict REST API Document")
+				.title("Sistema de chamados Taking")
 				.description("work in progress")
 				.termsOfServiceUrl("localhost")
 				.version("1.0")

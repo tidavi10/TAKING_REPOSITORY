@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name = "usuariosadm")
 public class UsuariosAdm implements Serializable {
@@ -18,14 +20,17 @@ public class UsuariosAdm implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@ApiModelProperty(notes = "ID do usuário", position = 1)
 	@Column(name = "idAdm")
 	private Long ID;
 	
 	@NotBlank (message = "E-mail inválido")
+	@ApiModelProperty(notes = "E-mail do usuário", required = true, position = 2)
 	@Column(unique = true)
 	private String email;
 	
 	@NotBlank (message = "Senha inválida")
+	@ApiModelProperty(notes = "Senha do usuário", required = true, position = 3)
 	private String senha;
 
 	public Long getID() {

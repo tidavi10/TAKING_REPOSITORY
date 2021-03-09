@@ -98,6 +98,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -120,6 +121,7 @@ import taking.api.oauth2.CustomAuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
+@Order(1)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter implements ApplicationContextAware {
 
 	@Autowired
@@ -149,7 +151,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter imple
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable().authorizeRequests()
         		.antMatchers(AUTH_WHITELIST).permitAll()
-                .antMatchers(HttpMethod.POST, "/usuarios/cadastro", "/authenticate", "/usuariosadm/cadastro")
+                .antMatchers(HttpMethod.POST, "/usuarios/cadastro", "/authenticate")
                 .permitAll().anyRequest().authenticated()
                 .and()
                 .oauth2Login()
@@ -183,7 +185,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter imple
 	}**/
 
 	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+		authenticationManagerBuilder.userDetailsService(this.userDetailsService).passwordEncoder(bCryptPasswordEncoder);
 	}
 
 	@Bean
