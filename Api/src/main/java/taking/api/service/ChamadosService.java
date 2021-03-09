@@ -51,8 +51,8 @@ public class ChamadosService {
 		return chamadosRepository.findById(fileId);
 	}
 
-	public List<Chamados> lista() {
-		return chamadosRepository.findAll();
+	public List<Chamados> lista(Long id) {
+		return chamadosRepository.listaTodos(id);
 	}
 
 	public Chamados salvarDados(Long userId, Long problemId, Long admId, MultipartFile file, String descricaoProblema,
