@@ -43,8 +43,8 @@ public class Usuarios implements Serializable {
 	@NotBlank (message = "CEP inválido")
 	private String cep;
 	
-	@NotBlank (message = "Telefone inválido")
-	private String telefone;
+	@NotBlank (message = "Cargo inválido")
+	private String cargo;
 	
 	@NotBlank (message = "CPF inválido")
 	@Column (unique = true)
@@ -101,12 +101,12 @@ public class Usuarios implements Serializable {
 		this.cep = cep;
 	}
 
-	public String getTelefone() {
-		return telefone;
+	public String getCargo() {
+		return cargo;
 	}
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
 	}
 
 	public String getCpf() {
