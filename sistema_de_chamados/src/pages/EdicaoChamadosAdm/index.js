@@ -5,6 +5,7 @@ import {
     Container,
     Header,
     HeaderContent,
+    Img,
     ButtonHeader,
     CallsBox,
     LegendCalls,
@@ -18,9 +19,10 @@ import {
     EditionRunTime,
     DescriptionArea,
     ButtonArea,
-    CancelButton,
     SubmitButton
 } from './style';
+
+import logo from '../../assets/logo.png'
 
 export default function EdicaoChamadosAdm() {
     const history = useHistory();
@@ -32,6 +34,7 @@ export default function EdicaoChamadosAdm() {
         <Container>
             <Header>
                 <HeaderContent>
+                    <Img src={logo}></Img>
                     <ButtonHeader onClick={goToChamadosAdm}>
                         <p>Chamados</p>
                     </ButtonHeader>
@@ -89,9 +92,9 @@ export default function EdicaoChamadosAdm() {
 
             <ButtonArea>
                 <>
-                    <CancelButton>
+                    <SubmitButton>
                         <p>Cancelar</p>
-                    </CancelButton>
+                    </SubmitButton>
                     <SubmitButton>
                         <p>Atualizar</p>
                     </SubmitButton>

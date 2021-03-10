@@ -3,10 +3,13 @@ import { useHistory } from 'react-router-dom';
 
 import { FiEdit } from 'react-icons/fi';
 
+import logo from '../../assets/logo.png';
+
 import {
     Container,
     Header,
     HeaderContent,
+    Img,
     ButtonHeader,
     CallsBox,
     LegendCalls,
@@ -29,6 +32,7 @@ export default function ChamadosAdm() {
         <Container>
             <Header>
                 <HeaderContent>
+                    <Img src={logo}></Img>
                     <ButtonHeader>
                         <p>Chamados</p>
                     </ButtonHeader>

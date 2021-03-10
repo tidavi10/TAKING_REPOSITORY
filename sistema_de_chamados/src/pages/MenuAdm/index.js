@@ -6,7 +6,7 @@ import {
    ButtonHeader,
    Img, 
 } from './styles';
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logo.png';
 import { useHistory } from 'react-router-dom';
 
 export default function MenuAdm() {
@@ -20,13 +20,14 @@ export default function MenuAdm() {
             <Container>
                 <Header>
                     <HeaderContent>
-                        <ButtonHeader onClick={gotoadm}>
-                            <span>Tela de Chamados</span>
-                        </ButtonHeader>
+                            <Img src={logo}></Img>
+                            <ButtonHeader onClick={gotoadm}>
+                                <p>Tela de Chamados</p>
+                            </ButtonHeader>
                     </HeaderContent>
-                    <span>Usuário Logado</span>
+                    <p>Usuário Logado</p>
                 </Header>
-                <Img src={logo}></Img>
+                
             </Container>
         </>
     )

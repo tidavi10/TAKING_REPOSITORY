@@ -16,7 +16,7 @@ const AuthProvider =  ({ children }) => {
     });
 
     const login = useCallback(async({ email, senha }) => {
-        const response = await api.post('authenticate', {
+        const response = await api.post('admAuth', {
             email,
             senha
         });

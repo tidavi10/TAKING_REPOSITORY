@@ -6,6 +6,7 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
+    background: #f8f9fa;
 
     @media (max-width: 576px) {
         padding: 12px;
@@ -25,18 +26,21 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.div`
-    background: #dee2e6;
+    background: #219ebc;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 4px -2px #989898;
     width: 100%;
     height: 64px;
     border-radius: 10px;
     padding: 0 10px;
-    font-weight: 500;
-    margin-bottom: 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    text-align: center;
+    margin-bottom: 1rem;
 
     > p {
+        color: #ffecd1;
         margin-right: 24px;
     }
 
@@ -100,17 +104,27 @@ export const HeaderContent = styled.div`
     align-items: center;
 `;
 
+export const Img =styled.img`
+    width: 30px;
+    height: 30px;
+    margin-bottom: 24px;
+    margin-left: 4px;
+`;
+
 export const ButtonHeader = styled.button`
-    width: 88px;
-    height: 100%;
+    background: #219ebc;
+    width: 92px;
+    height: 90%;
     font-weight: 500;
-    border: 1px solid #dee2e6;
     transition: background 0.2s;
     transition: border 0.2s;
+    padding: 0 3px;
+    color: #ffecd1;
+    margin-left: 6px;
 
     &:hover {
-        background: #dee2e6;
-        border: 3px solid #efefef;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
     }
 
     @media (max-width: 576px) {
@@ -134,6 +148,7 @@ export const ButtonHeader = styled.button`
     }
 `;
 
+
 export const CallsBox = styled.div`
     width: 100%;
     height: auto;
@@ -145,17 +160,17 @@ export const CallsBox = styled.div`
 export const LegendCalls = styled.div`
     width: 90%;
     height: 48px;
-    background: #dee2e6;
+    background: #fff;
     border-radius: 10px;
     display: flex;
     align-items: center; 
     margin-bottom: 16px;
-    border: 1px solid #eee;
+    border: 2px solid #eee;
     
     p:first-child {
         width: 10%;
         height: 100%;
-        border-right: 1px solid #eee;
+        border-right: 2px solid #eee;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -164,7 +179,7 @@ export const LegendCalls = styled.div`
     p:nth-child(2) {
         width: 70%;
         height: 100%;
-        border-right: 1px solid #eee;
+        border-right: 2px solid #eee;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -248,12 +263,12 @@ export const LegendCalls = styled.div`
 export const CallItem = styled.div`
     width: 90%;
     height: 48px;
-    background: #dee2e6;
+    background: #fff;
     border-radius:10px;
     display: flex;
     justify-content: space-between;
     align-items: center; 
-    border: 1px solid #eee;
+    border: 2px solid #eee;
 
     @media (max-width: 576px) {
         font-size: 75%;
@@ -281,10 +296,11 @@ export const CallItem = styled.div`
 export const CallCod = styled.div`
     width: 10%;
     height: 100%;
-    border-right: 1px solid #eee;
+    border-right: 2px solid #eee;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #333;
 
     @media (max-width: 576px) {
         width: 16%;
@@ -302,7 +318,7 @@ export const CallCod = styled.div`
 export const CallType = styled.div`
     width: 70%;
     height: 100%;
-    border-right: 1px solid #eee;
+    border-right: 2px solid #eee;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -417,7 +433,7 @@ export const EditionStatus = styled.div`
     }
 
     select {
-        border: 1px solid #eee;
+        border: 2px solid #eee;
         background: #fff;
         border-radius: 4px;
         height: 24px;
@@ -483,7 +499,7 @@ export const EditionRunTime = styled.div`
         margin-top: 8px;
         width: 60%;
         height: 24px;
-        border: 1px solid #eee;
+        border: 2px solid #eee;
         padding: 0 4px;
         border-radius: 4px;
         background: #fff;
@@ -526,7 +542,7 @@ export const DescriptionArea = styled.div`
         width: 100%;
         height: 80%;
         resize: none;
-        border: 1px solid #eee;
+        border: 2px solid #eee;
         padding: 0 4px;
         border-radius: 4px;
         background: #fff;   
@@ -601,15 +617,15 @@ export const SubmitButton = styled.button`
     width: 40%;
     height: 100%;
     border-radius: 4px;
-    background: #eee;
-    border: 1px solid #dee2e6;
+    background: #ffb703;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s;
+    transition: background 0.3s;
     
     &:hover {
-        background: #4cd62b;
+        /* background: #4cd62b; */
+        background: ${darken(0.04, '#ffb703')};
     }
 
     p {
@@ -640,67 +656,6 @@ export const SubmitButton = styled.button`
         width: 48%;
         height: 100%;
         border-radius: 4px;
-        
-        & + button {
-            margin-top: 0;
-        }
-
-        p {
-            font-size: 87.5%;
-            font-weight: 500;
-            color: #333;
-        }
-    }
-
-    @media (min-width: 992px) and (max-width: 1199px) {
-        > p {
-            font-size: 93.75%;
-        }   
-    }
-`;
-
-export const CancelButton = styled.button`
-    width: 40%;
-    height: 100%;
-    border-radius: 4px;
-    background: #eee;
-    border: 1px solid #dee2e6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s;
-    
-    &:hover {
-        background: #F0440A;
-    }
-
-    p {
-        font-size: 87.5%;
-        font-weight: 500;
-        color: #333;
-    }
-
-    @media (max-width: 576px) {
-        width: 90%;
-        height: 32px;
-
-        & + button {
-            margin-top: 8px;
-        }
-    }
-
-    @media (min-width: 576.1px) {
-        width: 90%;
-        height: 32px;
-
-        & + button {
-            margin-top: 8px;
-        }
-    }
-
-    @media (min-width: 768px) {
-        width: 48%;
-        height: 100%;
         
         & + button {
             margin-top: 0;
