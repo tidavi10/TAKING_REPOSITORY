@@ -22,20 +22,17 @@ import { useHistory } from 'react-router-dom';
 
 export default function ChamadosAdm() {
   const history = useHistory();
-
   const [state, setState] = useState({ activePage: 1 });
-
   const [listaDeChamados, setlistaDeChamados] = useState([]);
 
   useEffect(() => {
     listarChamados(state.activePage - 1).then(d => d.data).then(d => {
       setlistaDeChamados(d)
-      console.log(d)
     })
   }, [state.activePage]);
 
   function getPaginated() {
-    return listaDeChamados//.filter((_, idx) => idx >= ((state.activePage) * 2) && idx < (state.activePage) * 2)
+    return listaDeChamados
   }
 
   const goToChamados = () => {
@@ -43,7 +40,6 @@ export default function ChamadosAdm() {
   };
 
   function handlerPageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
     setState({ activePage: pageNumber });
   }
 
@@ -89,15 +85,13 @@ export default function ChamadosAdm() {
             )
           }
         </CallsBox>
-        <>
           <Pagination
             activePage={state.activePage}
             itemsCountPerPage={2}
             totalItemsCount={listaDeChamados.length}
             pageRangeDisplayed={5}
             onChange={handlerPageChange}
-          />
-        </>
+          />        
       </Container>
     </Router>
   )
