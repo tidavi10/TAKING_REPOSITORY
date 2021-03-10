@@ -65,6 +65,7 @@ public class AuthenticateService {
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		TokenDTO tokenResponse = new TokenDTO();
 		tokenResponse.setId(usuario.getId());
+		tokenResponse.setNome(usuario.getNome());
 		tokenResponse.setToken(token);
 
 		return ResponseEntity.ok(tokenResponse);
