@@ -39,6 +39,7 @@ export const Header = styled.div`
     > p {
         color: #ffecd1;
         margin-right: 24px;
+        margin-bottom: 0;
     }
 
     @media (max-width: 576px) {
@@ -118,6 +119,10 @@ export const ButtonHeader = styled.button`
     padding: 0 3px;
     color: #fff;
     margin-left: 10px;
+
+    > p {
+        margin-bottom: 0;
+    }
 
     &:hover {
         border: 1px solid #dee2e6;

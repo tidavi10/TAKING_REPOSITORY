@@ -40,6 +40,7 @@ export const Header = styled.div`
     > p {
         color: #ffecd1;
         margin-right: 24px;
+        margin-bottom: 0 
     }
 
     @media (max-width: 576px) {
@@ -120,6 +121,10 @@ export const ButtonHeader = styled.button`
     color: #fff;
     margin-left: 6px;
 
+    > p {
+        margin-bottom: 0;
+    }
+
     &:hover {
         border: 1px solid #dee2e6;
         border-radius: 6px;
@@ -157,8 +162,12 @@ export const LegendCalls = styled.div`
     border-radius:10px;
     display: flex;
     align-items: center; 
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     border: 2px solid #eee;
+
+    > p {
+        margin-bottom: 0;
+    }
     
     p:first-child {
         width: 10%;
@@ -263,6 +272,10 @@ export const CallItem = styled.div`
     margin-bottom: 16px;
     border: 2px solid #eee;
 
+    > p {
+        margin-bottom: 0;
+    }
+
     @media (max-width: 576px) {
         font-size: 75%;
         width: 85%;
@@ -299,6 +312,10 @@ export const CallCod = styled.div`
     justify-content: center;
     color: #333;
 
+    > p {
+        margin-bottom: 0;
+    }
+
     @media (max-width: 576px) {
         width: 16%;
     }
@@ -321,6 +338,10 @@ export const CallType = styled.div`
     justify-content: center;
     color: #333;
 
+    > p {
+        margin-bottom: 0;
+    }
+
     @media (max-width: 576px) {
         width: 60%;
     }
@@ -341,6 +362,10 @@ export const CallStatus = styled.div`
     align-items: center;
     justify-content: center;
     color: #333;
+
+    > p {
+        margin-bottom: 0;
+    }
 
     @media (max-width: 576px) {
         width: 24%;
