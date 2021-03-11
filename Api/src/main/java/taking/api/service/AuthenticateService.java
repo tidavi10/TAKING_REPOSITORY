@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import taking.api.config.JwtTokenUtil;
 import taking.api.dto.TokenDTO;
+import taking.api.exceptions.AutenticacaoException;
 import taking.api.model.JwtRequest;
 import taking.api.model.Usuarios;
 import taking.api.model.UsuariosAdm;
@@ -55,8 +57,12 @@ public class AuthenticateService {
 
 	public ResponseEntity<TokenDTO> UserAuth(String email, String senha) {
 
+		try {
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 				email, senha));
+		} catch (BadCredentialsException e) {
+			throw new AutenticacaoException("Usuário e/ ou senha inválidos");
+		}
 		
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 

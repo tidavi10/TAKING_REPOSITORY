@@ -64,13 +64,5 @@ public class JwtAuthenticationController {
 		return authenticateService.AdmAuth(authenticationRequest.getEmail(), authenticationRequest.getSenha());
 
 	}
-
-	// Exception autenticação
-	private void authenticate(String username, String password) {
-		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-		} catch (BadCredentialsException e) {
-			throw new AutenticacaoException("Usuário e/ ou senha inválidos");
-		}
-	}
+	
 }
