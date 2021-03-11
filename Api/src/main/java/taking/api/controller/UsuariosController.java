@@ -32,6 +32,8 @@ import taking.api.repository.UsuariosRepository;
 @RestController
 @RequestMapping("/usuarios")
 public class UsuariosController {
+
+	private JwtAuthenticationController loginController;
 	
 	
 	@Autowired

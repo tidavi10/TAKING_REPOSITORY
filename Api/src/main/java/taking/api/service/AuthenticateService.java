@@ -21,10 +21,10 @@ import taking.api.model.UsuariosAdm;
 import taking.api.repository.UsuariosAdmRepository;
 import taking.api.repository.UsuariosRepository;
 
-@Service("Adm")
+@Service
 public class AuthenticateService {
 
-	@Autowired
+	@Autowired(required = false)
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
@@ -40,6 +40,9 @@ public class AuthenticateService {
 	private UsuariosAdmRepository usuariosAdmRepository;
 
 	public ResponseEntity<TokenDTO> AdmAuth(String email, String senha) {
+		
+		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+				email, senha));
 		
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 

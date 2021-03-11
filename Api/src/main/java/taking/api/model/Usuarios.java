@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,10 +20,16 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"email", "cpf"})})
 @ApiModel(description = "Modelo do usuário")
 public class Usuarios implements Serializable {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@ApiModelProperty(notes = "ID do usuário", position = 1)
@@ -32,13 +40,11 @@ public class Usuarios implements Serializable {
 	private List<Chamados> chamados = new ArrayList<>();
 
 	@NotBlank (message = "E-mail inválido")
-	@Column(unique = true)
 	@ApiModelProperty(notes = "E-mail do usuário", required = true, position = 3)
 	private String email;
 	
 	@NotBlank (message = "Senha inválido")
 	@ApiModelProperty(notes = "Senha do usuário", required = true, position = 4)
-	@Column(name = "senha")
 	private String senha;
 	
 	@NotBlank (message = "Nome inválido")
