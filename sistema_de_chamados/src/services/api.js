@@ -3,7 +3,7 @@ import axios from 'axios';
 const api = axios.create({
     baseURL: "http://testetaking.herokuapp.com/",
     headers: {
-        'Authorization':'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJpYUBnbWFpbC5jb20iLCJpYXQiOjE2MTUzOTM0MzksImV4cCI6MTYxNTQxMTQzOX0.3QdRqlATrdaL0u0z-uyp4ln7OsJgCChKy1letbH5KE4'
+        'Authorization':'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJpYUBnbWFpbC5jb20iLCJpYXQiOjE2MTU0MTgyMzgsImV4cCI6MTYxNTQzNjIzOH0.Z5UocX8zh-EmMnx0PTnlwTljwzQvg9_EppQatmiLy3k'
     }
 });
 
@@ -15,6 +15,12 @@ const listarPossiveisProblemas = function () {
     return api.get('problema')
 }
 
+const cadastrarChamado = function (descricaoProblema, formData) {
+    return api.post(`chamados/${10}/${2}/${6}?descricaoProblema=${descricaoProblema}`, formData,
+    {
+        headers: { 'Content-Type': 'multipart/form-data' }
+    })
+}
 
 const listarChamados = function (numeroPagina) {
     return api.get(`chamados/usuario/${10}/${numeroPagina}`)
@@ -22,4 +28,4 @@ const listarChamados = function (numeroPagina) {
 
 export default api;
 
-export {listarPossiveisProblemas, listarChamados, cadastro};
+export {listarPossiveisProblemas, listarChamados, cadastro, cadastrarChamado};
