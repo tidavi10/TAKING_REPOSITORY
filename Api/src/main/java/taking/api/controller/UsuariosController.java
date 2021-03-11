@@ -24,9 +24,12 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import taking.api.dto.TokenDTO;
+import taking.api.model.JwtRequest;
 import taking.api.model.Usuarios;
 
 import taking.api.repository.UsuariosRepository;
+import taking.api.service.AuthenticateService;
 
 @Api(tags="Usuarios")
 @RestController
@@ -35,6 +38,8 @@ public class UsuariosController {
 
 	private JwtAuthenticationController loginController;
 	
+	@Autowired
+	private AuthenticateService authenticateService;
 	
 	@Autowired
 	private UsuariosRepository usuariosRepository;
@@ -57,11 +62,14 @@ public class UsuariosController {
 	
 	@PostMapping("/cadastro")
 	@ApiOperation(value = "Cadastra um Usuário")
-	public void signUp(@Valid @RequestBody Usuarios usuarios)
+	public ResponseEntity<TokenDTO> signUp(@Valid @RequestBody Usuarios usuarios)
 	{
+		String senha = usuarios.getSenha();
 		usuarios.setSenha(bCryptPasswordEncoder.encode(usuarios.getSenha()));
-		usuariosRepository.save(usuarios);
+		usuariosRepository.saveAndFlush(usuarios);
+		return authenticateService.UserAuth(usuarios.getEmail(), senha);
 	}
+	
 	
 /**	
 	@Autowired
@@ -79,7 +87,4 @@ public class UsuariosController {
 		return UsuariosRepository.save(usuario);
 	}
 **/
-	
-	
-
 }
