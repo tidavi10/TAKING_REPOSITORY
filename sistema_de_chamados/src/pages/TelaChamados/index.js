@@ -5,7 +5,9 @@ import {
 import { useHistory } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import Select from 'react-select';
-import {listarPossiveisProblemas} from '../../services/api'
+
+import { listarPossiveisProblemas } from '../../services/api';
+import { cadastrarChamado } from '../../services/api';
 import {
     Container,
     Header,
@@ -26,9 +28,10 @@ import {
 import { BiCloudUpload } from "react-icons/bi";
 
 
-function MyDropzone() {
+function MyDropzone(props) {
+    console.log(props)
     const onDrop = useCallback(acceptedFiles => {
-        console.log(acceptedFiles)
+        props.onFileSelected(acceptedFiles[0])
     }, [])
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
@@ -48,7 +51,7 @@ export default function TelaChamados() {
     const history = useHistory();
     const [selectedOption, setSelectedOption] = useState(null);
     const [possiveisProblemas, setPossiveisProblemas] = useState([]);
-
+    const [fileSelect, setFileSelect] = useState(null)
     useEffect(() => {
         listarPossiveisProblemas().then(d => d.data).then(d => {
             const ordenados = d.map(c => (
@@ -62,6 +65,18 @@ export default function TelaChamados() {
         })
     }, [possiveisProblemas.length])
 
+    const [text, setText] = useState("");
+
+    const handlerChangeText = ({ target: { value }}) => {
+        setText(value);
+    }
+
+    const handlerEnviar = () => {
+        const formData = new FormData();
+        formData.append('file', fileSelect);
+        cadastrarChamado(text, formData).then(d => console.log(`Criado o item ${JSON.stringify(d)}`))
+    }
+
     const gotoConsultaChamados = () => {
         history.push('/consulta-chamados')
     }
@@ -70,11 +85,6 @@ export default function TelaChamados() {
         localStorage.clear();
         window.location.href= '/'
     }
-
-    function alertFinish() {
-        alert("Chamado cadastrado com sucesso!");
-    }
-
 
     function problemaSelectedHandler(selectedOption) {
         setSelectedOption(selectedOption)
@@ -108,12 +118,16 @@ export default function TelaChamados() {
                             <CloudUpStyle>
                                 <BiCloudUpload />
                             </CloudUpStyle>
-                            <MyDropzone />
+                            <MyDropzone onFileSelected={file => {
+                                setFileSelect(file)
+                            }}/>
                         </Dropzone>
                     </InputArea>
                     <EditionText>
                         <EditionDescription>
                             <textarea
+                                value={text}
+                                onChange={handlerChangeText}
                                 alt="Descreva o problema"
                                 placeholder="Descreva o problema"
                                 maxLength={2000} >
@@ -122,8 +136,8 @@ export default function TelaChamados() {
                     </EditionText>
                 </EditionArea>
                 <Footer>
-                    <ButtonFinish type="submit" onClick={alertFinish}>
-                        <span>Abir chamado</span>
+                    <ButtonFinish type="submit" onClick={handlerEnviar}>
+                        <span>Abrir chamado</span>
                     </ButtonFinish>
                 </Footer>
             </Container>

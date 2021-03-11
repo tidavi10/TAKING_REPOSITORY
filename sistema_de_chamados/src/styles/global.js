@@ -24,4 +24,7 @@ export default createGlobalStyle`
   textarea {
     border: none;
   }
+  p {
+    margin-bottom: 0;
+  }
 `;
