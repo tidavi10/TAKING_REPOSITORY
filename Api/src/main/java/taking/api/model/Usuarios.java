@@ -24,7 +24,6 @@ import io.swagger.annotations.ApiModelProperty;
 @Table(uniqueConstraints={@UniqueConstraint(columnNames={"email", "cpf"})})
 public class Usuarios implements Serializable {
 	
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@ApiModelProperty(notes = "ID do usuário", position = 1)

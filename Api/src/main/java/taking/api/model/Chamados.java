@@ -55,14 +55,14 @@ public class Chamados implements Serializable{
 	public Chamados() {
 	}
 	
-	public Chamados(String descricao, byte[] anexo, String nomeAnexo, String tipoAnexo, String status,
+	public Chamados(String descricao, byte[] anexo, String nomeAnexo, String tipoAnexo,
 			Date dataCriacao, TipoProblema problema, Usuarios usuario, UsuariosAdm adm) {
 		super();
 		this.descricao = descricao;
 		this.anexo = anexo;
 		this.nomeAnexo = nomeAnexo;
 		this.tipoAnexo = tipoAnexo;
-		this.status = status;
+		this.status = "Pendente";
 		this.dataCriacao = dataCriacao;
 		this.problema = problema;
 		this.usuario = usuario;

@@ -1,6 +1,5 @@
 package taking.api.service;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,7 +61,7 @@ public class ChamadosService {
 				Optional<UsuariosAdm> adm = usuariosAdmRepository.findById(admId);
 				
 				Chamados chamados = new Chamados(descricaoProblema, file.getBytes(), nomeAnexo, file.getContentType(),
-						"Pendente", dataCriacao, problema.get(), usuario.get(), adm.get());
+						dataCriacao, problema.get(), usuario.get(), adm.get());
 		
 				Chamados obj = chamadosRepository.save(chamados);
 				return obj;
