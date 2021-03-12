@@ -71,26 +71,30 @@ public class ChamadosService {
 
 	public List<Chamados> findChamadosPaginated(int pageNo) {
 
-		Pageable paginacao = PageRequest.of(pageNo, 4);
+		Pageable paginacao = PageRequest.of(pageNo, 5);
 		Page<Chamados> resultado = chamadosRepository.findAll(paginacao);
 
 		return resultado.toList();
 	}
 	
-	public List<Chamados> findChamadosUsuarioPaginated(int pageNo, Long id){
-		List<Chamados> chamadosPaginados = new ArrayList<Chamados>();
-		Pageable paginacao = PageRequest.of(pageNo, 4);
+	public List<ChamadosRespostaDTO> findChamadosUsuarioPaginated(int pageNo, Long id){
+		List<ChamadosRespostaDTO> chamadosPaginados = new ArrayList<ChamadosRespostaDTO>();
+		Pageable paginacao = PageRequest.of(pageNo, 5);
 		
-		Page<Chamados> chamadosUsuario = chamadosRepository.findByUsuario(usuariosRepository.findById(id), paginacao);
-		
+		Page<ChamadosRespostaDTO> chamadosUsuario = chamadosRepository.findByUsuario(usuariosRepository.findById(id), paginacao);
 		chamadosPaginados = chamadosUsuario.getContent();
-		
 		return chamadosPaginados;
+	}
+	
+	public Integer totalDeItensChamadosUsuario(Long id) {
+		Pageable paginacao = PageRequest.of(1, 1);
+		Page<ChamadosRespostaDTO> chamadosUsuario = chamadosRepository.findByUsuario(usuariosRepository.findById(id), paginacao);
+		return chamadosUsuario.getTotalPages();
 	}
 	
 	public List<ChamadosRespostaDTO> findChamadosAdmPaginated(int pageNo, Long adm){
 		List<ChamadosRespostaDTO> chamadosPaginados = new ArrayList<ChamadosRespostaDTO>();
-		Pageable paginacao = PageRequest.of(pageNo, 4);
+		Pageable paginacao = PageRequest.of(pageNo, 5);
 		
 		Page<ChamadosRespostaDTO> chamadosAdm = chamadosRepository.findByAdm(usuariosAdmRepository.findById(adm), paginacao);
 		

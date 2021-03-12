@@ -33,7 +33,7 @@ public interface ChamadosRepository extends JpaRepository<Chamados, Long> {
 	
 	Page<ChamadosRespostaDTO> findByAdm(Optional<UsuariosAdm> optional, Pageable pageable);
 	
-	Page<Chamados> findByUsuario(Optional<Usuarios> optional, Pageable pageable);
+	Page<ChamadosRespostaDTO> findByUsuario(Optional<Usuarios> optional, Pageable pageable);
 	
 	List<Chamados> findByIdAndAdm(Long id, Optional<UsuariosAdm> adm);
 	

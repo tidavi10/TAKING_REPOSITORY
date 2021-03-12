@@ -10,6 +10,7 @@ public class ChamadosRespostaDTO implements Serializable{
 	private Long id;
 	private String descricao;
 	private String status;
+	private Integer totalDePaginas;
 	
 	public ChamadosRespostaDTO() {
 	}
@@ -42,5 +43,13 @@ public class ChamadosRespostaDTO implements Serializable{
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public Integer getTotalDePaginas() {
+		return totalDePaginas;
+	}
+
+	public void setTotalDePaginas(Integer totalDePaginas) {
+		this.totalDePaginas = totalDePaginas;
 	}
 }

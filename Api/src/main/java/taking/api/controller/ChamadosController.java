@@ -91,6 +91,15 @@ public class ChamadosController {
 		return chamadosService.findChamadosPaginated(numeroPagina);
 	}*/
 	
+	@GetMapping("usuario/{userId}")
+	@ApiOperation(value = "Retorna o total de chamados de um usuário",
+					notes = "Para retornar esse total é preciso passar o ID do usuário",
+					authorizations = { @Authorization(value = "jwtToken") })
+	public ResponseEntity<Integer> getTotalPages(@PathVariable("userId") Long userId) {
+		Integer paginas = chamadosService.totalDeItensChamadosUsuario(userId);
+		return ResponseEntity.ok(paginas);
+	}
+	
 	//Retorna os chamados de um usuário específico
 	@GetMapping("usuario/{idUsuario}/{numeroPagina}")
 	@ApiOperation(notes = "Retorna os chamados de um Usuário específico, passando como"
@@ -98,7 +107,7 @@ public class ChamadosController {
 							+ "\nA primeira página começa passando como parametro 0.",
 					value = "Retorna todos o chamados para um usuário específico",
 					authorizations = { @Authorization(value = "jwtToken") })
-	public List<Chamados> chamadosUsuario(@PathVariable Long idUsuario, @PathVariable int numeroPagina) {
+	public List<ChamadosRespostaDTO> chamadosUsuario(@PathVariable Long idUsuario, @PathVariable int numeroPagina) {
 		return chamadosService.findChamadosUsuarioPaginated(numeroPagina, idUsuario);
 	}
 
