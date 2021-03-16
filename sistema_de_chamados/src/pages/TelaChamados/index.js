@@ -8,6 +8,8 @@ import Select from 'react-select';
 import { uniqueId } from 'lodash';
 import filesize from 'filesize';
 
+import logo from '../../assets/logo.png';
+
 import FileList from './components/FileList';
 import Upload from './components/Upload';
 
@@ -26,6 +28,7 @@ import {
     ButtonFinish,
     EditionText,
     ButtonExit,
+    Img,
 } from '../TelaChamados/style';
 
 export default function TelaChamados() {
@@ -100,14 +103,15 @@ export default function TelaChamados() {
             <Container>
                 <Header>
                     <HeaderContent>
+                        <Img src={logo} />
                         <Button type="submit" onClick={gotoConsultaChamados}>
-                            <span>Consultar chamado</span>
+                            <p>Consultar chamado</p>
                         </Button>
                         <ButtonExit type="submit" onClick={logout}>
-                            <span>Sair</span>
+                            <p>Sair</p>
                         </ButtonExit>
                     </HeaderContent>
-                    <span>username</span>
+                    <p>username</p>
                 </Header>
                 <EditionArea>
                     <InputArea>
@@ -127,6 +131,7 @@ export default function TelaChamados() {
                     <EditionText>
                         <EditionDescription>
                             <textarea
+                                className="text"
                                 value={text}
                                 onChange={handlerChangeText}
                                 alt="Descreva o problema"
