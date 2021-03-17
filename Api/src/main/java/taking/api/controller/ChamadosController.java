@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +24,6 @@ import io.swagger.annotations.Authorization;
 import taking.api.dto.ChamadoIdDTO;
 import taking.api.dto.ChamadosRespostaDTO;
 import taking.api.model.Chamados;
-import taking.api.model.UsuariosAdmChamados;
-//import taking.api.repository.UsuariosAdmRepository;
 import taking.api.repository.UsuariosRepository;
 import taking.api.service.ChamadosService;
 
@@ -103,22 +102,40 @@ public class ChamadosController {
 	}
 
 	//Retorna um chamado específico para o ADM
-	@GetMapping("/adm/{idChamado}/{idAdm}")
+	@GetMapping("/adm/{idChamado}")
 	@ApiOperation(value = "Retorna um chamado específico para o ADM", 
 					notes = "Retorna todas as informações de um chamado para um ADM específico",
 					authorizations = { @Authorization(value = "jwtToken") })
-	public List<ChamadosRespostaDTO> chamadosIdAndAdm(@PathVariable Long idChamado, @PathVariable Long idAdm){
-		return chamadosService.findByIdAndAdm(idChamado, idAdm);
+	public ResponseEntity<ChamadosRespostaDTO> chamadosIdAndAdm(@PathVariable Long idChamado){
+		return chamadosService.chamadoById(idChamado);
 	}
 
 	//Retorna todos o chamados para um ADM específico
-	@GetMapping("/adm/all/{idAdm}/{numeroPagina}")
+	@GetMapping("/adm/all/{numeroPagina}")
 	@ApiOperation(value = "Retorna todos o chamados para um ADM específico", 
 					notes = "Retorna os chamados páginados de um ADM específico, passando como "
 							+ "argumento na URL o ID do ADM e o número da página respectivamente."
 							+ "\nA primeira página começa passando como parametro 0.",
 					authorizations = { @Authorization(value = "jwtToken") })
-	public List<ChamadosRespostaDTO> chamadosAdm(@PathVariable Long idAdm, @PathVariable int numeroPagina){
-		return chamadosService.findChamadosAdmPaginated(numeroPagina, idAdm);
+	public List<ChamadosRespostaDTO> chamadosAdm(@PathVariable int numeroPagina) {
+		return chamadosService.findChamadosAdmPaginated(numeroPagina);
+	}
+	
+	@GetMapping("/totalPaginas/adm")
+	@ApiOperation(value = "Retorna a quantidade de páginas", 
+					notes = "Retorna a quantidade de páginas começando com 1, para mandar para o endpoint "
+							+ "que retorna os chamados, diminuir 1 no número retornado.",
+					authorizations = { @Authorization(value = "jwtToken") })
+	public ResponseEntity<Long> paginasAdm() {
+		return ResponseEntity.ok(chamadosService.paginasAdm());
+	}
+	
+	@GetMapping("/totalPaginas/usuario/{idUsuario}")
+	@ApiOperation(value = "Retorna a quantidade de páginas", 
+					notes = "Retorna a quantidade de páginas começando com 1, para mandar para o endpoint "
+							+ "que retorna os chamados, diminuir 1 no número retornado.",
+					authorizations = { @Authorization(value = "jwtToken") })
+	public ResponseEntity<Long> paginasUsuario(@PathVariable Long idUsuario) {
+		return ResponseEntity.ok(chamadosService.paginasUsuairo(idUsuario));
 	}
 }

@@ -43,14 +43,13 @@ public class ResolucaoController {
 	}
 
 	//Insere a resposta do chamado na tabela e atualiza o status do chamado
-	@PostMapping("/resposta/{IdChamado}/{IdAdm}")
+	@PostMapping("/resposta/{IdChamado}")
 	@ApiOperation(value = "Cadastra a resposta do chamado", 
 					notes = "Cadastra a resposta do chamado e atualiza o status do chamado para Finalizado, "
 							+ "passando na URL o ID do Chamado e o ID do ADM",
 					authorizations = { @Authorization(value = "jwtToken") })
-	public ResponseEntity<Resolucao> respostaChamado(@PathVariable Long IdChamado, @PathVariable Long IdAdm,
-			@RequestBody Resolucao resolucao) throws TransactionRequiredException {
-		return resolucaoService.respostaChamado(IdChamado, IdAdm, resolucao);
+	public ResponseEntity<Resolucao> respostaChamado(@PathVariable Long IdChamado, @RequestBody Resolucao resolucao) throws TransactionRequiredException {
+		return resolucaoService.respostaChamado(IdChamado, resolucao);
 		
 		/*if (resolucaoService.idAndAdmExists(IdChamado, IdAdm)) {
 			resolucao.setId(IdChamado);

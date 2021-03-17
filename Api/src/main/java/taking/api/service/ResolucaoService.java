@@ -17,7 +17,7 @@ import taking.api.model.Chamados;
 import taking.api.model.Resolucao;
 import taking.api.repository.ChamadosRepository;
 import taking.api.repository.ResolucaoRepository;
-import taking.api.repository.UsuariosAdmChamadosRepository;
+//import taking.api.repository.UsuariosAdmChamadosRepository;
 //import taking.api.repository.UsuariosAdmRepository;
 import taking.api.repository.UsuariosRepository;
 
@@ -30,8 +30,8 @@ public class ResolucaoService{
 	@Autowired
 	private ChamadosRepository chamadosRepository;
 	
-	@Autowired
-	private UsuariosAdmChamadosRepository usuariosAdmChamadosRepository;
+	//@Autowired
+	//private UsuariosAdmChamadosRepository usuariosAdmChamadosRepository;
 	
 	public List<Resolucao> findResolucaoPaginated(int pageNo) {
 		
@@ -41,22 +41,17 @@ public class ResolucaoService{
 		return resultado.toList();
 	}
 	
-	public boolean idAndAdmExists(Long id, Long adm) {
+	/*public boolean idAndAdmExists(Long id, Long adm) {
 		return usuariosAdmChamadosRepository.existsByAdmsIdAndChamadosId(adm, id);
-	}
+	}*/
 	
-	public ResponseEntity<Resolucao> respostaChamado(Long id, Long adm, Resolucao resolucao) {
-		if (idAndAdmExists(id, adm)) {
+	public ResponseEntity<Resolucao> respostaChamado(Long id, Resolucao resolucao) {
 			Chamados chamados = chamadosRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("chamado não encontrado"));
 			resolucao.setChamados(chamados);
 			resolucao.setTimestamp(new Date());
 			resolucaoRepository.save(resolucao);
 			chamadosRepository.updateStatus(resolucao.getStatus(), id);
 			return new ResponseEntity<Resolucao>(HttpStatus.OK);
-		}
-
-		return new ResponseEntity<Resolucao>(HttpStatus.BAD_REQUEST);
-
 	}
 	
 	/*private String mudarStatus(String status) {
