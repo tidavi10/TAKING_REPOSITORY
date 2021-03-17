@@ -1,5 +1,6 @@
 import React from 'react';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import schema from './schema'
 import './index.css'
@@ -7,32 +8,21 @@ import {
     BrowserRouter as Router } from 'react-router-dom';
 import logo from '../../assets/logo.png'
 import { useHistory } from 'react-router-dom';
-import api, {cadastro} from '../../services/api'
+import { cadastro } from '../../services/api'
 
 export default function Cadastro() {
 
     const history = useHistory();
 
-
-    const  [nome, setnome] = useState('')
-    const  [email, setemail]  = useState('')
-    const  [senha, setSenha]  = useState('')
-    const  [cep, setcep]  = useState('')
-    const  [endereco, setendereco]  = useState('')
-    const  [cpf, setcpf]  = useState('')
-    const  [rg, setrg]  = useState('')
-    const  [cargo, setcargo]  = useState('')
-
-     const handlerEnviar = (dados) =>{
+    const handlerEnviar = (dados, response, req) =>{
         cadastro(dados)
-            .then(d => console.log(`Criado o item ${JSON.stringify(d)}`))
+            .then(dados => console.log(`Criado o item ${JSON.stringify(dados)}`)) 
     }
-
-
+    
     return (
         <Router>
             <Formik className="formik"
-                validationSchema={schema}
+               // validationSchema={schema}
                 onSubmit={handlerEnviar}
                 validateOnMount
                 initialTouched={{

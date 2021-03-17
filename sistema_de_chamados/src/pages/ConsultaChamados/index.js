@@ -4,21 +4,27 @@ import {
 } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
+import { useAuth } from '../../hooks/auth';
+
+import logo from '../../assets/logo.png';
+
 import Pagination from './components/Pagination';
-import {listarChamados, listarChamadosMock} from '../../services/api';
+import {listarChamados, getTotalDeChamados } from '../../services/api';
 import {
   Container,
   Header,
   HeaderContent,
   ButtonHeader,
+  ButtonExit,
   CallsBox,
   LegendCalls,
   CallItem,
   CallCod,
   CallType,
   CallStatus,
-  ButtonExit
+  Page
 } from './style';
+import { Img } from '../ChamadosAdm/style';
 
 export default function ChamadosAdm() {
   const history = useHistory();
@@ -29,19 +35,33 @@ export default function ChamadosAdm() {
     postsPerPage: 5, 
   });
 
-  const [currentPage, setCurrentPage] = useState(0)
+  //mudar para email do usuário
+  const { admEmail, name } = useAuth();
+
+  const [totalDeChamdos, setTotalDeChamados] = useState(0);
+
+  const [currentPage, setCurrentPage] = useState(0);
   
-  const [loading, setLoading] = useState(false) 
+  const [loading, setLoading] = useState(false); 
 
   const [listaDeChamados, setlistaDeChamados] = useState([]);
 
   useEffect(() => {
     setLoading(true)
-    listarChamadosMock(currentPage).then(d => d.data).then(d => {
-      setlistaDeChamados(d.conteudo)
+    getTotalDeChamados().then(d => d.data).then(d => {
+      setTotalDeChamados(d)
+      console.log(d)
+      setLoading(false)
+    })
+  },[0]);
+
+  useEffect(() => {
+    setLoading(true)
+    listarChamados(currentPage).then(d => d.data).then(d => {
+      setlistaDeChamados(d)
+      console.log(d)
       setState({
-        ...state,
-        totalChamados: Number.parseInt(d.totalChamados)
+        ...state
       });
       setLoading(false)
     })
@@ -49,8 +69,8 @@ export default function ChamadosAdm() {
   
 
   const onPageChanged = data => {
-      setLoading(true)
-      setCurrentPage(data.currentPage - 1)
+    setLoading(true)
+    setCurrentPage(data.currentPage - 1)
   }
 
   const goToChamados = () => {
@@ -96,22 +116,25 @@ export default function ChamadosAdm() {
       <Container>
         <Header>
           <HeaderContent>
-            <ButtonHeader type="submit" onClick={goToChamados}>
-              <span>Abrir novo chamado</span>
-            </ButtonHeader>
-            <ButtonExit type="submit" onClick={logout}>
-              <span>Sair</span>
-            </ButtonExit>
+            <Img src={logo} />
+              <ButtonHeader type="submit" onClick={goToChamados}>
+                <p>Abrir novo chamado</p>
+              </ButtonHeader>
+              <ButtonExit type="submit" onClick={logout}>
+                <p>Sair</p>
+              </ButtonExit>
           </HeaderContent>
-          <span>username</span>
+          <p>{!name || name != undefined ? admEmail : name}</p>
         </Header>
         { renderCallBox() }
-        <Pagination
-          pageLimit={state.postsPerPage} 
-          totalRecords={state.totalChamados} 
-          onPageChanged={onPageChanged}
-          pageNeighbours={1}
-        />
+        <Page>
+          <Pagination
+            pageLimit={state.postsPerPage} 
+            totalRecords={totalDeChamdos} 
+            onPageChanged={onPageChanged}
+            pageNeighbours={1}
+          />
+        </Page>
       </Container>
     </Router>
   )

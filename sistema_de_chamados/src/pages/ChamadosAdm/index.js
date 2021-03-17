@@ -1,16 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { FiEdit } from 'react-icons/fi';
 
 import Pagination from './components/Pagination';
+import { listarChamadosAdm, getTotalDeChamados } from '../../services/api'
 
 import { useAuth } from '../../hooks/auth';
 
-import api from '../../services/api';
+import { api } from '../../services/api';
 
 import logo from '../../assets/logo.png';
 
+import { AuthContext } from '../../hooks/auth';
 import {
     Container,
     Header,
@@ -24,10 +26,12 @@ import {
     CallType,
     CallStatus,
     CallEditButton,
-    InvisibleElement
+    Page
 } from './style';
 
-export default function ChamadosAdm() {
+export default function ChamadosAdm(props) {
+    const authContext = useContext(AuthContext)
+    // authContext.loginAdm({email:'renan@gmail.com', senha:'123'}).then(d => console.log(d))
     const history = useHistory();
     const { admEmail, name, id } = useAuth();
 
@@ -38,46 +42,44 @@ export default function ChamadosAdm() {
     const [state, setState] = useState({ 
         activePage: 1,
         posts: [],
-        loading: false,
-        totalChamados: 5,
-        currentPage: 0,
-        postsPerPage: 2,
-      });
+        totalChamados: 0,
+        postsPerPage: 5,
+    });
 
     const [listaDeChamados, setlistaDeChamados] = useState([]);
 
+    const [totalDeChamdos, setTotalDeChamados] = useState(0);
+
+    const [currentPage, setCurrentPage] = useState(0);
+  
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
-        setState({ ...state, loading: true });
-    
-        listarChamadosAdm(state.activePage - 1).then(call => call.data).then(call => {
+        setLoading(true)
+        getTotalDeChamados().then(call => call.data).then(call => {
             console.log(call)
-          setlistaDeChamados(call)
-          setState({ ...state, loading: false });
+          setTotalDeChamados(call)
+          console.log(call)
+          setLoading(false)
         })
-      }, [state.activePage]);
+      },[0]);
 
-    const { currentPage, postsPerPage, posts, loading } = state;
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+    useEffect(() => {
+        setLoading(true);    
+        listarChamadosAdm(currentPage).then(call => call.data).then(call => {
+            console.log(call)
+            setlistaDeChamados(call)
+            setState({ ...state, 
+                totalChamados: Number.parseInt(call.totalChamados)
+            });
+            setLoading(false)
+        })
+    }, [currentPage]);
 
-    const paginate = pageNum => {
-        setState({ ...state, loading: true });
-        listarChamadosAdm(pageNum).then(call => call.data).then(call => {
-        setlistaDeChamados(call)
-        setState({ ...state, loading: false, currentPage: pageNum });
-        });
+        const onPageChanged = data => {
+            setLoading(true)
+            setCurrentPage(data.currentPage - 1)
     }
-
-    function getPaginated() {
-        return listaDeChamados
-    }
-
-    function handlerPageChange(pageNumber) {
-        console.log(`active page is ${pageNumber}`);
-        setState({ activePage: pageNumber });
-    }
-    
 
     const goToEditCall = (callId) => {
         localStorage.setItem('@chamadosTaking:idChamado', callId);
@@ -133,12 +135,14 @@ export default function ChamadosAdm() {
             </Header>
 
             { renderCallBox() }
-
-            <Pagination
-                postsPerPage={postsPerPage}
-                totalPosts={state.totalChamados}
-                paginate={paginate}
-            />
+            <Page>
+                <Pagination
+                    pageLimit={state.postsPerPage} 
+                    totalRecords={totalDeChamdos} 
+                    onPageChanged={onPageChanged}
+                    pageNeighbours={1}
+                />
+            </Page>
         </Container>
     )
 }

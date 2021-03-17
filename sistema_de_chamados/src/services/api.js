@@ -1,35 +1,54 @@
 import axios from 'axios';
 
-const api = axios.create({
-    baseURL: "https://projetochamadosbackendtaking.herokuapp.com/",
-    headers: {
-        'Authorization':'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJpYUBnbWFpbC5jb20iLCJpYXQiOjE2MTU3MzEzNjIsImV4cCI6MTYxNTc0OTM2Mn0.Rj7cBM8O0sXZvyMWGDH7NYvZjaSxinGKcl3O_jlIzKM'
+const getBaseAPI = () => {
+    const data = localStorage.getItem('@chamadosTaking:usuario');
+    const parsedData = JSON.parse(data);
+    let headers = {}
+    if (parsedData) {
+        headers['Authorization'] = parsedData.token
     }
-});
+    return axios.create({
+        baseURL: "https://projetochamadosbackendtaking.herokuapp.com/",
+        headers
+    });
+}
+const api = axios.create({baseURL: "https://projetochamadosbackendtaking.herokuapp.com/",});
 
 const cadastro = function (body) {
-    return api.post('usuarios/cadastro', body)
+    return getBaseAPI().post('usuarios/cadastro', body)
 }
 
 const listarPossiveisProblemas = function () {
-    return api.get('problema')
+    return getBaseAPI().get('problema')
 }
 
 const cadastrarChamado = function (descricaoProblema, formData) {
-    return api.post(`chamados/${10}/${2}/${6}?descricaoProblema=${descricaoProblema}`, formData,
+    return getBaseAPI().post(`chamados/${10}/${2}/${6}?descricaoProblema=${descricaoProblema}`, formData,
     {
         headers: { 'Content-Type': 'multipart/form-data' }
     })
 }
 
+const getTotalDeChamados = function () {
+    return getBaseAPI().get(`chamados/usuario/${10}`)
+}
+
 const listarChamados = function (numeroPagina) {
-    return api.get(`chamados/usuario/${10}/${numeroPagina}`)
+    return getBaseAPI().get(`chamados/usuario/${10}/${numeroPagina}`)
 }
 
-const listarChamadosMock = function (numeroPagina) {
-    return axios.get('http://localhost:3001/chamados/'+ numeroPagina)
+const listarRespostasChamado = function (idChamado, id) {
+    return getBaseAPI().put(`/resolucao/resposta/${idChamado}/${id}`)
 }
 
-export default api;
+export default getBaseAPI
 
-export {listarPossiveisProblemas,listarChamadosMock, listarChamados, cadastro, cadastrarChamado};
+export {
+    listarPossiveisProblemas,
+    listarChamados, 
+    cadastro, 
+    getTotalDeChamados,
+    cadastrarChamado,
+    listarRespostasChamado,
+    api
+};

@@ -86,17 +86,10 @@ export default function EdicaoChamadosAdm() {
         }
     };
 
-            // Toast de sucesso
-
-            // Redireciona para lista de chamados
-            // Toast de erro
-            // Mantém os dados em tela? Permance na mesma tela.
-      
-
-    const cancelUpdate = () => {
-        // Limpa os campos
-        // Redireciona para lista de chamados
-    }
+    // const cancelUpdate = () => {
+    //     // Limpa os campos
+    //     // Redireciona para lista de chamados
+    // }
 
     return (
         <Container>
@@ -160,7 +153,7 @@ export default function EdicaoChamadosAdm() {
 
             <ButtonArea>
                 <>
-                    <SubmitButton onClick={cancelUpdate}>
+                    <SubmitButton onClick={() => {}}>
                         <p>Cancelar</p>
                     </SubmitButton>
                     <SubmitButton onClick={submitResponse}>

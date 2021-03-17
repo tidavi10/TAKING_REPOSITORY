@@ -16,15 +16,14 @@ export const DropContainer = styled.div.attrs({
   width: 300px;
   height: 50px;
   margin-top: 30px;
+  font-size: 1rem;
   cursor: pointer;
   transition: height 0.2s ease;
   ${props => props.isDragActive && dragActive};
   ${props => props.isDragReject && dragReject};
 
-
   @media (max-width: 576px) {
     margin: auto;
-    font-size: 1rem;
     margin-top: 10px;
     width: 50%;
     text-align: center;
@@ -56,4 +55,9 @@ export const UploadMessage = styled.p`
   justify-content: center;
   align-items: center;
   padding: 15px 0;
+  font-size: 1rem; 
+
+  @media (max-width: 576px) {
+    font-size: 75%;
+  }
 `;

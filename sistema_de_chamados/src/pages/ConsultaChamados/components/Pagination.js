@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from 'prop-types';
 
+import './styles.css';
+
 const LEFT_PAGE = 'LEFT';
 const RIGHT_PAGE = 'RIGHT';
 
@@ -86,7 +88,8 @@ class Pagination extends Component {
                                         <span arial-hidden="true">&laquo;</span>
                                         <span className="sr-only">Anterior</span>
                                     </a>
-                                </li>
+
+                                </li>                               
                             );
 
                             if (page === RIGHT_PAGE) return (

@@ -8,10 +8,12 @@ import Select from 'react-select';
 import { uniqueId } from 'lodash';
 import filesize from 'filesize';
 
+import logo from '../../assets/logo.png';
+
 import FileList from './components/FileList';
 import Upload from './components/Upload';
 
-import api, { listarPossiveisProblemas, cadastrarChamado } from '../../services/api';
+import { listarPossiveisProblemas, cadastrarChamado } from '../../services/api';
 
 import {
     Container,
@@ -26,10 +28,16 @@ import {
     ButtonFinish,
     EditionText,
     ButtonExit,
+    Img,
 } from '../TelaChamados/style';
+import { useAuth } from '../../hooks/auth';
 
 export default function TelaChamados() {
+    //TODO mudar para email do usuário
+    const { email, name, usuario } = useAuth();
+    console.log(email)
     const history = useHistory();
+
     const [selectedOption, setSelectedOption] = useState(null);
     const [possiveisProblemas, setPossiveisProblemas] = useState([]);
     const [fileSelect, setFileSelect] = useState(null)
@@ -52,7 +60,6 @@ export default function TelaChamados() {
     const handlerChangeText = ({ target: { value }}) => {
         setText(value);
     }
-
     
     const handlerUpload = files => {
         const fileToUpload = files.map(file => ({
@@ -100,14 +107,15 @@ export default function TelaChamados() {
             <Container>
                 <Header>
                     <HeaderContent>
+                        <Img src={logo} />
                         <Button type="submit" onClick={gotoConsultaChamados}>
-                            <span>Consultar chamado</span>
+                            <p>Consultar chamado</p>
                         </Button>
                         <ButtonExit type="submit" onClick={logout}>
-                            <span>Sair</span>
+                            <p>Sair</p>
                         </ButtonExit>
                     </HeaderContent>
-                    <span>username</span>
+                    <p>{!name || name != undefined ? email : name}</p>
                 </Header>
                 <EditionArea>
                     <InputArea>
@@ -127,6 +135,7 @@ export default function TelaChamados() {
                     <EditionText>
                         <EditionDescription>
                             <textarea
+                                className="text"
                                 value={text}
                                 onChange={handlerChangeText}
                                 alt="Descreva o problema"

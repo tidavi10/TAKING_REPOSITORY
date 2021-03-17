@@ -22,14 +22,14 @@ export default function LoginAdm() {
                 senha: data.senha
             });
 
-            // history.push('/chamados-adm')
+            // history.push('/menu-adm')
 
 
         } catch (error) {
             alert('Não foi possível logar.')
         }
         
-    }, [loginAdm]);
+    });
 
     return (
         <>
@@ -60,7 +60,7 @@ export default function LoginAdm() {
                                 <ErrorMessage name="password" component="spam" />
                             </div>
                         </div>
-                        <button className="button-adm" type="submit" disabled={!isValid} onClick={handleSubmit}>Login</button>
+                        <button className="button-adm" type="submit" disabled={!isValid} >Login</button>
                         
                     </Form>
                     )}          
