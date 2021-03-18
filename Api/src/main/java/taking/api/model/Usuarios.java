@@ -14,8 +14,6 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import org.hibernate.validator.constraints.br.CPF;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -165,6 +163,5 @@ public class Usuarios implements Serializable {
 		this.setEmail(email);
 		this.setSenha(senha);
 	}
-	
 	
 }
