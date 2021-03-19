@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		protected void configure(HttpSecurity httpSecurity) throws Exception {
 			httpSecurity.cors().and().csrf().disable().authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll()
 					//.antMatchers("/chamados/adm/**", "/resolucao/**").hasRole("ADM")
-					.antMatchers(HttpMethod.POST, "/usuarios/cadastro", "/usuariosadm/cadastro", 
+					.antMatchers(HttpMethod.POST, "/usuarios/cadastro", "/loginsocial/cadastrogmail", "/usuariosadm/cadastro", 
 							"/authenticate", "/admAuth")
 					.permitAll()
 					.and()
