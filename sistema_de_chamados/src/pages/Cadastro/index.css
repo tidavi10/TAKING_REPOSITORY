@@ -1,8 +1,4 @@
-#root{
-    background: #219ebc;
-}
-
-.container{
+.container-cadastro{
     width: 100%;
     height: 100vh;
     display: flex;
@@ -62,7 +58,7 @@
 }
 
 
-Form.form{
+Form.form-cadastro{
     margin-top: -50px;
     width: 50%;
     height: auto; 

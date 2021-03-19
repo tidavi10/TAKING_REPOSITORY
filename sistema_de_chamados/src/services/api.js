@@ -13,6 +13,12 @@ const getBaseAPI = () => {
     });
 }
 
+
+
+const LoginSocial = function (body){
+    return getBaseAPI().post('loginsocial/cadastrogmail', body)
+}
+
 const cadastrarUsuario = function (body) {
     return getBaseAPI().post('usuarios/cadastro', body)
 }
@@ -53,5 +59,6 @@ export {
     getTotalDeChamados,
     cadastrarChamado,
     cadastrarUsuario,
-    listarRespostasChamado
+    listarRespostasChamado,
+    LoginSocial
 };
