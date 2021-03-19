@@ -64,7 +64,7 @@ public class ChamadosController {
 	public ResponseEntity<ChamadoIdDTO> cadastrarChamado(@PathVariable("userId") Long userId,
 			//@PathVariable("admId") Long admId,
 			@PathVariable("problemId") Long problemId, 
-			@RequestParam("file") MultipartFile file,
+			@RequestParam(value = "file", required = false) MultipartFile file,
 			@RequestParam("descricaoProblema") String descricaoProblema) throws IOException {
 		
 		Chamados obj = chamadosService.salvarDados(userId, problemId, file, descricaoProblema, new Date());

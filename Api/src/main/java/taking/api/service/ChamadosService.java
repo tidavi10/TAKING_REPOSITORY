@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.InvalidMimeTypeException;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,7 +49,7 @@ public class ChamadosService {
 	}
 
 	public Optional<Chamados> getFile(Long fileId) {
-		return chamadosRepository.findById(fileId);
+		 return chamadosRepository.findById(fileId);
 	}
 
 	public List<Chamados> lista(Long id) {
@@ -58,15 +59,21 @@ public class ChamadosService {
 	public Chamados salvarDados(Long userId, Long problemId, MultipartFile file, String descricaoProblema,
 			Date dataCriacao) throws IOException {
 
-		if (usuariosRepository.existsById(userId)/* && usuariosAdmRepository.existsById(admId) */) {
-			String nomeAnexo = file.getOriginalFilename();
+		if (usuariosRepository.existsById(userId)) {
+			
 			Optional<Usuarios> usuario = usuariosRepository.findById(userId);
 			Optional<TipoProblema> problema = problemaRepository.findById(problemId);
-			// Optional<UsuariosAdm> adm = usuariosAdmRepository.findById(admId);
-
-			Chamados chamados = new Chamados(descricaoProblema, file.getBytes(), nomeAnexo, file.getContentType(),
-					"Pendente", dataCriacao, problema.get(), usuario.get()/* , adm.get() */);
-
+			
+			String nomeAnexo = "";
+			Chamados chamados = null;
+			
+			if(file != null) {
+				nomeAnexo = file.getOriginalFilename();
+				chamados = new Chamados(descricaoProblema, file.getBytes(), nomeAnexo, file.getContentType(),
+						"Pendente", dataCriacao, problema.get(), usuario.get());
+			}
+			
+			chamados = new Chamados(descricaoProblema, "Pendente", dataCriacao, problema.get(), usuario.get());
 			Chamados obj = chamadosRepository.save(chamados);
 			return obj;
 		}

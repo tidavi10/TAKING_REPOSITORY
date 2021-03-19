@@ -68,7 +68,14 @@ public class Chamados implements Serializable{
 		this.dataCriacao = dataCriacao;
 		this.problema = problema;
 		this.usuario = usuario;
-		//this.adm = adm;
+	}
+	
+	public Chamados(String descricao, String status, Date dataCriacao, TipoProblema problema, Usuarios usuario) {
+		this.descricao = descricao;
+		this.status = status;
+		this.dataCriacao = dataCriacao;
+		this.problema = problema;
+		this.usuario = usuario;
 	}
 
 	public Long getId() {
