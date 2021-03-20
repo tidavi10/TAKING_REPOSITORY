@@ -6,6 +6,7 @@ public class TokenDTO {
     private String token;
     private Long id;
     private String nome;
+    private String email;
 
 
     public String getToken() {
@@ -30,6 +31,14 @@ public class TokenDTO {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
     
