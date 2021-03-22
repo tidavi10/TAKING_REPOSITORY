@@ -14,6 +14,7 @@ import { useAuth } from '../../hooks/auth';
 
 export default function Login() {
 
+
     const { loginUser, userToken, userId, nameUsuario, usuarioEmail } = useAuth();
 
     const handleSubmit = useCallback(async (data, actions) => {
@@ -24,24 +25,13 @@ export default function Login() {
                 senha: data.senha,
                 tipoUsuario: 'USUARIO'
             });
-
+            
             history.push('/chamados')
         } catch (error) {
             alert('Não foi possível logar!')
         }
     });
 
-    const successToast = () => {
-        toast.success("Login efetuado com sucesso",{
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        })
-    }
 
     const history = useHistory();
 
@@ -54,7 +44,6 @@ export default function Login() {
         <div className="container-login">
             <Formik className="formik"
                 validationSchema={schema}
-                successToast={successToast}
                 onSubmit={handleSubmit}
                 validateOnMount
                 initialValues={{
@@ -81,7 +70,7 @@ export default function Login() {
                         </div>                                     
                     </div>
 
-                    <button className="login" type="submit" disabled={!isValid} onClick={successToast}>Login</button>
+                    <button className="login" type="submit" disabled={!isValid}>Login</button>
                     <ToastContainer/>
                     <button className="cadast" type="submit" onClick={gotoCadastro}>Cadastro</button>
                     <p className="par">OU</p>
