@@ -31,25 +31,6 @@ export default function Login() {
         }
     });
 
-<<<<<<< HEAD
-    const successToast = () => {
-        toast.success("Login efetuado com sucesso",{
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        })
-    }
-
-
-    function onSubmit(values, actions) {
-        history.push('/chamados')
-    }   
-=======
->>>>>>> 6476e811c33a296c64b0453d8e7f2ade1d79e887
 
     const history = useHistory();
 

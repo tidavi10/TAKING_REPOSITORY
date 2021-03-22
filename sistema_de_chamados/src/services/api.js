@@ -69,5 +69,6 @@ export {
     cadastrarChamado,
     cadastrarUsuario,
     totalPaginasAdm,
-    listarRespostasChamado
+    listarRespostasChamado,
+    api
 };
