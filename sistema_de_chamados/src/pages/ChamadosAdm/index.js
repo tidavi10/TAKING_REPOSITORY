@@ -29,7 +29,7 @@ import {
 
 export default function ChamadosAdm(props) {
     const authContext = useContext(AuthContext)
-    // authContext.loginAdm({email:'renan@gmail.com', senha:'123'}).then(d => console.log(d))
+
     const history = useHistory();
     const { admEmail, name } = useAuth();
 
@@ -49,27 +49,47 @@ export default function ChamadosAdm(props) {
   
     const [loading, setLoading] = useState(false);
 
+
     useEffect(() => {
         setLoading(true)
         totalPaginasAdm().then(call => call.data).then(call => {
-            console.log(call)
           setTotalDePaginas(call)
           console.log(call)
           setLoading(false)
         })
-      },[0]);
-
+      }, []);
+    
     useEffect(() => {
-        setLoading(true);    
+        setLoading(true)
         listarChamadosAdm(currentPage).then(call => call.data).then(call => {
-            console.log(call)
-            setlistaDeChamados(call)
-            setState({ ...state, 
-                totalChamados: Number.parseInt(call.totalChamados)
-            });
-            setLoading(false)
+          setlistaDeChamados(call)
+          console.log(call)
+          setLoading(false)
         })
-    }, [currentPage]);
+      }, [currentPage]);
+
+
+    // useEffect(() => {
+    //     setLoading(true)
+    //     totalPaginasAdm(totalDePaginas).then(call => call.data).then(call => {
+    //         console.log(call)
+    //       setTotalDePaginas(call)
+    //       console.log(call)
+    //       setLoading(false)
+    //     })
+    //   },[0]);
+
+    // useEffect(() => {
+    //     setLoading(true);    
+    //     listarChamadosAdm(currentPage).then(call => call.data).then(call => {
+    //         console.log(call)
+    //         setlistaDeChamados(call)
+    //         setState({ ...state, 
+    //             totalChamados: Number.parseInt(call.totalChamados)
+    //         });
+    //         setLoading(false)
+    //     })
+    // }, [currentPage]);
 
     const onPageChanged = data => {
         setLoading(true)
@@ -82,7 +102,7 @@ export default function ChamadosAdm(props) {
 
     function renderCallBox () {
     if (state.loading) {
-      return <h1>Carregando</h1>
+      return <h2>Carregando...</h2>
     }
     return (
         <CallsBox>

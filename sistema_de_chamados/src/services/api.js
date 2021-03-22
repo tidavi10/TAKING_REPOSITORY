@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const getBaseAPI = () => {
-    const data = localStorage.getItem('@chamadosTaking:usuario');
+    const data = localStorage.getItem(`${'@chamadosTaking:usuario'}`);
     const parsedData = JSON.parse(data);
     let headers = {}
     if (parsedData) {
@@ -12,6 +12,9 @@ const getBaseAPI = () => {
         headers
     });
 }
+
+//TODO fazer rotina pra autenticar adm
+
 
 const cadastrarUsuario = function (body) {
     return getBaseAPI().post('usuarios/cadastro', body)

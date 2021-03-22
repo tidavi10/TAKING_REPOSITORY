@@ -21,7 +21,8 @@ export default function Login() {
             console.log(data)
             await loginUser({
                 email: data.email,
-                senha: data.senha
+                senha: data.senha,
+                tipoUsuario: 'USUARIO'
             });
 
             history.push('/chamados')

@@ -58,22 +58,25 @@ const AuthProvider =  ({ children }) => {
         return {};
     });
 
-    //Vanessa
-    const loginUser = useCallback(async({ email, senha }) => {
-        const response = await api().post('authenticate', {
-            email,
-            senha
-        });
+    /**
+     * { email, senha, tipo }
+     * tipo =  ADMIN, USUARIO
+     */
+    const loginUser = useCallback(async({ email, senha, tipoUsuario }) => {
+
+        const payload = { email, senha }
+
+        const response = tipoUsuario === 'ADMIN' ?  await  api().post('admAuth', payload)  : await  api().post('authenticate', payload);
 
         const usuarioEmail = JSON.parse(response.config.data).email
 
         const userToken = response.data.token;
         const userId = response.data.id;
         const nameUsuario = response.data.nome;
-        const data = JSON.stringify({email:usuarioEmail, nome: nameUsuario, userId,token: userToken })
+        const data = JSON.stringify({email:usuarioEmail, nome: nameUsuario, userId,token: userToken, tipoUsuario })
         localStorage.setItem('@chamadosTaking:usuario', data);
 
-        setUserAuthData({ userToken,userId, nameUsuario, usuarioEmail  });
+        setUserAuthData({ userToken,userId, nameUsuario, usuarioEmail, tipoUsuario });
     }, []);
 
     const userLogout = useCallback(() => {
