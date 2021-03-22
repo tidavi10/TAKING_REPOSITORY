@@ -22,7 +22,7 @@ export default function LoginAdm() {
                 senha: data.senha
             });
 
-            // history.push('/menu-adm')
+            history.push('/menu-adm')
 
 
         } catch (error) {

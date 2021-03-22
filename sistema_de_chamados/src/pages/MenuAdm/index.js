@@ -9,8 +9,11 @@ import {
 import logo from '../../assets/logo.png';
 import { useHistory } from 'react-router-dom';
 
+import { useAuth } from '../../hooks/auth';
+
 export default function MenuAdm() {
     const history = useHistory();
+    const { nome } = useAuth();
 
     const gotoadm = () => {
         history.push('/chamados-adm')
@@ -25,7 +28,7 @@ export default function MenuAdm() {
                                 <p>Tela de Chamados</p>
                             </ButtonHeader>
                     </HeaderContent>
-                    <p>Usuário Logado</p>
+                    <p>{nome}</p>
                 </Header>
                 
             </Container>

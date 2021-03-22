@@ -32,15 +32,15 @@ export default function Login() {
 
     const successToast = () => {
         toast.success("Login efetuado com sucesso",{
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
-        }
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        })
+    }
 
 
     function onSubmit(values, actions) {

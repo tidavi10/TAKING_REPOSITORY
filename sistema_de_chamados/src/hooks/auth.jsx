@@ -16,10 +16,10 @@ const AuthProvider =  ({ children }) => {
     });
 
     const [userName, setUserName] = useState(() => {
-        const name = localStorage.getItem('@chamadosTaking:userAdmName');
+        const nome = localStorage.getItem('@chamadosTaking:userAdmName');
 
-        if (name) {
-            return { name };
+        if (nome) {
+            return { nome };
         }
 
         return {};
@@ -80,7 +80,7 @@ const AuthProvider =  ({ children }) => {
     }, []);
     
     const loginAdm = useCallback(async({ email, senha }) => {
-        const response = await api().post('admAuth', {
+        const response = await api.post('admAuth', {
             email,
             senha
         });
@@ -88,19 +88,21 @@ const AuthProvider =  ({ children }) => {
         console.log(response.data)
         const convertDataEmail = JSON.parse(response.config.data).email
 
-        const { token, id, name } = response.data;
+        const { token, id, nome } = response.data;
         const admEmail = convertDataEmail;        
 
         localStorage.setItem('@chamadosTaking:userAdmToken', token);
         localStorage.setItem('@chamadosTaking:userAdmId', id);
-        localStorage.setItem('@chamadosTaking:userAdmName', name);
+        localStorage.setItem('@chamadosTaking:userAdmName', nome);
         localStorage.setItem('@chamadosTaking:userAdmEmail', admEmail);
 
         setAuthData({ token });
         setUserId({ id });
-        setUserName({ name });
+        setUserName({ nome });
         setUserEmail({ admEmail });
     }, []);
+
+    console.log(userName.nome)
 
     const logout = useCallback(() => {
         localStorage.removeItem('@chamadosTaking:userAdmToken');
@@ -117,7 +119,7 @@ const AuthProvider =  ({ children }) => {
             logout,
             token: authData.token,
             id: userId.id,
-            name: userName?.name,
+            name: userName?.nome,
             admEmail: userEmail?.admEmail,
             loginUser,
             userLogout,

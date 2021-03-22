@@ -1,3 +1,7 @@
+#root {
+    background: #219ebc;
+}
+
 .container-adm{
     height: 100%;
     display: flex;

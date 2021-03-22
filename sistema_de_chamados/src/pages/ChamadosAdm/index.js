@@ -31,9 +31,8 @@ import {
 
 export default function ChamadosAdm(props) {
     const authContext = useContext(AuthContext)
-    // authContext.loginAdm({email:'renan@gmail.com', senha:'123'}).then(d => console.log(d))
     const history = useHistory();
-    const { admEmail, name, id } = useAuth();
+    const { nome, id } = useAuth();
 
     const listarChamadosAdm = function (numeroPagina) {
         return api.get(`chamados/adm/${id}/${numeroPagina}`)
@@ -131,7 +130,7 @@ export default function ChamadosAdm(props) {
                         <p>Meus dados</p>
                     </ButtonHeader>
                 </HeaderContent>
-                <p>{!name || name != undefined ? admEmail : name}</p>
+                <p>{nome}</p>
             </Header>
 
             { renderCallBox() }

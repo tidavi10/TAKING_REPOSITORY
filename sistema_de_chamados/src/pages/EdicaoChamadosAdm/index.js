@@ -46,7 +46,7 @@ export default function EdicaoChamadosAdm() {
     useEffect(async() => {
         setLoading(true);
 
-        const response = await api.get(`/chamados/${callId}/${id}`);
+        const response = await api.get(`/chamados/${callId}`);
         
         setCallItem(response.data[0]);
         setLoading(false);
@@ -63,7 +63,7 @@ export default function EdicaoChamadosAdm() {
     }
 
     const handleChangeRunTime = (e) => {
-        setRunTime(e.target.value);;
+        setRunTime(e.target.value);
     }
 
     const submitResponse = async(data) => {
@@ -72,12 +72,12 @@ export default function EdicaoChamadosAdm() {
             status: callItem.status,
             tempoGasto: runTime,
             resolucao: callItem.descricao,
-        });
+        }); 
 
         addToast({
             type: 'success',
             title: 'Resposta enviada com sucesso!',
-        })
+        });
         } catch (erro) {
             addToast({
                 type: 'error',
