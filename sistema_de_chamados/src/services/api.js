@@ -14,6 +14,10 @@ const getBaseAPI = () => {
 }
 const api = axios.create({baseURL: "https://projetochamadosbackendtaking.herokuapp.com/",});
 
+//TODO fazer rotina pra autenticar adm
+
+
+
 
 const LoginSocial = function (body){
     return getBaseAPI().post('loginsocial/cadastrogmail', body)
