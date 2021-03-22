@@ -8,8 +8,9 @@ const PrivateRoute = props => {
 }
 
 const PrivateRouteAdm = props => {
-    const islogged = !!localStorage.getItem('@chamadosTaking:userAdmToken')
-    return islogged ? <Route {...props} /> : <Redirect to="/login-adm" />
+    const usuarioData = localStorage.getItem('@chamadosTaking:usuario')
+    const usuario = JSON.parse(usuarioData)
+    return usuario.tipoUsuario === 'ADMIN' ? <Route {...props} /> : <Redirect to="/login-adm" />
 }
 
 export {PrivateRoute, PrivateRouteAdm}

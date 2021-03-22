@@ -117,7 +117,7 @@ export default function TelaChamados() {
                             <p>Sair</p>
                         </ButtonExit>
                     </HeaderContent>
-                    <p>{!usuario.nameUsuario || usuario.nameUsuario != undefined ? usuario.usuarioEmail : usuario.nameUsuario}</p>
+                    <p>{!usuario.nameUsuario || usuario.nameUsuario != undefined ? usuario.nameUsuario : usuario.usuarioEmail}</p>
                 </Header>
                 <EditionArea>
                     <InputArea>

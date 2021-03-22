@@ -13,19 +13,21 @@ import { useHistory } from 'react-router-dom';
 export default function LoginAdm() {
     const history = useHistory();
 
-    const { loginAdm } = useAuth();
+    const { loginUser } = useAuth();
      
     const handleSubmit = useCallback((data) => {
         try {
-             loginAdm({
+            loginUser({
                 email: data.email,
-                senha: data.senha
+                senha: data.senha,
+                tipoUsuario: 'ADMIN'
             });
 
             history.push('/menu-adm')
 
 
         } catch (error) {
+            console.error(error)
             alert('Não foi possível logar.')
         }
         
