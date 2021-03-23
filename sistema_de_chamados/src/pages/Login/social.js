@@ -1,16 +1,25 @@
 import React, { Component } from 'react'
 import GoogleLogin from 'react-google-login'
+
 import { useHistory } from 'react-router-dom';
-import api from '../../services/api'
+import {loginSocial} from '../../services/api'
 
 export class Social extends Component {
 
     responseGoogle = (response) => {
-        const token = response.tokenId
-        const {email, name} = response.profileObj
-        const form = {email, name}
-        api.post('loginsocial/cadastrogmail', form)
-        localStorage.setItem("Token:id", token)
+        try{
+            const token = response.tokenId
+            const email = response.profileObj.email
+            const name = response.profileObj.name
+            //const {email, name} = response.profileObj
+            //const form = {email, name}
+            localStorage.setItem("Token:id", token)
+            sessionStorage.setItem("Form:email", email)
+            sessionStorage.setItem("Form:name", name)
+            loginSocial.post('loginsocial/cadastrogmail', email)
+        }catch(erro){
+            alert('deu erro')
+        }
     }
     render() {
         return (
