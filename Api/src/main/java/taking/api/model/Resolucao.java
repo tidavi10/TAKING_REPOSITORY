@@ -12,6 +12,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
@@ -35,9 +37,11 @@ public class Resolucao {
 	@ApiModelProperty(notes = "Horário em que foi enviado a resolução", required = true, position = 3)
 	private Date timestamp;
 
+	@ApiModelProperty(notes = "Tempo gasto para resolução", required = true, position = 4)
 	@Column(name = "tempoGasto")
 	private String tempoGasto;
 	
+	@ApiModelProperty(notes = "Status do chamado", required = true, position = 5)
 	private String status;
 
 	public Long getId() {
@@ -60,6 +64,7 @@ public class Resolucao {
 		return resolucao;
 	}
 
+	@JsonProperty("descricao")
 	public void setResolucao(String resolucao) {
 		this.resolucao = resolucao;
 	}

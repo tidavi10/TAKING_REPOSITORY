@@ -22,11 +22,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import taking.api.dto.ChamadosRespostaDTO;
+import taking.api.dto.ResolucaoDTO;
 import taking.api.model.Chamados;
+import taking.api.model.Resolucao;
 import taking.api.model.TipoProblema;
 import taking.api.model.Usuarios;
 //import taking.api.model.UsuariosAdm;
 import taking.api.repository.ChamadosRepository;
+import taking.api.repository.ResolucaoRepository;
 import taking.api.repository.TipoProblemaRepository;
 //import taking.api.repository.UsuariosAdmRepository;
 import taking.api.repository.UsuariosRepository;
@@ -42,6 +45,9 @@ public class ChamadosService {
 
 	@Autowired
 	private UsuariosRepository usuariosRepository;
+	
+	@Autowired
+	private ResolucaoRepository resolucaoRepository;
 
 	public Chamados findById(Long chamadoId) {
 		Optional<Chamados> obj = chamadosRepository.findById(chamadoId);
@@ -112,6 +118,7 @@ public class ChamadosService {
 				dto.setDescricao(chamados.getDescricao());
 				dto.setId(chamados.getId());
 				dto.setStatus(chamados.getStatus());
+				dto.setTipoProblema(chamados.getProblema().getTipoDoProblema());
 				return dto;
 			}
 		});
@@ -142,13 +149,11 @@ public class ChamadosService {
 		Optional<Chamados> chamado = chamadosRepository.findById(id);
 		
 		if(chamado.isPresent()) {
-			ChamadosRespostaDTO dto = new ChamadosRespostaDTO(chamado.get());
+			ChamadosRespostaDTO dto = new ChamadosRespostaDTO(chamado.get(), getTempoGasto(id));
 			return ResponseEntity.ok(dto);
 		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
-
-		
 	}
 
 	public boolean existsByIdAndAdm(Long id, Long adm) {
@@ -166,4 +171,13 @@ public class ChamadosService {
 
 		usuariosAdmChamadosRepository.save(adms);
 	}*/
+	
+	private String getTempoGasto(Long id) {
+		List<Resolucao> resolucao = resolucaoRepository.findByChamadosId(id);
+		if(resolucao.size() <= 0 ) {
+			return null;
+		}
+		String tempoGasto = resolucao.get(resolucao.size() - 1).getTempoGasto();
+		return tempoGasto;
+	}
 }

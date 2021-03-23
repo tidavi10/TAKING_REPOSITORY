@@ -2,21 +2,23 @@ package taking.api.dto;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import taking.api.model.Chamados;
+import taking.api.model.TipoProblema;
 //import taking.api.model.UsuariosAdmChamados;
 
+@JsonInclude(Include.NON_NULL)
 public class ChamadosRespostaDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
 	private String descricao;
 	private String status;
-	
-	@JsonInclude(Include.NON_NULL)
-	private Long quantidadePaginas;
+	private String tipoProblema;
+	private String tempoGasto;
 	
 	public ChamadosRespostaDTO() {
 	}
@@ -25,10 +27,15 @@ public class ChamadosRespostaDTO implements Serializable{
 		this.id = chamado.getId();
 		this.descricao = chamado.getDescricao();
 		this.status = chamado.getStatus();
+		this.tipoProblema = chamado.getProblema().getTipoDoProblema();
 	}
 	
-	public ChamadosRespostaDTO(Long quantidadePaginas) {
-		this.quantidadePaginas = quantidadePaginas;
+	public ChamadosRespostaDTO(Chamados chamado, String tempoGasto) {
+		this.id = chamado.getId();
+		this.descricao = chamado.getDescricao();
+		this.status = chamado.getStatus();
+		this.tipoProblema = chamado.getProblema().getTipoDoProblema();
+		this.tempoGasto = tempoGasto;
 	}
 	
 	/*public ChamadosRespostaDTO(UsuariosAdmChamados chamado) {
@@ -61,16 +68,24 @@ public class ChamadosRespostaDTO implements Serializable{
 		this.status = status;
 	}
 
+	public String getTipoProblema() {
+		return tipoProblema;
+	}
+
+	public void setTipoProblema(String tipoProblema) {
+		this.tipoProblema = tipoProblema;
+	}
+
+	public String getTempoGasto() {
+		return tempoGasto;
+	}
+
+	public void setTempoGasto(String tempoGasto) {
+		this.tempoGasto = tempoGasto;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	public Long getQuantidadePaginas() {
-		return quantidadePaginas;
-	}
-
-	public void setQuantidadePaginas(Long quantidadePaginas) {
-		this.quantidadePaginas = quantidadePaginas;
 	}
 	
 }

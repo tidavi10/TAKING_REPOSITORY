@@ -56,7 +56,7 @@ public class ChamadosController {
 		return ResponseEntity.ok().body(listaDto);
 	}
 	
-	@ApiOperation(value = "Cadastra um novo chamado", 
+	@ApiOperation(value = "Cadastra um novo chamado",
 			notes = "Para cadastrar um novo chamado será necessário passar na URL o ID do Usuário, o ID do problema"
 					+ "e o ID do ADM",
 			authorizations = { @Authorization(value = "jwtToken") })
@@ -101,29 +101,26 @@ public class ChamadosController {
 	
 	//Retorna os chamados de um usuário específico
 	@GetMapping("usuario/{idUsuario}/{numeroPagina}")
-	@ApiOperation(notes = "Retorna os chamados de um Usuário específico, passando como"
+	@ApiOperation(value = "Retorna todos o chamados para um usuário específico",
+					notes = "Retorna os chamados de um Usuário específico, passando como"
 							+ "argumento na URL o ID do Usuário e o número da página respectivamente."
 							+ "\nA primeira página começa passando como parametro 0.",
-					value = "Retorna todos o chamados para um usuário específico",
 					authorizations = { @Authorization(value = "jwtToken") })
 	public List<ChamadosRespostaDTO> chamadosUsuario(@PathVariable Long idUsuario, @PathVariable int numeroPagina) {
 		return chamadosService.findChamadosUsuarioPaginated(numeroPagina, idUsuario);
 	}
 
-	//Retorna um chamado específico para o ADM
 	@GetMapping("/adm/{idChamado}")
 	@ApiOperation(value = "Retorna um chamado específico para o ADM", 
-					notes = "Retorna todas as informações de um chamado para um ADM específico",
+					notes = "Retorna todas as informações de um chamado para um ADM específico, passando como argumento na URL o id do chamado",
 					authorizations = { @Authorization(value = "jwtToken") })
 	public ResponseEntity<ChamadosRespostaDTO> chamadosIdAndAdm(@PathVariable Long idChamado){
 		return chamadosService.chamadoById(idChamado);
 	}
 
-	//Retorna todos o chamados para um ADM específico
 	@GetMapping("/adm/all/{numeroPagina}")
-	@ApiOperation(value = "Retorna todos o chamados para um ADM específico", 
-					notes = "Retorna os chamados páginados de um ADM específico, passando como "
-							+ "argumento na URL o ID do ADM e o número da página respectivamente."
+	@ApiOperation(value = "Retorna uma lista com todos os chamados", 
+					notes = "Retorna os chamados páginados, passando como argumento na URL o número da página."
 							+ "\nA primeira página começa passando como parametro 0.",
 					authorizations = { @Authorization(value = "jwtToken") })
 	public List<ChamadosRespostaDTO> chamadosAdm(@PathVariable int numeroPagina) {

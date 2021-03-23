@@ -29,50 +29,56 @@ public class AuthenticateService {
 
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
-	
-	/*@Autowired
-	private AdmDetailsService admDetailsService;*/
+
+	/*
+	 * @Autowired private AdmDetailsService admDetailsService;
+	 */
 
 	@Autowired
 	private UsuariosRepository usuariosRepository;
 
-	/*@Autowired
-	private UsuariosAdmRepository usuariosAdmRepository;*/
+	/*
+	 * @Autowired private UsuariosAdmRepository usuariosAdmRepository;
+	 */
 
 	public ResponseEntity<TokenDTO> AdmAuth(String email, String senha) {
-		
-		if(usuariosRepository.existsByEmailAndIsAdm(email, true)) {
-			
-			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-					email, senha));
-			
+
+		if (usuariosRepository.existsByEmailAndIsAdm(email, true)) {
+
+			try {
+				Authentication authentication = authenticationManager
+						.authenticate(new UsernamePasswordAuthenticationToken(email, senha));
+			} catch (BadCredentialsException e) {
+				throw new AutenticacaoException("Usuário e/ ou senha inválidos");
+			}
+
 			final UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-			
+
 			Usuarios usuario = usuariosRepository.findByEmail(email);
-			
+
 			final String token = jwtTokenUtil.generateToken(userDetails);
 			TokenDTO tokenResponse = new TokenDTO();
 			tokenResponse.setId(usuario.getId());
 			tokenResponse.setNome(usuario.getNome());
 			tokenResponse.setToken(token);
 			tokenResponse.setEmail(usuario.getEmail());
-			
+
 			return ResponseEntity.ok(tokenResponse);
 		}
-		
+
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		
+
 	}
 
 	public ResponseEntity<TokenDTO> UserAuth(String email, String senha) {
 
 		try {
-		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-				email, senha));
+			Authentication authentication = authenticationManager
+					.authenticate(new UsernamePasswordAuthenticationToken(email, senha));
 		} catch (BadCredentialsException e) {
 			throw new AutenticacaoException("Usuário e/ ou senha inválidos");
 		}
-		
+
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
 		Usuarios usuario = usuariosRepository.findByEmail(email);
@@ -85,18 +91,19 @@ public class AuthenticateService {
 		tokenResponse.setEmail(usuario.getEmail());
 
 		return ResponseEntity.ok(tokenResponse);
-	
+
 	}
-	
+
 	public ResponseEntity<TokenDTO> UserGmailAuth(String email, String senha) {
 
-		//try {
-		//Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-		//		email, senha));
-		//} catch (BadCredentialsException e) {
-		//	throw new AutenticacaoException("Usuário e/ ou senha inválidos");
-		//}
-		
+		// try {
+		// Authentication authentication = authenticationManager.authenticate(new
+		// UsernamePasswordAuthenticationToken(
+		// email, senha));
+		// } catch (BadCredentialsException e) {
+		// throw new AutenticacaoException("Usuário e/ ou senha inválidos");
+		// }
+
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
 		Usuarios usuario = usuariosRepository.findByEmail(email);
@@ -106,9 +113,9 @@ public class AuthenticateService {
 		tokenResponse.setId(usuario.getId());
 		tokenResponse.setNome(usuario.getNome());
 		tokenResponse.setEmail(usuario.getEmail());
-		//tokenResponse.setToken(token);
+		// tokenResponse.setToken(token);
 
 		return ResponseEntity.ok(tokenResponse);
-	
+
 	}
 }
