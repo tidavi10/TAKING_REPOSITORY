@@ -28,7 +28,7 @@ public class TipoProblema implements Serializable{
 	private String areaResponsavel;
 	
 	@OneToMany
-	private List<Chamados> chamados = new ArrayList<>(); 
+	private List<Chamados> chamados = new ArrayList<>();
 	
 	public TipoProblema() {
 	}

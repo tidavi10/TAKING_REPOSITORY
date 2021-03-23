@@ -51,5 +51,4 @@ public class UsuariosService {
 		usuariosRepository.saveAndFlush(usuarios);
 		return authenticateService.UserAuth(usuarios.getEmail(), senha);
 	}
-	
 }
