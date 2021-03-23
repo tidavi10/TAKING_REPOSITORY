@@ -19,7 +19,7 @@ const api = axios.create({baseURL: "https://projetochamadosbackendtaking.herokua
 
 
 
-const loginSocial = function (body){
+const LoginSocial = function (body){
     return getBaseAPI().post('loginsocial/cadastrogmail', body)
 }
 
@@ -74,6 +74,6 @@ export {
     cadastrarUsuario,
     totalPaginasAdm,
     listarRespostasChamado,
-    loginSocial,
+    LoginSocial,
     api
 };

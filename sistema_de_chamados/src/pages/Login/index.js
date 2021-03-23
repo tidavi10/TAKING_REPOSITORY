@@ -14,7 +14,6 @@ import { useAuth } from '../../hooks/auth';
 
 export default function Login() {
 
-
     const { loginUser, userToken, userId, nameUsuario, usuarioEmail } = useAuth();
 
     const handleSubmit = useCallback(async (data, actions) => {

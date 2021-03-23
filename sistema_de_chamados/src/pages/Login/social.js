@@ -2,24 +2,16 @@ import React, { Component } from 'react'
 import GoogleLogin from 'react-google-login'
 
 import { useHistory } from 'react-router-dom';
-import {loginSocial} from '../../services/api'
+import {LoginSocial} from '../../services/api'
 
 export class Social extends Component {
 
-    responseGoogle = (response) => {
-        try{
+    responseGoogle = async(response) => {
             const token = response.tokenId
-            const email = response.profileObj.email
-            const name = response.profileObj.name
-            //const {email, name} = response.profileObj
-            //const form = {email, name}
-            localStorage.setItem("Token:id", token)
-            sessionStorage.setItem("Form:email", email)
-            sessionStorage.setItem("Form:name", name)
-            loginSocial.post('loginsocial/cadastrogmail', email)
-        }catch(erro){
-            alert('deu erro')
-        }
+            const {email, name} = response.profileObj
+            const form = {email, nome: name}
+            await LoginSocial(form)
+            localStorage.setItem("@chamadosTaking:usuario", token)
     }
     render() {
         return (
@@ -35,5 +27,17 @@ export class Social extends Component {
         )
     }
 }
+
+/*import {LoginSocial} from '../../services/api'
+
+export class Social extends Component {
+
+    responseGoogle = async (response) => {
+        const token = response.tokenId
+        console.log(response)
+        const {email, name} = response.profileObj
+        const form = {email, nome: name}
+        await LoginSocial(form)
+        localStorage.setItem("Token:id", token)*/
 
 export default Social
