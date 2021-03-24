@@ -71,6 +71,7 @@ public class Usuarios implements Serializable {
 	
 	@NotBlank (message = "RG inválido")
 	@ApiModelProperty(notes = "RG do usuário", required = true, position = 6)
+	@Pattern(regexp = "^1?(\\d{9})")
 	private String rg;
 	
 	@ApiModelProperty(notes = "verifica se é Adm", hidden= true)
