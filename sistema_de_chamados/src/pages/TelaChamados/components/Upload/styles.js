@@ -27,14 +27,19 @@ export const DropContainer = styled.div.attrs({
     margin-top: 10px;
     width: 50%;
     text-align: center;
+    font-size: 81.25%;
   }
 
   @media (min-width: 577px) and (max-width: 768px){
     margin: auto;
-    font-size: 1rem;
     margin-top: 10px;
     width: 40%;
     text-align: center;
+    font-size: 81.25%;
+  }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    font-size: 93.75%;
   }
 
   @media (min-width: 769px) and (max-width: 992px){
@@ -58,6 +63,18 @@ export const UploadMessage = styled.p`
   font-size: 1rem; 
 
   @media (max-width: 576px) {
-    font-size: 75%;
+    font-size: 81.25%;
+  }
+
+  @media (min-width: 576.1px) {
+    font-size: 81.25%;
+  }	
+
+  @media (min-width: 768px) {
+    font-size: 87.5%;
+  } 	
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    font-size: 93.75%;
   }
 `;

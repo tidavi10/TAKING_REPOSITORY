@@ -18,7 +18,7 @@ export default function Login() {
 
     const handleSubmit = useCallback(async (data, actions) => {
         try {
-            console.log(data)
+            //console.log(data)
             await loginUser({
                 email: data.email,
                 senha: data.senha,
