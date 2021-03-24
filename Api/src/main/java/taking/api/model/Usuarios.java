@@ -61,6 +61,7 @@ public class Usuarios implements Serializable {
 
 	@NotBlank (message = "Cargo inválido")
 	@ApiModelProperty(notes = "Cargo do usuário", required = true, position = 9)
+	@Pattern(regexp = "^[a-zA-Z ]+$")
 	private String cargo;
 	
 	@NotBlank (message = "CPF inválido")
@@ -71,6 +72,7 @@ public class Usuarios implements Serializable {
 	@NotBlank (message = "RG inválido")
 	@Pattern(regexp = "^1?(\\d{10})")
 	@ApiModelProperty(notes = "RG do usuário", required = true, position = 6)
+	@Pattern(regexp = "^1?(\\d{9})")
 	private String rg;
 	
 	@ApiModelProperty(notes = "verifica se é Adm", hidden= true)
