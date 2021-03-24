@@ -92,7 +92,7 @@ export default function TelaChamados() {
             formData.append('file', fileSelect.file)
         };    
         //console.log('handleEnviar')
-        cadastrarChamado(usuario.userId, selectedOption.value, text, formData)
+        cadastrarChamado(usuario.id, selectedOption.value, text, formData)
             .then(d => console.log(`Criado o item ${JSON.stringify(d)}`))
     }
 
