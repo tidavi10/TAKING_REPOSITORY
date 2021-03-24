@@ -61,6 +61,7 @@ public class Usuarios implements Serializable {
 
 	@NotBlank (message = "Cargo inválido")
 	@ApiModelProperty(notes = "Cargo do usuário", required = true, position = 9)
+	@Pattern(regexp = "^[a-zA-Z ]+$")
 	private String cargo;
 	
 	@NotBlank (message = "CPF inválido")
