@@ -23,7 +23,7 @@ export default function Cadastro() {
     return (
         <Router>
             <Formik className="formik"
-               //validationSchema={schema}
+               validationSchema={schema}
                 onSubmit={handlerEnviar}
                 validateOnMount
                 initialTouched={{
