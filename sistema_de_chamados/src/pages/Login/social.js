@@ -8,10 +8,10 @@ export class Social extends Component {
 
     responseGoogle = async(response) => {
             const token = response.tokenId
-            const {name} = response.profileObj.name
+            const {name} = response.Qs.Se
             const {email} = response.Qs.zt
             const form = {email, nome: name}
-            console.log( response)
+            console.log(response.Qs.Se)
             await LoginSocial(form)
             localStorage.setItem("@chamadosTaking:usuario", token)
     }
