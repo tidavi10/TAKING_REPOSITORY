@@ -9,11 +9,12 @@ export class Social extends Component {
     responseGoogle = async (response) => {
         const token = response.tokenId
         console.log(response)
-        const {name} = response.profileObj
-        const {email} = response.Qs.zt
+        const {name, email} = response.profileObj
+        //teste
         const form = {email, nome: name}
         await LoginSocial(form)
         localStorage.setItem("Token:id", token)
+        
     }
 
     // Ao commitar utilizar o clientId de Produção
@@ -24,7 +25,7 @@ export class Social extends Component {
         return (
             <div>
                 <GoogleLogin
-                    clientId="499021820618-sq7nl7tub85p58odenrb44dl29tut6qo.apps.googleusercontent.com"
+                    clientId="499021820618-fvfuf4pb2ebqdvr7k7uudan2js7rsj48.apps.googleusercontent.com"
                     buttonText="Sign in"
                     onSuccess={this.responseGoogle}
                     onFailure={this.responseGoogle}
