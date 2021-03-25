@@ -52,7 +52,7 @@ export const Header = styled.div`
 
         > p {
             margin-right: 6px;
-            font-size: 75%;
+            font-size: 81.25%;
             font-weight: 500;
         }
     }
@@ -268,7 +268,7 @@ export const LegendCalls = styled.div`
         }
 
         span {
-            font-size: 14px;
+            font-size: 81.25%;
         }
     }
 `;
@@ -300,7 +300,7 @@ export const CallCod = styled.div`
     @media (max-width: 576px) {
         width: 12%;
         span {
-            font-size: 14px;            
+            font-size: 81.25%;            
         }
     }
 `;
@@ -316,7 +316,7 @@ export const CallType = styled.div`
 
     @media (max-width: 576px) {
         span {
-            font-size: 14px;            
+            font-size: 81.25%;            
         }
     }
 `;
@@ -330,7 +330,7 @@ export const CallStatus = styled.div`
 
     @media (max-width: 576px) {
         span {
-            font-size: 14px;            
+            font-size: 81.25%;            
         }
     }
 `;

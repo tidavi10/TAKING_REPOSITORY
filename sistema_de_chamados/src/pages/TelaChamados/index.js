@@ -34,9 +34,8 @@ import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
 
 export default function TelaChamados() {
-    //TODO mudar para email do usuário
     const { usuario } = useAuth();
-    console.log(usuario)
+    //console.log(usuario)
     const history = useHistory();
 
     const [selectedOption, setSelectedOption] = useState(null);
@@ -144,7 +143,7 @@ export default function TelaChamados() {
                 </Header>
                 <EditionArea>
                     <InputArea>
-                            <label for="tipoProblema">Selecione o problema: </label>
+                            <label htmlFor="tipoProblema">Selecione o problema: </label>
                         <FilterSelector>
                             <Select
                                 value={selectedOption}

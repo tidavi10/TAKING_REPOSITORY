@@ -51,7 +51,7 @@ export const Header = styled.div`
 
         > p {
             margin-right: 6px;
-            font-size: 75%;
+            font-size: 81.25%;
             font-weight: 500;
         }
     }
@@ -268,7 +268,7 @@ export const InputArea = styled.div`
             text-align: center;
             display: inline-block;
             width: 100%;
-            font-size: 75%;
+            font-size: 81.25%;
         }
     }
 
