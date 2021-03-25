@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,10 +44,16 @@ public class UsuariosGmailController {
 	private UsuariosService usuariosService;
 	
 	@PostMapping("/cadastrogmail")
+	@CrossOrigin(origins = "*")
 	@ApiOperation(value = "Cadastra um Usuário do Gmail")
 	public ResponseEntity<TokenDTO> cadastroUsuario(@RequestBody Usuarios usuarios) {
 		return usuariosService.salvarUsuarioGmailERetornarId(usuarios);
 
+	}
+	
+	@RequestMapping(value = "/**/**",method = RequestMethod.OPTIONS)
+	public ResponseEntity handle() {
+	    return new ResponseEntity(HttpStatus.OK);
 	}
 
 }

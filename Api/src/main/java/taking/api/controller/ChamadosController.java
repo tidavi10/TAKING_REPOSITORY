@@ -11,10 +11,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,6 +44,7 @@ public class ChamadosController {
 
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	@GetMapping(value = "/{chamadoId}")
+	@CrossOrigin(origins = "*")
 	public ResponseEntity<Chamados> findById(@PathVariable Long chamadoId) {
 		Chamados obj = chamadosService.findById(chamadoId);
 		return ResponseEntity.ok().body(obj);
@@ -50,6 +53,7 @@ public class ChamadosController {
 	
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	@GetMapping("/chamadosDoUsuario/{userId}")
+	@CrossOrigin(origins = "*")
 	public ResponseEntity<List<ChamadosRespostaDTO>> listaDeChamados(@PathVariable("userId") Long userId) {
 		List<Chamados> lista =  chamadosService.lista(userId);
 		List<ChamadosRespostaDTO> listaDto = lista.stream().map(obj -> new ChamadosRespostaDTO(obj)).collect(Collectors.toList());
@@ -61,6 +65,7 @@ public class ChamadosController {
 					+ "e o ID do ADM",
 			authorizations = { @Authorization(value = "jwtToken") })
 	@PostMapping("/{userId}/{problemId}")
+	@CrossOrigin(origins = "*")
 	public ResponseEntity<ChamadoIdDTO> cadastrarChamado(@PathVariable("userId") Long userId,
 			//@PathVariable("admId") Long admId,
 			@PathVariable("problemId") Long problemId, 
@@ -76,6 +81,7 @@ public class ChamadosController {
 			notes = "Para fazer o download no anexo, passar na URL o ID do chamado do anexo",
 			authorizations = { @Authorization(value = "jwtToken") })
 	@GetMapping("/baixarAnexo/{chamadoId}")
+	@CrossOrigin(origins = "*")
 	public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long chamadoId) {
 		Chamados chamado = chamadosService.getFile(chamadoId).get();
 		return ResponseEntity.ok().contentType(MediaType.parseMediaType(chamado.getTipoAnexo()))
@@ -101,6 +107,7 @@ public class ChamadosController {
 	
 	//Retorna os chamados de um usuário específico
 	@GetMapping("usuario/{idUsuario}/{numeroPagina}")
+	@CrossOrigin(origins = "*")
 	@ApiOperation(value = "Retorna todos o chamados para um usuário específico",
 					notes = "Retorna os chamados de um Usuário específico, passando como"
 							+ "argumento na URL o ID do Usuário e o número da página respectivamente."
@@ -111,6 +118,7 @@ public class ChamadosController {
 	}
 
 	@GetMapping("/adm/{idChamado}")
+	@CrossOrigin(origins = "*")
 	@ApiOperation(value = "Retorna um chamado específico para o ADM", 
 					notes = "Retorna todas as informações de um chamado para um ADM específico, passando como argumento na URL o id do chamado",
 					authorizations = { @Authorization(value = "jwtToken") })
@@ -119,6 +127,7 @@ public class ChamadosController {
 	}
 
 	@GetMapping("/adm/all/{numeroPagina}")
+	@CrossOrigin(origins = "*")
 	@ApiOperation(value = "Retorna uma lista com todos os chamados", 
 					notes = "Retorna os chamados páginados, passando como argumento na URL o número da página."
 							+ "\nA primeira página começa passando como parametro 0.",
@@ -128,6 +137,7 @@ public class ChamadosController {
 	}
 	
 	@GetMapping("/totalPaginas/adm")
+	@CrossOrigin(origins = "*")
 	@ApiOperation(value = "Retorna a quantidade de páginas", 
 					notes = "Retorna a quantidade de páginas começando com 1, para mandar para o endpoint "
 							+ "que retorna os chamados, diminuir 1 no número retornado.",
@@ -137,11 +147,17 @@ public class ChamadosController {
 	}
 	
 	@GetMapping("/totalPaginas/usuario/{idUsuario}")
+	@CrossOrigin(origins = "*")
 	@ApiOperation(value = "Retorna a quantidade de páginas", 
 					notes = "Retorna a quantidade de páginas começando com 1, para mandar para o endpoint "
 							+ "que retorna os chamados, diminuir 1 no número retornado.",
 					authorizations = { @Authorization(value = "jwtToken") })
 	public ResponseEntity<Long> paginasUsuario(@PathVariable Long idUsuario) {
 		return ResponseEntity.ok(chamadosService.paginasUsuairo(idUsuario));
+	}
+	
+	@RequestMapping(value = "/**/**",method = RequestMethod.OPTIONS)
+	public ResponseEntity handle() {
+	    return new ResponseEntity(HttpStatus.OK);
 	}
 }

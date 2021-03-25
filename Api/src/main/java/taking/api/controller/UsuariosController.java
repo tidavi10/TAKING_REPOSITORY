@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,14 +55,21 @@ public class UsuariosController {
 		})
 	@ApiOperation(value = "Retorna todos os usuários", hidden = true, authorizations = { @Authorization(value = "jwtToken") })
 	@RequestMapping(method=RequestMethod.GET, value="/cadastrados")
+	@CrossOrigin(origins = "*")
 	public @ResponseBody List<Usuarios> listausuarios() {
 		return usuariosRepository.findAll();
 	}
 	
 	@PostMapping("/cadastro")
+	@CrossOrigin(origins = "*")
 	@ApiOperation(value = "Cadastra um Usuário")
 	public ResponseEntity<TokenDTO> cadastroUsuario(@Valid @RequestBody Usuarios usuarios) {
 		return usuariosService.salvarUsuarioERetornarToken(usuarios);
+	}
+	
+	@RequestMapping(value = "/**/**",method = RequestMethod.OPTIONS)
+	public ResponseEntity handle() {
+	    return new ResponseEntity(HttpStatus.OK);
 	}
 	
 	/*@PostMapping("/cadastro")

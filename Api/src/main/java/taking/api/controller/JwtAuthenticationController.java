@@ -3,6 +3,7 @@ package taking.api.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -52,15 +53,22 @@ public class JwtAuthenticationController {
 	private UsuariosAdmRepository usuariosAdmRepository;*/
 
 	@ApiOperation(value = "Login Usuário")
+	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<TokenDTO> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 		return authenticateService.UserAuth(authenticationRequest.getEmail(), authenticationRequest.getSenha());
 	}
 
 	@ApiOperation(value = "Login ADM")
+	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "/admAuth", method = RequestMethod.POST)
 	public ResponseEntity<TokenDTO> createAdmToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 		return authenticateService.AdmAuth(authenticationRequest.getEmail(), authenticationRequest.getSenha());
+	}
+	
+	@RequestMapping(value = "/**/**",method = RequestMethod.OPTIONS)
+	public ResponseEntity handle() {
+	    return new ResponseEntity(HttpStatus.OK);
 	}
 	
 }
