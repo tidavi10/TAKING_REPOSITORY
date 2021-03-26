@@ -16,7 +16,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -24,9 +23,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.google.common.collect.ImmutableList;
 
-import taking.api.config.JwtAuthenticationEntryPoint;
 //import taking.api.controller.Filter.AdmJwtRequestFilter;
 import taking.api.controller.Filter.JwtRequestFilter;
+
 //import taking.api.service.AdmDetailsService;
 import taking.api.service.JwtUserDetailsService;
 
@@ -60,12 +59,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			implements ApplicationContextAware {
 
 		@Autowired
-		private OidcUserService oidcUserService;
-
-		@Autowired
-		private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-
-		@Autowired
 		private JwtRequestFilter jwtRequestFilter;
 
 		private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -92,7 +85,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
 					.anyRequest().authenticated();
-			
+
+			// .and()
+			// .oauth2Login()
+			// .redirectionEndpoint()
+			// .baseUri("/oauth2/callback/*")
+			// .and()
+			// .userInfoEndpoint()
+			// .oidcUserService(oidcUserService)
+			// .and()
+			// .authorizationEndpoint()
+			// .baseUri("/oauth2/authorize")
+			// .and()
+			// .successHandler(customAuthenticationSuccessHandler);
+
 		}
 
 		/**
