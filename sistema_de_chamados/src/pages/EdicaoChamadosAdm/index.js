@@ -73,14 +73,18 @@ export default function EdicaoChamadosAdm(props) {
         }); 
 
         console.log(response);
-        addToast({
+        await addToast({
             type: 'success',
             title: 'Resposta enviada com sucesso!',
+            description: 'Deu tudo certo! Bora resolver o próximo chamado!?'
         });
+
+        history.push('/chamados-adm');
         } catch (erro) {
             addToast({
                 type: 'error',
-                title: 'Não foi possível realizar essa operação. Por favor tente mais tarde.'
+                title: 'Não foi possível realizar essa operação.',
+                description: 'Por favor tente novamente mais tarde.'
             });
         }
     };
