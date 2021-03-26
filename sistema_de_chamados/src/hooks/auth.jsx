@@ -32,15 +32,6 @@ const AuthProvider = ({ children }) => {
         console.log(name);
         setAuthData({ token, id, name, email, tipoUsuario });
     }, []);
-    
-
-
-    const userLogout = useCallback(() => {
-        localStorage.setItem('@chamadosTaking:usuario');
-
-        setAuthData({});
-    }, []);
-
 
     const [authData, setAuthData] = useState(() => {
     const data = localStorage.getItem('@chamadosTaking:usuario');
@@ -56,7 +47,6 @@ console.log(authData.name);
     return (
         <AuthContext.Provider value={{
             loginUser,
-            userLogout,
             usuario: {
                 token: authData?.token,
                 id: authData?.id,
