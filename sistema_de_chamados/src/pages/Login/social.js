@@ -36,7 +36,6 @@ function Social() {
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
                 //cookiePolicy={}
-                //cookiePolicy={none}
             />
         </div>
     )
