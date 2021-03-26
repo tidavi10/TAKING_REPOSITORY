@@ -27,7 +27,6 @@ import com.google.common.collect.ImmutableList;
 import taking.api.config.JwtAuthenticationEntryPoint;
 //import taking.api.controller.Filter.AdmJwtRequestFilter;
 import taking.api.controller.Filter.JwtRequestFilter;
-import taking.api.oauth2.CustomAuthenticationSuccessHandler;
 //import taking.api.service.AdmDetailsService;
 import taking.api.service.JwtUserDetailsService;
 
@@ -64,9 +63,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		private OidcUserService oidcUserService;
 
 		@Autowired
-		private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
-
-		@Autowired
 		private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
 		@Autowired
@@ -96,20 +92,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
 					.anyRequest().authenticated();
-
-			// .and()
-			// .oauth2Login()
-			// .redirectionEndpoint()
-			// .baseUri("/oauth2/callback/*")
-			// .and()
-			// .userInfoEndpoint()
-			// .oidcUserService(oidcUserService)
-			// .and()
-			// .authorizationEndpoint()
-			// .baseUri("/oauth2/authorize")
-			// .and()
-			// .successHandler(customAuthenticationSuccessHandler);
-
+			
 		}
 
 		/**
