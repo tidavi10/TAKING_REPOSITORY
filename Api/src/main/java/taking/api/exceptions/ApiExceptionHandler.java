@@ -1,7 +1,5 @@
 package taking.api.exceptions;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -11,14 +9,9 @@ import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import taking.api.model.Usuarios;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
