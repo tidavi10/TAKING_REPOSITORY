@@ -37,14 +37,13 @@ public class Usuarios implements Serializable {
 	private List<Chamados> chamados = new ArrayList<>();
 
 	@NotBlank (message = "E-mail inválido")
-
 	@ApiModelProperty(notes = "E-mail do usuário", required = true, position = 3)
-	@Email
+	@Email(message = "E-mail inválido")
 	private String email;
 	
 	@NotBlank (message = "Senha inválido")
 	@ApiModelProperty(notes = "Senha do usuário", required = true, position = 4)
-	@Pattern(regexp = "^(?=.*[a-z])(?=.*[0-9])(?=.*[@?!#$%^&_]).{8,}$")
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[0-9])(?=.*[@?!#$%^&_]).{8,}$", message = "Senha inválida, precisa ter 8 dígitos contendo letras, números e caracteres especiais")
 	private String senha;
 	
 	@NotBlank (message = "Nome inválido")
@@ -57,22 +56,22 @@ public class Usuarios implements Serializable {
 	
 	@NotBlank (message = "CEP inválido")
 	@ApiModelProperty(notes = "CEP do usuário", required = true, position = 7)
-	@Pattern(regexp = "^1?(\\d{8})")
+	@Pattern(regexp = "^1?(\\d{8})", message = "CEP inválido, precisa ter 8 números")
 	private String cep;
 
 	@NotBlank (message = "Cargo inválido")
 	@ApiModelProperty(notes = "Cargo do usuário", required = true, position = 9)
-	@Pattern(regexp = "^[a-zA-Z ]+$")
+	@Pattern(regexp = "^[a-zA-Z ]+$", message = "Cargo inválido")
 	private String cargo;
 	
 	@NotBlank (message = "CPF inválido")
 	@ApiModelProperty(notes = "CPF do usuário", required = true, position = 5)
-	@Pattern(regexp = "^1?(\\d{11})")
+	@Pattern(regexp = "^1?(\\d{11})", message = "CPF inválido, precisa ter 11 números")
 	private String cpf;
 	
 	@NotBlank (message = "RG inválido")
 	@ApiModelProperty(notes = "RG do usuário", required = true, position = 6)
-	@Pattern(regexp = "^1?(\\d{9})")
+	@Pattern(regexp = "^1?(\\d{9})", message = "RG inválido, precisa ter 9 números")
 	private String rg;
 	
 	@ApiModelProperty(notes = "verifica se é Adm", hidden= true)

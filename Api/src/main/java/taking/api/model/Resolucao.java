@@ -28,7 +28,7 @@ public class Resolucao {
 	@PrimaryKeyJoinColumn(name = "id")
 	private Chamados chamados;
 
-	@NotBlank
+	@NotBlank(message = "descrição não pode estar em branco")
 	@ApiModelProperty(notes = "Descrição da resolução dos chamados", required = true, position = 2)
 	private String resolucao;
 
@@ -37,10 +37,12 @@ public class Resolucao {
 	@ApiModelProperty(notes = "Horário em que foi enviado a resolução", position = 3)
 	private Date timestamp;
 
+	@NotBlank(message = "tempoGasto não pode estar em branco")
 	@ApiModelProperty(notes = "Tempo gasto para resolução", required = true, position = 4)
 	@Column(name = "tempoGasto")
 	private String tempoGasto;
 	
+	@NotBlank(message = "Status não pode estar em branco")
 	@ApiModelProperty(notes = "Status do chamado", required = true, position = 5)
 	private String status;
 

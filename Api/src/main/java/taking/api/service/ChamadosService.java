@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import taking.api.dto.ChamadosRespostaDTO;
 import taking.api.dto.ResolucaoDTO;
+import taking.api.exceptions.NotFoundException;
 import taking.api.model.Chamados;
 import taking.api.model.Resolucao;
 import taking.api.model.TipoProblema;
@@ -45,7 +46,7 @@ public class ChamadosService {
 
 	@Autowired
 	private UsuariosRepository usuariosRepository;
-	
+
 	@Autowired
 	private ResolucaoRepository resolucaoRepository;
 
@@ -55,7 +56,7 @@ public class ChamadosService {
 	}
 
 	public Optional<Chamados> getFile(Long fileId) {
-		 return chamadosRepository.findById(fileId);
+		return chamadosRepository.findById(fileId);
 	}
 
 	public List<Chamados> lista(Long id) {
@@ -66,19 +67,19 @@ public class ChamadosService {
 			Date dataCriacao) throws IOException {
 
 		if (usuariosRepository.existsById(userId)) {
-			
+
 			Optional<Usuarios> usuario = usuariosRepository.findById(userId);
 			Optional<TipoProblema> problema = problemaRepository.findById(problemId);
-			
+
 			String nomeAnexo = "";
 			Chamados chamados = null;
-			
-			if(file != null) {
+
+			if (file != null) {
 				nomeAnexo = file.getOriginalFilename();
 				chamados = new Chamados(descricaoProblema, file.getBytes(), nomeAnexo, file.getContentType(),
 						"Pendente", dataCriacao, problema.get(), usuario.get());
 			}
-			
+
 			chamados = new Chamados(descricaoProblema, "Pendente", dataCriacao, problema.get(), usuario.get());
 			Chamados obj = chamadosRepository.save(chamados);
 			return obj;
@@ -102,6 +103,10 @@ public class ChamadosService {
 				paginacao);
 
 		chamadosPaginados = chamadosUsuario.getContent();
+		
+		if(chamadosPaginados.isEmpty()) {
+			throw new NotFoundException("Chamados não encontrados");
+		}
 
 		return chamadosPaginados;
 	}
@@ -124,6 +129,10 @@ public class ChamadosService {
 		});
 		chamadosPaginados = chamadosAdm.getContent();
 
+		if(chamadosPaginados.isEmpty()) {
+			throw new NotFoundException("Chamados não encontrados");
+		}
+		
 		return chamadosPaginados;
 	}
 
@@ -131,28 +140,29 @@ public class ChamadosService {
 		Pageable paginacao = PageRequest.of(0, 5);
 
 		Page<Chamados> chamados = chamadosRepository.findAll(paginacao);
-		
+
 		return chamados.getTotalPages();
 	}
-	
-	public long paginasUsuairo(Long id) {
+
+	public long paginasUsuario(Long id) {
 		Pageable paginacao = PageRequest.of(0, 5);
 
 		Page<ChamadosRespostaDTO> chamados = chamadosRepository.findByUsuario(usuariosRepository.findById(id),
 				paginacao);
-		
+
 		return chamados.getTotalPages();
+
 	}
 
 	public ResponseEntity<ChamadosRespostaDTO> chamadoById(Long id) {
 
 		Optional<Chamados> chamado = chamadosRepository.findById(id);
-		
-		if(chamado.isPresent()) {
+
+		if (chamado.isPresent()) {
 			ChamadosRespostaDTO dto = new ChamadosRespostaDTO(chamado.get(), getTempoGasto(id));
 			return ResponseEntity.ok(dto);
 		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+			throw new NotFoundException("chamado " + id +" não encontrado");
 		}
 	}
 
@@ -166,15 +176,16 @@ public class ChamadosService {
 		return adms.get(new Random().nextInt(adms.size()));
 	}
 
-	/*private void insertAdmChamado(Usuarios adm, Chamados chamado) {
-		UsuariosAdmChamados adms = new UsuariosAdmChamados(adm, chamado);
+	/*
+	 * private void insertAdmChamado(Usuarios adm, Chamados chamado) {
+	 * UsuariosAdmChamados adms = new UsuariosAdmChamados(adm, chamado);
+	 * 
+	 * usuariosAdmChamadosRepository.save(adms); }
+	 */
 
-		usuariosAdmChamadosRepository.save(adms);
-	}*/
-	
 	private String getTempoGasto(Long id) {
 		List<Resolucao> resolucao = resolucaoRepository.findByChamadosId(id);
-		if(resolucao.size() <= 0 ) {
+		if (resolucao.size() <= 0) {
 			return null;
 		}
 		String tempoGasto = resolucao.get(resolucao.size() - 1).getTempoGasto();

@@ -144,6 +144,6 @@ public class ChamadosController {
 							+ "que retorna os chamados, diminuir 1 no número retornado.",
 					authorizations = { @Authorization(value = "jwtToken") })
 	public ResponseEntity<Long> paginasUsuario(@PathVariable Long idUsuario) {
-		return ResponseEntity.ok(chamadosService.paginasUsuairo(idUsuario));
+		return ResponseEntity.ok(chamadosService.paginasUsuario(idUsuario));
 	}
 }

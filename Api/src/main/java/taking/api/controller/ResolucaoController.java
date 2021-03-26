@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.TransactionRequiredException;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,7 +52,7 @@ public class ResolucaoController {
 					notes = "Cadastra a resposta do chamado e atualiza o status do chamado para Finalizado, "
 							+ "passando na URL o ID do Chamado.",
 					authorizations = { @Authorization(value = "jwtToken") })
-	public ResponseEntity<Resolucao> respostaChamado(@PathVariable Long IdChamado, @RequestBody Resolucao resolucao) throws TransactionRequiredException {
+	public ResponseEntity<Resolucao> respostaChamado(@Valid @PathVariable Long IdChamado, @RequestBody Resolucao resolucao) throws TransactionRequiredException {
 		return resolucaoService.respostaChamado(IdChamado, resolucao);
 	}
 }
