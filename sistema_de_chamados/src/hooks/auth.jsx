@@ -4,8 +4,8 @@ import getBaseAPI from "../services/api";
 const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
-    const loginUser = useCallback(async({ email, nome, tipoUsuario }) => {
-        const payload = { email, nome }
+    const loginUser = useCallback(async({ email, senha, tipoUsuario }) => {
+        const payload = { email, senha }
 
         let response = null
 
