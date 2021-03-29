@@ -67,7 +67,7 @@ public class AuthenticateService {
 			return ResponseEntity.ok(tokenResponse);
 		}
 
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		throw new BadRequestException("Usuário e/ ou senha inválidos");
 
 	}
 
