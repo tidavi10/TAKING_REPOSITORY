@@ -1,4 +1,0 @@
-app_host: projetochamadosfrontendtaking.herokuapp.com
-driver: webkit
-selenium_browser: safari
-debug_mode: true
