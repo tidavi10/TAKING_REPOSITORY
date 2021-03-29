@@ -32,8 +32,7 @@ export default function LoginAdm() {
                 description: 'Por favor verifique seus dados ou tente novamente mais tarde.'
             });
         }
-        
-    });
+    }, []);
 
     return (
         <>

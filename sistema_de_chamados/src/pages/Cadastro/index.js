@@ -121,7 +121,7 @@ export default function Cadastro() {
                             <ErrorMessage className="erro" name="senha" component="spam" />
                             </div>
                         </div>
-                        <button className="Submit" type="submit" /*disabled={!isValid}*/ onClick={handlerEnviar}>Salvar</button>
+                        <button className="Submit" type="submit" /*disabled={!isValid}*/>Salvar</button>
                         <button className="Submit-Cancel" type="submit" onClick={gotoLogin}>Cancelar</button>
                  </div>
                 </div>

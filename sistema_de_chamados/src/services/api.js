@@ -52,7 +52,7 @@ const listarRespostasChamado = function (idChamado, id) {
     return getBaseAPI().put(`/resolucao/resposta/${idChamado}/${id}`)
 }
 
-export default getBaseAPI
+export default getBaseAPI;
 
 export {
     listarPossiveisProblemas,
