@@ -12,6 +12,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -37,8 +39,8 @@ public class Resolucao {
 	@ApiModelProperty(notes = "Horário em que foi enviado a resolução", position = 3)
 	private Date timestamp;
 
-	@NotBlank(message = "tempoGasto não pode estar em branco")
-	@ApiModelProperty(notes = "Tempo gasto para resolução", required = true, position = 4)
+	@JsonInclude(Include.NON_NULL)
+	@ApiModelProperty(notes = "Tempo gasto para resolução", position = 4)
 	@Column(name = "tempoGasto")
 	private String tempoGasto;
 	

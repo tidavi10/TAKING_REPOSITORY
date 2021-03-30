@@ -32,12 +32,6 @@ public class ChamadosController {
 
 	@Autowired
 	private ChamadosService chamadosService;
-	
-	@Autowired
-	private UsuariosRepository usuarioRepository;
-	
-	/*@Autowired
-	private UsuariosAdmRepository admRepository;*/
 
 	@ApiOperation(value = "", authorizations = { @Authorization(value = "jwtToken") })
 	@GetMapping(value = "/{chamadoId}")
@@ -113,7 +107,7 @@ public class ChamadosController {
 	@ApiOperation(value = "Retorna um chamado específico para o ADM", 
 					notes = "Retorna todas as informações de um chamado para um ADM específico, passando como argumento na URL o id do chamado",
 					authorizations = { @Authorization(value = "jwtToken") })
-	public ResponseEntity<ChamadosRespostaDTO> chamadosIdAndAdm(@PathVariable Long idChamado){
+	public ResponseEntity<ChamadosRespostaDTO> chamadosIdAndAdm(@PathVariable Long idChamado) {
 		return chamadosService.chamadoById(idChamado);
 	}
 
