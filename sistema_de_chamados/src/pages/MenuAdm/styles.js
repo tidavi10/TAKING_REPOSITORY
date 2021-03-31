@@ -174,7 +174,7 @@ export const ButtonHeader = styled.button`
     transition: background 0.2s;
     transition: border 0.2s;
     padding: 0 3px;
-    color: #fff;
+    color: #ffecd1;
     margin-left: 10px;
 
     > p {

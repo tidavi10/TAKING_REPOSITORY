@@ -1,153 +1,165 @@
-import React, {useEffect, useState, useContext} from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 
-import { FiEdit } from 'react-icons/fi';
+import { FiEdit } from "react-icons/fi";
 
-import Pagination from './components/Pagination';
-import { listarChamadosAdm, totalPaginasAdm } from '../../services/api'
+import Pagination from "./components/Pagination";
+import { listarChamadosAdm, totalPaginasAdm } from "../../services/api";
 
-import { useAuth } from '../../hooks/auth';
+import { useAuth } from "../../hooks/auth";
 
-import logo from '../../assets/logo.png';
+import logo from "../../assets/logo.png";
 
-import { FiLogOut } from 'react-icons/fi';
+import { FiLogOut } from "react-icons/fi";
 
 import {
-    Container,
-    Header,
-    HeaderContentLeft,
-    HeaderContentRight,
-    Logout,
-    Img,
-    ButtonHeader,
-    CallsBox,
-    LegendCalls,
-    CallItem,
-    CallCod,
-    CallType,
-    CallStatus,
-    CallEditButton,
-    Page
-} from './style';
-import { Loader } from '../../components/Loader';
+  Container,
+  Header,
+  HeaderContentLeft,
+  HeaderContentRight,
+  Logout,
+  Img,
+  ButtonHeader,
+  CallsBox,
+  LegendCalls,
+  CallItem,
+  CallCod,
+  CallType,
+  CallStatus,
+  CallEditButton,
+  Page,
+} from "./style";
+import { Loader } from "../../components/Loader";
 
 export default function ChamadosAdm() {
-    const history = useHistory();
-    const { admin } = useAuth();
-    
-    const [state, setState] = useState({ 
-        activePage: 1,
-        posts: [],
-        postsPerPage: 5,
-        totalDePaginas: -1,
-    });
+  const history = useHistory();
+  const { admin } = useAuth();
 
-    const [listaDeChamados, setlistaDeChamados] = useState([]);
+  const [state, setState] = useState({
+    activePage: 1,
+    posts: [],
+    postsPerPage: 5,
+    totalDePaginas: -1,
+  });
 
-    const [currentPage, setCurrentPage] = useState(0);
+  const [listaDeChamados, setlistaDeChamados] = useState([]);
 
-    const [totalDePaginas, setTotalDePaginas] = useState(-1);
-  
-    const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
 
+  const [totalDePaginas, setTotalDePaginas] = useState(-1);
 
-    useEffect(() => {
-        setLoading(true)
-        totalPaginasAdm().then(call => call.data).then(call => {
-          setTotalDePaginas(call)
-          console.log(call)
-          setLoading(false)
-        })
-      }, []);
-    
-    useEffect(() => {
-        setLoading(true)
-        listarChamadosAdm(currentPage).then(call => call.data).then(call => {
-          setlistaDeChamados(call)
-          console.log(call)
-          setLoading(false)
-        })
-      }, [currentPage]);
+  const [loading, setLoading] = useState(false);
 
-    const onPageChanged = data => {
-        setLoading(true)
-        setCurrentPage(data.currentPage - 1)
-    }
+  useEffect(() => {
+    setLoading(true);
+    let isSubscribed = true;
+    totalPaginasAdm()
+      .then((call) => call.data)
+      .then((call) => {
+        if (isSubscribed) {
+          setTotalDePaginas(call);
+          console.log(call);
+          setLoading(false);
+        }
+      });
 
-    const goToEditCall = (call) => {
-        localStorage.setItem('@chamadosTaking:idChamado', call.id);
+    return () => (isSubscribed = false);
+  }, []);
 
-        history.push('/edicao-chamados-adm');
-    }
+  useEffect(() => {
+    setLoading(true);
+    let isSubscribed = true;
+    listarChamadosAdm(currentPage)
+      .then((call) => call.data)
+      .then((call) => {
+        if (isSubscribed) {
+          setlistaDeChamados(call);
+          console.log(call);
+          setLoading(false);
+        }
+      });
 
-    const goToChamadosAdm = () => {
-        history.push('/chamados-adm')
-    }
+      return () => isSubscribed = false;
+  }, [currentPage]);
 
-    const handleAdmLogout = async() => {
-        localStorage.removeItem('@chamadosTaking:adminUser');
+  const onPageChanged = (data) => {
+    setLoading(true);
+    setCurrentPage(data.currentPage - 1);
+  };
 
-        history.push('/login-adm');
-    }
+  const goToEditCall = (call) => {
+    localStorage.setItem("@chamadosTaking:idChamado", call.id);
 
-    function renderCallBox () {
+    history.push("/edicao-chamados-adm");
+  };
+
+  const goToChamadosAdm = () => {
+    history.push("/chamados-adm");
+  };
+
+  const handleAdmLogout = async () => {
+    localStorage.removeItem("@chamadosTaking:adminUser");
+
+    history.push("/login-adm");
+  };
+
+  function renderCallBox() {
     if (loading) {
-      return <Loader />
+      return <Loader />;
     }
     return (
-        <CallsBox>
-            <LegendCalls>
-                <p>Cod.</p>
-                <p>Descrição</p>
-                <p>Status</p>
-            </LegendCalls>
-            {
-                listaDeChamados.map(call =>
-                    <CallItem key={call.id}>
-                        <CallCod>
-                            <p>{call.id}</p>
-                        </CallCod>
-                        <CallType>
-                            <p>{call.descricao}</p>
-                        </CallType>
-                        <CallStatus>
-                            <p>{call.status}</p>
-                        </CallStatus>
-                        <CallEditButton onClick={() => goToEditCall(call)}>
-                            <FiEdit />
-                        </CallEditButton>
-                    </CallItem>
-                )
-            }
-            <Page>
-                <Pagination
-                    pageLimit={state.postsPerPage} 
-                    totalRecords={totalDePaginas * state.postsPerPage} 
-                    onPageChanged={onPageChanged}
-                    pageNeighbours={1}
-                />
-            </Page>
-        </CallsBox>)
-    }
-    
-    return (
-        <Container>
-            <Header>
-                <HeaderContentLeft>
-                    <Img src={logo}></Img>
-                    <ButtonHeader onClick={goToChamadosAdm}>
-                        <p>Tela de Chamados</p>
-                    </ButtonHeader>
-                </HeaderContentLeft>
-                <HeaderContentRight>
-                    <p>{admin.name ? admin.name : admin.email}</p>
-                    <Logout onClick={handleAdmLogout}>
-                        <FiLogOut color="#ffecd1" />
-                    </Logout>
-                </HeaderContentRight>
-            </Header>
+      <CallsBox>
+        <LegendCalls>
+          <p>Cod.</p>
+          <p>Descrição</p>
+          <p>Status</p>
+        </LegendCalls>
+        {listaDeChamados.map((call) => (
+          <CallItem key={call.id}>
+            <CallCod>
+              <p>{call.id}</p>
+            </CallCod>
+            <CallType>
+              <p>{call.descricao}</p>
+            </CallType>
+            <CallStatus>
+              <p>{call.status}</p>
+            </CallStatus>
+            <CallEditButton onClick={() => goToEditCall(call)}>
+              <FiEdit />
+            </CallEditButton>
+          </CallItem>
+        ))}
+        <Page>
+          <Pagination
+            pageLimit={state.postsPerPage}
+            totalRecords={totalDePaginas * state.postsPerPage}
+            onPageChanged={onPageChanged}
+            pageNeighbours={1}
+          />
+        </Page>
+      </CallsBox>
+    );
+  }
 
-            { renderCallBox() }
-        </Container>
-    )
+  return (
+    <Container>
+      <Header>
+        <HeaderContentLeft>
+          <Img src={logo}></Img>
+          <ButtonHeader onClick={goToChamadosAdm}>
+            <p>Tela de Chamados</p>
+          </ButtonHeader>
+        </HeaderContentLeft>
+        <HeaderContentRight>
+          <p>{admin.name ? admin.name : admin.email}</p>
+          <Logout onClick={handleAdmLogout}>
+            <FiLogOut color="#ffecd1" />
+          </Logout>
+        </HeaderContentRight>
+      </Header>
+
+      {renderCallBox()}
+    </Container>
+  );
 }
