@@ -26,7 +26,7 @@ export default function MenuAdm() {
     const handleAdmLogout = async() => {
         localStorage.removeItem('@chamadosTaking:adminUser');
 
-        history.push('/login-adm');
+        history.push('/');
     }
 
     return (

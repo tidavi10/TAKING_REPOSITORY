@@ -10,7 +10,7 @@ const PrivateRoute = props => {
 const PrivateRouteAdm = props => {
     const adminData = !!localStorage.getItem('@chamadosTaking:adminUser');
 
-    return adminData ? <Route {...props} /> : <Redirect to="/login-adm" />
+    return adminData ? <Route {...props} /> : <Redirect to="/" />
 }
 
 export {PrivateRoute, PrivateRouteAdm}

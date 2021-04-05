@@ -101,7 +101,7 @@ export default function EdicaoChamadosAdm(props) {
     const handleAdmLogout = async() => {
         localStorage.removeItem('@chamadosTaking:adminUser');
 
-        history.push('/login-adm');
+        history.push('/');
     }
 
     return (

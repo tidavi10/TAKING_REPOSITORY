@@ -100,7 +100,7 @@ export default function ChamadosAdm() {
   const handleAdmLogout = async () => {
     localStorage.removeItem("@chamadosTaking:adminUser");
 
-    history.push("/login-adm");
+    history.push("/");
   };
 
   function renderCallBox() {

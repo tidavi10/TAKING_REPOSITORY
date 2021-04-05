@@ -7,7 +7,6 @@ import TelaChamados from './pages/TelaChamados';
 import ChamadosAdm from './pages/ChamadosAdm';
 import ConsultaChamados from './pages/ConsultaChamados';
 import EdicaoChamadosAdm from './pages/EdicaoChamadosAdm';
-import LoginAdm from '../src/pages/LoginAdm';
 import MenuAdm from '../src/pages/MenuAdm';
 
 import {PrivateRoute, PrivateRouteAdm} from './components/PrivRoute/PrivateRoutes'
@@ -23,7 +22,6 @@ export default function Routes() {
                 <PrivateRouteAdm path='/chamados-adm' component={ChamadosAdm}/>
                 <PrivateRoute path='/consulta-chamados' component={ConsultaChamados}/>
                 <PrivateRouteAdm path='/edicao-chamados-adm' component={EdicaoChamadosAdm}/>
-                <Route path='/login-adm' component={LoginAdm}/>
                 <PrivateRouteAdm path= '/menu-adm' component={MenuAdm}/>
                 <PrivateRoute component={NotFound} />
             </Switch>

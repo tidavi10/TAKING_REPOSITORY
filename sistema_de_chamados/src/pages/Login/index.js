@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -13,35 +13,40 @@ import { useAuth } from "../../hooks/auth";
 import { useToast } from "../../hooks/toast";
 
 export default function Login() {
+  const [loginButtonType, setLoginButtonType] = useState('');
   const { addToast } = useToast();
-  const { loginUser } = useAuth();
+  const { loginUser, loginAdm } = useAuth();
+
   const handleSubmit = useCallback(async (data, actions) => {
     try {
-      //console.log(data)
-      await loginUser({
-        email: data.email,
-        senha: data.senha,
-        nome: data.nome,
-        tipoUsuario: "USUARIO",
-      });
-      history.push("/chamados");
-      addToast({
-        type: "success",
-        title: "Login efetuado com sucesso",
-      });
+      if (loginButtonType === "login") {
+        await loginUser({
+          email: data.email,
+          senha: data.senha,
+          nome: data.nome,
+          tipoUsuario: "USUARIO",
+        });
+        history.push("/chamados");
+        addToast({
+          type: "success",
+          title: "Login efetuado com sucesso",
+        });
+      } else {
+          await loginAdm({
+            email: data.email,
+            senha: data.senha,
+          });
+          history.push('/menu-adm')
+        } 
     } catch (error) {
-      addToast({
-        type: "error",
-        title: "Login incorreto, verifique sua senha ou email",
-      });
-    }
-  });
+        addToast({
+          type: "error",
+          title: "Login incorreto, verifique sua senha ou email",
+        });
+      }
+    });
 
   const history = useHistory();
-
-  const gotoCadastro = () => {
-    history.push("/login-adm");
-  };
 
   return (
     <>
@@ -75,11 +80,15 @@ export default function Login() {
                 </div>
               </div>
 
-              <button className="login" type="submit" disabled={!isValid}>
+              <button className="login" type="submit" disabled={!isValid} onClick={() => {
+                setLoginButtonType("login");
+              }}>
                 Login
               </button>
               <ToastContainer />
-              <button className="cadast" type="submit" onClick={gotoCadastro}>
+              <button className="cadast" type="submit" onClick={() => {
+                setLoginButtonType("loginAdm");
+              }}>
                 Logar como Adm
               </button>
               <p>
