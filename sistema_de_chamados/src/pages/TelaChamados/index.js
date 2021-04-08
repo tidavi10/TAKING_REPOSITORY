@@ -33,7 +33,6 @@ import { useToast } from "../../hooks/toast";
 
 export default function TelaChamados() {
   const { usuario } = useAuth();
-  console.log(usuario)
   const history = useHistory();
 
   const gotoConsultaChamados = () => {
