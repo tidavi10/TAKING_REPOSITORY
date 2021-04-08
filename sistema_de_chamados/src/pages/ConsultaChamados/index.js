@@ -143,7 +143,7 @@ export default function ConsultaChamados(props) {
               <p>Sair</p>
             </ButtonExit>
           </HeaderContent>
-          <p>{usuario.name ? usuario.name : usuario.email}</p>
+          <p>{usuario.name ? usuario.name.split(' ')[0] : usuario.email}</p>
         </Header>
         {renderCallBox()}
       </Container>

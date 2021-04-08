@@ -33,6 +33,7 @@ import { useToast } from "../../hooks/toast";
 
 export default function TelaChamados() {
   const { usuario } = useAuth();
+  console.log(usuario)
   const history = useHistory();
 
   const gotoConsultaChamados = () => {
@@ -131,7 +132,7 @@ export default function TelaChamados() {
               <p>Sair</p>
             </ButtonExit>
           </HeaderContent>
-          <p>{usuario.name ? usuario.name : usuario.email}</p>
+          <p>{usuario.name ? usuario.name.split(' ')[0] : usuario.email}</p>
         </Header>
         <EditionArea>
           <InputArea>
